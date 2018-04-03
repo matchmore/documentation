@@ -1,10 +1,10 @@
 # Home
-## Documentation
-### Matchmore
+## Matchmore
+Documentation
 
 As the fast-growing world of mobile connected objects computing era is becoming a reality, Matchmore aims at becoming the leading cloud- based software platform supporting the creation of highly dynamic proximity-based applications. At the heart of our vision is the notion of geomatching, which builds on the location-based publish/subscribe communication model.
 
-#### Description
+### Description
 
 Our goal is to provide tools that dramatically simplify and accelerate the development, testing and deployment of rich application scenarios based on **multiple moving and connected objects**, making such applications the new low hanging fruits of the mobile app industry.
 
@@ -51,7 +51,7 @@ ALPS paradigm is applicable to many domains and eases the modelisation of any ge
 
 ### Some links to help (Examples of links : contact us, examples, tutorials)
 ### Redirection (What next, OR recently added)
-## Questions ?
+### Questions ?
 We're always happy to help with code or other questions you might have! Search our documentation, contact support, or connect with our sales team.
 
 **The reader should understand Matchmore briefly and should be able to find his next step.**
@@ -61,7 +61,7 @@ We're always happy to help with code or other questions you might have! Search o
 ## Quickstart
 // I still think that quickstart should just go directly to 1. create a device 2. create pub 3. create sub 4. get match.
 // All the info p list, cocoapods, configuration things should go somewhere else but where ?!
-### ALPS
+
 Quickly create proximity detection for any type of devices.
 
 1. Create a device to **feature proximity detection**
@@ -69,7 +69,7 @@ Quickly create proximity detection for any type of devices.
 3. Create a subscription to **start discovering near devices**
 4. When matches occur subscribers are notified of the presence of the publisher
 
-### IOS (Configuration(Info.plist, CocoaPods, API-Key, MainDevice, Pub, Sub, Match, Start updating location))
+## IOS (Configuration(Info.plist, CocoaPods, API-Key, MainDevice, Pub, Sub, Match, Start updating location))
 ### Standard Integration
 We will use CocoaPods. In order to install this package manager you'll need to execute this command in the terminal:
 ```
@@ -101,56 +101,60 @@ Save the Podfile, and inside **Terminal** enter the following command:
 `pod install`
 
 ### Custom Integration
-###### Apple Push Notification service
+### Apple Push Notification service
 We use Apple Push Notification service (APNs) which is the main remote notification service provided by Apple. APNs allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
-###### Web Socket
+### Web Socket
 When it comes to deliver matches, ALPS uses Web socket as well to provide alternative solutions to APNs.
-###### Polling
+### Polling
 
-# Android
+## Android
 ### Standard Integration
 ### Custom Integration
-###### Google Firebase Cloud Notification
+### Google Firebase Cloud Notification
 We use Apple Push Notification service (APNs) which is the main remote notification service provided by Apple. APNs allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
-###### Web Socket
+### Web Socket
 When it comes to deliver matches, ALPS uses Web socket as well to provide alternative solutions to APNs.
-###### Polling
-# Unity 3D
-# JS
+### Polling
+## Unity 3D
+### Standard Integration
+### Custom Integration
+## JS
+### Standard Integration
+### Custom Integration
 
-##Devices
+## Devices
 A device might be either virtual like a pin device or physical like a mobile device.
 Devices may issue publications and subscriptions at any time; it may also cancel publications and subscriptions issued previously. Publications and subscriptions do have a definable, finite duration, after which they are deleted from the Matchmore cloud service and don’t participate anymore in the matching process.
 
-###Mobile
+### Mobile
 A mobile device is one that potentially moves together with its user and therefore has a geographical location associated with it. A mobile device is typically a location-aware smartphone, which knows its location thanks to GPS or to some other means like cell tower triangulation, etc.
 
-###Pin
+### Pin
 A pin device is one that has geographical location associated with it but is not represented by any object in the physical world; usually it’s location doesn’t change frequently if at all.
 
-###Beacon
+### Beacon
 Beacons are high-tech tools that repeatedly broadcast a single signal under the form of advertising packet. Other devices interact with beacons through bluetooth and receive an advertising packet which consist of different letters and numbers. With the information received through the packet, devices like smartphones know how close they are to a specific beacon. The main purpose behind beacons is to improve indoor location. When developers know how close they are to this specific location, thanks to beacons, they can do something useful with this information.
 #### Beacons standard
 The iBeacon is the standard defined by Apple. There is also other beacons standard like Eddystone by Google or AltBeacons by Kontakt.io. Basically, the content of the advertising packet could vary slightly from one standard to another, but the communication protocol (bluetooth) remains the same. As a consequence, most beacons on the market support at least the iBeacon standard and the Eddystone standard.
 
-##Publication
+## Publication
 A publication is similar to a Publish-Subscribe model publication extended with the notion of a geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Publications and subscriptions which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
 
-##Subscription
+## Subscription
 A subscription is similar to a Publish- Subscribe subscription extended with the notion of geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Publications and subscriptions which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
 
-##Match
+## Match
 A match is equal to a Publish-Subscribe message delivery, it occurs when both of the two conditions hold: Content correspondence and context match. Content correspondence happens when publishers publish on content in which subscribers subscribe. Context matching occurs when for instance the subscription zone overlaps with the publication zone while both of pub/sub are still active (Not exceeded duration).
 ## Best Practices
 
-#Dashboard
+# Dashboard
 Dashboard allows the developers to register their application and services, monitor the costs and interact with their applications.
-##Overview
-##Apps
-##Beacons
-##Tools
-##Billing
-##Phomo
+## Overview
+## Apps
+## Beacons
+## Tools
+## Billing
+## Phomo
 
-#Account
-##Your account
+# Account
+## Your account
