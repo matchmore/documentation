@@ -18,12 +18,12 @@ Matchmore helps you model any geolocated or proximity based applications, create
 #### In depth Publish/subscribe
 The purpose of Publish/Subscribe model is to create communication between several computers, applications and users. Entities interested in a specific topic, subscribes to the topic and whenever there is a message on this topic, they will receive it. Content based filtering is an additional layer, namely selector, allowing subscribers to filter incoming messages based on the message’s content. On the other hand, publishers/senders are able to send messages without any knowledge of the future receivers, ensuring anonymity. Concerning content based filtering, publishers are able to customized their messages with additional layer, namely properties. In example, a publication and a subscription were issued on the same topic and have compatible properties and the evaluation of the selector against those properties returns true value, so there is a content correspondence which leads to a message delivery.
 
-OR
+**OR**
 
 The publish/subscribe model is a message-oriented paradigm in which, publishers can publish anonymously on a topic and subscribers can receive messages on that topic, additional layer, namely selector, allows subscribers to filter incoming messages based on the message’s content.
 
 #### Advanced Location based Publish/Subscribe
-ALPS is designed to simplify software developer’s life. ALPS is an extension of the Publish-Subscribe model adding user context while remaining message-oriented. By adding ranges to each publication/subscription, ALPS changes publish-subscribe paradigm into a context-aware paradigm. Delivery of message occurs based on the location of the device on which publication or subscription is attached. The crossing of the range and corresponding topic and content lead to the delivery of the message, in fact a match.
+ALPS is designed to simplify software developer’s life. ALPS is an extension of the Publish-Subscribe model adding user context while remaining message-oriented. By adding ranges to each publication/subscription, ALPS changes publish-subscribe paradigm into a context-aware paradigm. Delivery of message occurs based on the location of the device on which publication or subscription is attached. The crossing of the range and corresponding topic and content lead to the delivery of the message, in fact a **match**.
 
 To facilitate the mobile application development, ALPS is provided in enhanced Software Development Kits (SDK).
 
@@ -54,7 +54,7 @@ ALPS paradigm is applicable to many domains and eases the modelisation of any ge
 ### Questions ?
 We're always happy to help with code or other questions you might have! Search our documentation, contact support, or connect with our sales team.
 
-**The reader should understand Matchmore briefly and should be able to find his next step.**
+**// The reader should understand Matchmore briefly and should be able to find his next step.**
 
 # ALPS
 
