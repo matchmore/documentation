@@ -2,7 +2,7 @@
 ## Matchmore
 Documentation
 
-As the fast-growing world of mobile connected objects computing era is becoming a reality, Matchmore aims at becoming the leading cloud- based software platform supporting the creation of highly dynamic proximity-based applications. At the heart of our vision is the notion of geomatching, which builds on the location-based publish/subscribe communication model.
+As the fast-growing world of mobile connected objects computing era is becoming a reality, Matchmore aims at becoming the leading cloud-based software platform supporting the creation of highly dynamic proximity-based applications. At the heart of our vision is the notion of geomatching, which builds on the location-based publish/subscribe communication model.
 
 ### Description
 
@@ -10,31 +10,31 @@ Our goal is to provide tools that dramatically simplify and accelerate the devel
 
 Get familiar with the Matchmore products and explore their features:
 
-// links to our products, opens quickstart of || ALPS || PHOMO
+**links to our products opens quickstart of || ALPS || PHOMO**
 
 ### Understanding Matchmore
-Matchmore helps you model any geolocated or proximity based applications, create any type of interactions for IoT by taking advantage of advanced location based publish/subscribe (ALPS) model - from smartphones to any sensors and everything in between.
+Matchmore helps you model any geolocated or proximity-based applications, by taking advantage of advanced location-based publish/subscribe (ALPS) model, create any type of interactions for connected objects from smartphones to any sensors and everything in between.
 
-#### In depth Publish/subscribe
-The purpose of Publish/Subscribe model is to create communication between several computers, applications and users. Entities interested in a specific topic, subscribes to the topic and whenever there is a message on this topic, they will receive it. Content based filtering is an additional layer, namely selector, allowing subscribers to filter incoming messages based on the message’s content. On the other hand, publishers/senders are able to send messages without any knowledge of the future receivers, ensuring anonymity. Concerning content based filtering, publishers are able to customized their messages with additional layer, namely properties. In example, a publication and a subscription were issued on the same topic and have compatible properties and the evaluation of the selector against those properties returns true value, so there is a content correspondence which leads to a message delivery.
+#### In-depth Publish/subscribe
+The purpose of Publish/Subscribe model is to create communication between several computers, applications, and users. Entities interested in a specific topic subscribe to the topic and whenever there is a message on this topic, they will receive it. Content-based filtering is an additional layer, namely selector, allowing subscribers to filter incoming messages based on the message’s content. On the other hand, publishers/senders are able to send messages without any knowledge of the future receivers, ensuring anonymity. Concerning content-based filtering, publishers are able to customize their messages with the additional layer, namely properties. For instance, a publication and a subscription were issued on the same topic and have compatible properties and the evaluation of the selector against those properties returns a true value, so there is a content correspondence which leads to a message delivery.
+**/OR SHORTER/**
 
-**OR**
-
-The publish/subscribe model is a message-oriented paradigm in which, publishers can publish anonymously on a topic and subscribers can receive messages on that topic, additional layer, namely selector, allows subscribers to filter incoming messages based on the message’s content.
+The publish/subscribe model is a message-oriented paradigm in which, publishers can publish anonymously on a topic and subscribers can receive messages on that topic. The additional layer, namely selector, allows subscribers to filter incoming messages based on the message’s content.
 
 #### Advanced Location based Publish/Subscribe
-ALPS is designed to simplify software developer’s life. ALPS is an extension of the Publish-Subscribe model adding user context while remaining message-oriented. By adding ranges to each publication/subscription, ALPS changes publish-subscribe paradigm into a context-aware paradigm. Delivery of message occurs based on the location of the device on which publication or subscription is attached. The crossing of the range and corresponding topic and content lead to the delivery of the message, in fact a **match**.
+ALPS is designed to simplify software developer’s life. It is an extension of the Publish-Subscribe model adding user context while remaining message-oriented. Publications and subscriptions are extended with the notion of geographical zone. The zone is defined as a circle with a center at the given location and a range around that location.
+Publications and subscriptions which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location. The crossing of the range and corresponding topic and content lead to the delivery of the message, in fact, a **match**.
 
 To facilitate the mobile application development, ALPS is provided in enhanced Software Development Kits (SDK).
 
-So what exactly can you do with Matchmore ?!
+So what exactly can you do with Matchmore?
 
 ### Geomatching (Matching Moving Content)
-ALPS enables you to notify user whenever there’s someone they are interested of close by. Create proximity detection easily on web or mobile by using the advanced location based publish/subscribe paradigm.
+ALPS enables you to notify the user whenever there’s someone/something they could be interested in close by. Create proximity detection easily on web or mobile by using the advanced location-based publish/subscribe paradigm.
 
 ### Create Smart Geofences
 Geofences are used to define special areas in the real world, that you are particularly interested in.
-With smart geofences you can go further in the filtering process. It can be used for registering how many app users interested in a specific topic enter a specific area (analytics uses), or for triggering content inside the mobile or externally depending on user's attached informations indoor (beacons) and outdoor (GPS).
+With smart geofences, you can go further in the filtering process. It can be used for analytics uses: count how many app users based on their preference enter a specific area, thanks to the topic and content filtering. Or for triggering content inside the mobile or externally depending on user's attached pieces of information. Works indoor (beacons) and outdoor (GPS).
 
 ### Smart activation with IoT
 Activate a connected device when you approach it (a camera by example).
@@ -43,32 +43,138 @@ Activate a connected device when you approach it (a camera by example).
 Broadcast anonymous message to people around you.
 
 ### Smart checkpoints
-Create virtual gates or points to control passage of users. A trail is validated if the user has passed by every points related to the trail.
+Create virtual gates or points to control the passage of users. A trail is validated if the user has passed by every point related to the trail.
 
-### And many other uses that we didn't think of yet .. !
-We have a sample app where we grouped lot of interesting uses, here is a link to the Github.
-ALPS paradigm is applicable to many domains and eases the modelisation of any geolocated applications.
+### And many other uses that we didn't think of yet..!
+We have a sample app where we grouped a lot of interesting uses, here is a link to the Github.
+ALPS paradigm is applicable to many domains and eases the modelization of any geolocated applications.
 
-### Some links to help (Examples of links : contact us, examples, tutorials)
-### Redirection (What next, OR recently added)
+### Some links to help // (Examples of links : contact us, examples, tutorials)
+### Redirection // (What next, OR recently added)
 ### Questions ?
 We're always happy to help with code or other questions you might have! Search our documentation, contact support, or connect with our sales team.
 
-**// The reader should understand Matchmore briefly and should be able to find his next step.**
+**/GENERAL IMPRESSION AT THE END OF THIS PAGE/ The reader should understand Matchmore briefly and should be able to find his next step.**
 
-# ALPS
+# Proximity Detection or ALPS
 
 ## Quickstart
-// I still think that quickstart should just go directly to 1. create a device 2. create pub 3. create sub 4. get match.
-// All the info p list, cocoapods, configuration things should go somewhere else but where ?!
-
 Quickly create proximity detection for any type of devices.
 
 1. Create a device to **feature proximity detection**
-2. Create a publication to **broadcast the presence of a device**
-3. Create a subscription to **start discovering near devices**
-4. When matches occur subscribers are notified of the presence of the publisher
+Matchmore SDK can be used in different ways, but the most common way is to have a main device. Usually, this main device is the device on which the app is running.
 
+**/SWIFT, KOTLIN or/AND JAVA, UNITY and JS/**
+```swift
+// a. Create the main device
+        MatchMore.startUsingMainDevice { result in
+            // b. Unwrap the result
+            guard case .success(let mainDevice) = result else { print(result.errorMessage ?? ""); return }
+            print("🏔 Using device: 🏔\n\(mainDevice.encodeToJSON())")
+
+            // c. Start getting matches
+            MatchMore.startPollingMatches()
+            // d. Start location track in Matchmore
+            MatchMore.startUpdatingLocation()
+        }
+```
+
+a. Use the wrapper MatchMore and call the method startUsingMainDevice() to start the registration of the app running device in Matchmore service.
+b. MatchMore SDK's methods are generally having an asynchronous callback. To handle that, you need to declare closure. `result` is an enum, you need to unwrap it. When it is a success, the callback returns the object created in Matchmore's side, else when it is a failure, the callback is an error containing a message that describes what failed.
+c. Start polling the matches.
+d. Start informing Matchmore service that the user's main device is moving.
+
+2. Create a publication to **broadcast the presence of a device**
+When a device is a publisher, it is as if it broadcasts its presence. The publications can contain a lot of information, all this information is grouped in the `properties` array.
+N.B .: A device can be both publisher and subscriber at the same time.
+
+Let's create a publication.
+**/SWIFT, KOTLIN, JAVA, UNITY and JS/**
+```swift
+        // a. Create a Publication, set topic and properties
+        let publication = Publication(topic: "test", range: 100, duration: 60, properties: ["band": "Metallica",
+        "tags": ["rock", "metal"],
+        "price": 400,
+        "currency": "CHF",
+        "free_parking": true])
+        // b. Create a Publication for Main Device
+        MatchMore.createPublicationForMainDevice(publication: publication, completion: { result in
+            switch result {
+            case .success(let publication):
+                print("🏔 Pub was created: 🏔\n\(publication.encodeToJSON())")
+            case .failure(let error):
+                print("🌋 \(String(describing: error?.message)) 🌋")
+            }
+        })
+    }
+```
+a. Create a publication and fulfill the required parameters.
+* The topic is our first filter. In order to match, both a publication and a subscription need to be created on the same unique topic.
+Here, the topic is *test*. Every publication that is set on topic *test* will concern only the *test* features. Use topic to manage different channels of matches.
+* You can select the size of the zone around any publications/subscriptions, it is defined as a circle with a center at the given location and a range around that location. The range is defined in meters.
+* You can also set the duration of your publications. The duration is defined in seconds.
+* Now, you can set some properties to transmit either supplement information or to allow finer filtering for the subscribers of your topic.
+The following data types are allowed in `Properties`: `String``Int``Set``Boolean`.
+b. Use the wrapper MatchMore and call the method createPublicationForMainDevice() to send the creation request to Matchmore service.
+N.B.: Don't forget we need to handle two cases, in case of success we retrieve the created object, and in case of failure, we retrieve an error.
+3. Create a subscription to **start discovering near devices**
+Subscribers are notified when matches occur.
+Please be aware that **publishers** are NOT notified of matches occurrence, if you want your publishers to be notified, he should be subscribing as well.
+```swift
+        // a. Create a Subscription, set topic and selector.
+        let subscription = Subscription(topic: "test", range: 1, duration: 60, selector: "band <> 'Ramstein' AND price < 500")
+        // b. Create a Subscription for Main Device
+        MatchMore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
+            switch result {
+            case .success(let sub):
+                print("🏔 Socket Sub was created 🏔\n\(sub.encodeToJSON())")
+            case .failure(let error):
+                print("🌋 \(String(describing: error?.message)) 🌋")
+            }
+        })
+    }
+```
+
+Create a subscription to await matches on the `test` topic.
+* Remember the topic is the first filter you can play with.
+* As for Publications, you can set the range and the duration you want for your subscriptions.
+* The selector can be used to granularly filter the publication's properties. In this example, we want `key: band`'s value does not equal to `Ramstein` AND `key: price`'s value has to be lower than `500`. Since this query returns true, we will get a match between the previous publication and this subscription.
+* Use the wrapper MatchMore and call the method createSubscriptionForMainDevice() to send the creation request to Matchmore service.
+N.B.: Don't forget we need to handle two cases, in case of success we retrieve the created object, and in case of failure, we retrieve an error.
+4. When matches occur subscribers are notified of the presence of the publisher
+When matches occur, all classes conform to `MatchDelegate` protocol is notified.
+
+In this example we make class ViewController conform to the MatchDelegate protocol.
+Also, you need to add var onMatch which is a closure.
+```swift
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, MatchDelegate {
+var onMatch: OnMatchClosure?
+```
+
+Next, implement how your matches should be handled:
+
+```swift
+       // Handle Matches
+       self.onMatch = { [weak self] matches, device in
+           // a. Unwrap properties
+           guard let properties = mostRecentDate?.publication?.properties else {
+               print("No properties.")
+               return
+           }
+           guard let color = properties["color"] as? String else {return}
+
+           // b. Do something
+       }
+       // c. Add View as a supplement match delegate to Matchmore
+       MatchMore.matchDelegates += self
+   }
+```
+
+You'll create the delegate function for the onMatch listener. onMatchClosure are triggered every time you get a new match.
+The returned callback is composed of an array of hundred last matches, plus the concerned device.
+
+Safely unwrap the value you'll use.
+Earlier, we have made ViewController conform to MatchDelegate protocol. In order to be informed of every match, you'll need to add ViewController to Matchmore wrapper match delegates list.
 ## IOS (Configuration(Info.plist, CocoaPods, API-Key, MainDevice, Pub, Sub, Match, Start updating location))
 ### Standard Integration
 We will use CocoaPods. In order to install this package manager you'll need to execute this command in the terminal:
@@ -138,10 +244,30 @@ Beacons are high-tech tools that repeatedly broadcast a single signal under the 
 The iBeacon is the standard defined by Apple. There is also other beacons standard like Eddystone by Google or AltBeacons by Kontakt.io. Basically, the content of the advertising packet could vary slightly from one standard to another, but the communication protocol (bluetooth) remains the same. As a consequence, most beacons on the market support at least the iBeacon standard and the Eddystone standard.
 
 ## Publication
-A publication is similar to a Publish-Subscribe model publication extended with the notion of a geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Publications and subscriptions which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
+A publication is similar to a Publish-Subscribe model publication extended with the notion of a geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Publications which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
 
 ## Subscription
-A subscription is similar to a Publish- Subscribe subscription extended with the notion of geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Publications and subscriptions which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
+A subscription is similar to a Publish- Subscribe subscription extended with the notion of geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Subscriptions which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
+
+The following data types are allowed in Properties:  String, Int, Set, Boolean.
+
+SQL Comparison Operators
+=    Equal to    
+>    Greater than    
+<    Less than    
+>=    Greater than or equal to    
+<=    Less than or equal to    
+<>    Not equal to
+
+SQL Logical Operators
+ALL    TRUE if all of the subquery values meet the condition    
+AND    TRUE if all the conditions separated by AND is TRUE    
+ANY    TRUE if any of the subquery values meet the condition    
+BETWEEN    TRUE if the operand is within the range of comparisons    
+IN    TRUE if the operand is equal to one of a list of expressions    
+LIKE    TRUE if the operand matches a pattern    
+NOT    Displays a record if the condition(s) is NOT TRUE    
+OR    TRUE if any of the conditions separated by OR is TRUE    
 
 ## Match
 A match is equal to a Publish-Subscribe message delivery, it occurs when both of the two conditions hold: Content correspondence and context match. Content correspondence happens when publishers publish on content in which subscribers subscribe. Context matching occurs when for instance the subscription zone overlaps with the publication zone while both of pub/sub are still active (Not exceeded duration).
