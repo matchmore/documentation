@@ -173,8 +173,9 @@ Next, implement how your matches should be handled:
 You'll create the delegate function for the onMatch listener. onMatchClosure are triggered every time you get a new match.
 The returned callback is composed of an array of hundred last matches, plus the concerned device.
 
-Safely unwrap the value you'll use.
-Earlier, we have made ViewController conform to MatchDelegate protocol. In order to be informed of every match, you'll need to add ViewController to Matchmore wrapper match delegates list.
+a. Safely unwrap the value you'll use.
+b. Use the match information as you need
+c. Earlier, we have made ViewController conform to MatchDelegate protocol. In order to be informed of every match, you'll need to add ViewController to Matchmore wrapper match delegates list.
 ## IOS (Configuration(Info.plist, CocoaPods, API-Key, MainDevice, Pub, Sub, Match, Start updating location))
 ### Standard Integration
 We will use CocoaPods. In order to install this package manager you'll need to execute this command in the terminal:
@@ -253,9 +254,9 @@ The following data types are allowed in Properties:  String, Int, Set, Boolean.
 
 SQL Comparison Operators
 =    Equal to    
->    Greater than    
+/>    Greater than    
 <    Less than    
->=    Greater than or equal to    
+/>=    Greater than or equal to    
 <=    Less than or equal to    
 <>    Not equal to
 
