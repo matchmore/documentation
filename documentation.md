@@ -62,7 +62,7 @@ We're always happy to help with code or other questions you might have! Search o
 Quickly create proximity detection for any type of devices.
 
 1. Create a device to **feature proximity detection**
-Matchmore SDK can be used in different ways, but the most common way is to have a main device. Usually, this main device is the device on which the app is running.
+MatchmoreSDK can be used in different ways, but the most common way is to have a main device. Usually, this main device is the device on which the app is running.
 
 **/SWIFT, KOTLIN or/AND JAVA, UNITY and JS/**
 ```swift
@@ -79,10 +79,10 @@ Matchmore SDK can be used in different ways, but the most common way is to have 
         }
 ```
 
-a. Use the wrapper MatchMore and call the method startUsingMainDevice() to start the registration of the app running device in Matchmore service.
-b. MatchMore SDK's methods are generally having an asynchronous callback. To handle that, you need to declare closure. `result` is an enum, you need to unwrap it. When it is a success, the callback returns the object created in Matchmore's side, else when it is a failure, the callback is an error containing a message that describes what failed.
-c. Start polling the matches.
-d. Start informing Matchmore service that the user's main device is moving.
+* a. Use the wrapper MatchMore and call the method startUsingMainDevice() to start the registration of the app running device in Matchmore service.
+* b. MatchMore SDK's methods are generally having an asynchronous callback. To handle that, you need to declare closure. `result` is an enum, you need to unwrap it. When it is a success, the callback returns the object created in Matchmore's side, else when it is a failure, the callback is an error containing a message that describes what failed.
+* c. Start polling the matches.
+* d. Start informing Matchmore service that the user's main device is moving.
 
 2. Create a publication to **broadcast the presence of a device**
 When a device is a publisher, it is as if it broadcasts its presence. The publications can contain a lot of information, all this information is grouped in the `properties` array.
@@ -108,14 +108,14 @@ Let's create a publication.
         })
     }
 ```
-a. Create a publication and fulfill the required parameters.
-* The topic is our first filter. In order to match, both a publication and a subscription need to be created on the same unique topic.
+* a. Create a publication and fulfill the required parameters.
+- The topic is our first filter. In order to match, both a publication and a subscription need to be created on the same unique topic.
 Here, the topic is *test*. Every publication that is set on topic *test* will concern only the *test* features. Use topic to manage different channels of matches.
-* You can select the size of the zone around any publications/subscriptions, it is defined as a circle with a center at the given location and a range around that location. The range is defined in meters.
-* You can also set the duration of your publications. The duration is defined in seconds.
-* Now, you can set some properties to transmit either supplement information or to allow finer filtering for the subscribers of your topic.
-The following data types are allowed in `Properties`: `String``Int``Set``Boolean`.
-b. Use the wrapper MatchMore and call the method createPublicationForMainDevice() to send the creation request to Matchmore service.
+- You can select the size of the zone around any publications/subscriptions, it is defined as a circle with a center at the given location and a range around that location. The range is defined in meters.
+- You can also set the duration of your publications. The duration is defined in seconds.
+- Now, you can set some properties to transmit either supplement information or to allow finer filtering for the subscribers of your topic.
+The following data types are allowed in `Properties`: `String`, `Int`, `Set` and `Boolean`.
+* b. Use the wrapper MatchMore and call the method createPublicationForMainDevice() to send the creation request to Matchmore service.
 N.B.: Don't forget we need to handle two cases, in case of success we retrieve the created object, and in case of failure, we retrieve an error.
 3. Create a subscription to **start discovering near devices**
 Subscribers are notified when matches occur.
@@ -184,9 +184,9 @@ Next, implement how your matches should be handled:
 You'll create the delegate function for the onMatch listener. onMatchClosure are triggered every time you get a new match.
 The returned callback is composed of an array of hundred last matches, plus the concerned device.
 
-a. Safely unwrap the value you'll use.
-b. Use the match information as you need
-c. Earlier, we have made ViewController conform to MatchDelegate protocol. In order to be informed of every match, you'll need to add ViewController to Matchmore wrapper match delegates list.
+* a. Safely unwrap the value you'll use.
+* b. Use the match information as you need
+* c. Earlier, we have made ViewController conform to MatchDelegate protocol. In order to be informed of every match, you'll need to add ViewController to Matchmore wrapper match delegates list.
 ## IOS (Configuration(Info.plist, CocoaPods, API-Key, MainDevice, Pub, Sub, Match, Start updating location))
 ## Versioning
 
@@ -194,8 +194,8 @@ SDK is written using Swift 4.
 
 MatchmoreSDK requires iOS 9+.
 
-### Standard Integration
-We will use CocoaPods. If you don't have CocoaPods installed on your computer, you'll need to execute this command in the terminal:
+### Inject MatchmoreSDK with CocoaPods
+If you don't have CocoaPods installed on your computer, you'll need to execute this command in the terminal:
 ```
 sudo gem install cocoapods
 ```
@@ -224,9 +224,48 @@ Save the Podfile, and inside **Terminal** enter the following command:
 
 `pod install`
 
-### Custom Integration
+### Requesting permission for Location Services
+Depending on your needs, your app may require Location Services to work in the background, which means we need to set up Location Services usage description. This description will be shown to the user when asking them about allowing the app to access their location.
+
+Users must grant permission for an app to access personal information, including the current location. Although people appreciate the convenience of using an app that has access to this information, they also expect to have control over their private data.
+
+In the project navigator, find the Info.plist file, right click on it, and select “Open As”, “Source Code”. Then, inside the top-level <dict> section, add:
+
+```XML
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>MyApp will show you detected nearby devices.</string>
+
+<!-- iOS 10 or earlier -->
+<key>NSLocationAlwaysUsageDescription</key>
+<string>MyApp will show you detected nearby devices, and alert you via
+notifications if you don't have the app open.</string>
+
+<!-- iOS 11 -->
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>MyApp will show you detected nearby devices in the app. With the "always" option,
+we can also alert you via notifications if you don't have the app open.</string>
+```
+Why the three keys and what do they mean?
+
+NSLocationWhenInUseUsageDescription should describe how your app uses Location Services when it’s in use (or “in the foreground”).
+
+NSLocationAlwaysUsageDescription should describe how your app uses Location Services both when in use, and in the background. This description is only for users of your app with iOS 10 or earlier. The user can agree to the “always” authorization, or disable Location Services in the app completely.
+
+NSLocationAlwaysAndWhenInUseUsageDescription should describe how your app use Location Services both when in use, and in the background. This description is only for users of your app with iOS 11. The user can select between the “always” or “only when in use” authorizations, or disable Location Services in the app completely.
+
+When opening app for the first time, the system will prompt `authorization alert` with the filled description. Users can decide wether to accept or reject the request permission.
+
+*GOOD PRACTICE* Request permission at launch only when necessary for your app to function. Users won’t be bothered by this request if it’s obvious that your app depends on their personal information to operate. For example, an app might only request access to the current location when activating a location tracking feature.
+
+### Set up Matchmore Cloud Credentials
+MatchmoreSDK is very malleable. It is configured by default to work for general cases. But it is possible to configure it according to your needs.
+First set up MatchmoreSDK Cloud credentials, this will allow the SDK to communicate with Matchmore Cloud on your behalf.
+
+You can generate a token API-key for yourself on matchmore.io.
+When you have your token, create your `MatchMoreConfig` with your API-key.
+
 ```swift
-/// `MatchMoreConfig` is a structure that defines all variables needed to configure MatchMore SDK.
+/// MatchMoreConfig is a structure that defines all variables needed to configure MatchMore SDK.
 public struct MatchMoreConfig {
     let apiKey: String
     let serverUrl: String
@@ -240,22 +279,34 @@ public struct MatchMoreConfig {
         self.customLocationManager = customLocationManager
     }
 }
+```
 
+Starting with a basic setup. Use MatchmoreSDK with default configuration.
+
+```swift
+// Basic setup
+let config = MatchMoreConfig(apiKey: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJhbHBzIiwic3ViIjoiMTc3NjdhN2UtNzU0OC00ZTk5LWEwMGMtYTFkYTM2NmIwNGFmIiwiYXVkIjpbIlB1YmxpYyJdLCJuYmYiOjE1MjA0MjQyMDQsImlhdCI6MTUyMDQyNDIwNCwianRpIjoiMSJ9.ayQMcG6jPmVX4eVfqRwcdrwAAOblZPXHVV8WuZSG7m8dWCr65lgvwnIxwqOBg3Oco2aUiKuNaBWllmfpKawaug") // create your own app at https://www.matchmore.io
+MatchMore.configure(config)
+```
+
+### Custom Integration
+You can also custom MatchmoreSDK to fit different needs other than provided by default.
+In the example below, simply inject the custom location manager inside of MatchmoreSDK.
+
+```swift
 // Custom Location Manager
 let locationManager = CLLocationManager()
 locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
 locationManager.pausesLocationUpdatesAutomatically = true
 locationManager.allowsBackgroundLocationUpdates = true
 locationManager.requestAlwaysAuthorization()
-locationManager.requestWhenInUseAuthorization()
 
-// Basic setup
+// Setup MatchmoreSDK
 let config = MatchMoreConfig(apiKey: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJhbHBzIiwic3ViIjoiMTc3NjdhN2UtNzU0OC00ZTk5LWEwMGMtYTFkYTM2NmIwNGFmIiwiYXVkIjpbIlB1YmxpYyJdLCJuYmYiOjE1MjA0MjQyMDQsImlhdCI6MTUyMDQyNDIwNCwianRpIjoiMSJ9.ayQMcG6jPmVX4eVfqRwcdrwAAOblZPXHVV8WuZSG7m8dWCr65lgvwnIxwqOBg3Oco2aUiKuNaBWllmfpKawaug", customLocationManager: locationManager) // create your own app at https://www.matchmore.io
 MatchMore.configure(config)
-
 ```
 ### Apple Push Notification service
-We use Apple Push Notification service (APNs) which is the main remote notification service provided by Apple. APNs allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
+We use Apple Push Notification service (APNs), it allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
 
 In order to get the certificates and upload them to our portal, `**A membership in the Apple iOS developer program is required.**`
 1. Enabling the Push Notification Service via Xcode
@@ -284,7 +335,7 @@ Go to Identifiers -> App IDs. If you followed previous instructions, you should 
 
 Click on the Development or Production certificate button and follow the steps. We recommend you for a Production push certificate. It works for most general cases and is the required certificate for Apple store.
 
-#####Difference between Development and Production certificate
+##### Difference between Development and Production certificate
 
 The choice of APNs host depends on which kinds of iOS app you wish to send push notifications to. There are two kinds of iOS app:
 
@@ -326,8 +377,52 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 You can now start sending notifications to your users using Matchmore SDK.
 ### Web Socket
 When it comes to deliver matches, ALPS uses Web socket as well to provide alternative solutions to APNs.
-### Polling
 
+```swift
+    // MARK: - Socket
+    func openSocketForMatches() {
+        if socket != nil { return }
+        guard let deviceId = monitoredDevices.first?.id else { return }
+        let worldId = MatchMore.config.apiKey.getWorldIdFromToken()
+        var url = MatchMore.config.serverUrl
+        url = url.replacingOccurrences(of: "https://", with: "")
+        url = url.replacingOccurrences(of: "http://", with: "")
+        url = url.replacingOccurrences(of: "/v5", with: "")
+        let request = URLRequest(url: URL(string: "ws://\(url)/pusher/v5/ws/\(deviceId)")!)
+        socket = WebSocket(request: request, protocols: ["api-key", worldId])
+        socket?.disableSSLCertValidation = true
+        socket?.onText = { text in
+            if text != "ping" && text != "" && text != "pong" { // empty string or "ping" just keeps connection alive
+                self.getMatches()
+            }
+        }
+        socket?.onDisconnect = { error in
+            self.socket?.connect()
+        }
+        socket?.onPong = { _ in
+            self.socket?.write(ping: "ping".data(using: .utf8)!)
+        }
+        socket?.connect()
+    }
+
+    func closeSocketForMatches() {
+        socket?.disconnect()
+        socket = nil
+    }
+```
+### Polling
+```swift
+    // MARK: - Polling
+    func startPollingMatches(pollingTimeInterval: TimeInterval) {
+        if timer != nil { return }
+        timer = Timer.scheduledTimer(timeInterval: pollingTimeInterval, target: self, selector: #selector(getMatches), userInfo: nil, repeats: true)
+    }
+
+    func stopPollingMatches() {
+        timer?.invalidate()
+        timer = nil
+    }
+```
 ## Android
 ### Standard Integration
 ### Custom Integration
@@ -353,6 +448,8 @@ A mobile device is one that potentially moves together with its user and therefo
 ### Pin
 A pin device is one that has geographical location associated with it but is not represented by any object in the physical world; usually it’s location doesn’t change frequently if at all.
 
+#### Using Pin Device
+
 ### Beacon
 Beacons are high-tech tools that repeatedly broadcast a single signal under the form of advertising packet. Other devices interact with beacons through bluetooth and receive an advertising packet which consist of different letters and numbers. With the information received through the packet, devices like smartphones know how close they are to a specific beacon. The main purpose behind beacons is to improve indoor location. When developers know how close they are to this specific location, thanks to beacons, they can do something useful with this information.
 #### Beacons standard
@@ -361,20 +458,23 @@ The iBeacon is the standard defined by Apple. There is also other beacons standa
 ## Publication
 A publication is similar to a Publish-Subscribe model publication extended with the notion of a geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Publications which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
 
+The following data types are allowed in Properties:  `String`, `Int`, `Set` and `Boolean`.
+
 ## Subscription
 A subscription is similar to a Publish- Subscribe subscription extended with the notion of geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Subscriptions which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
 
-The following data types are allowed in Properties:  String, Int, Set, Boolean.
-
 SQL Comparison Operators
+```SQL
 =    Equal to    
-/>    Greater than    
+>    Greater than    
 <    Less than    
-/>=    Greater than or equal to    
+>=    Greater than or equal to    
 <=    Less than or equal to    
 <>    Not equal to
+```
 
 SQL Logical Operators
+```SQL
 ALL    TRUE if all of the subquery values meet the condition    
 AND    TRUE if all the conditions separated by AND is TRUE    
 ANY    TRUE if any of the subquery values meet the condition    
@@ -383,6 +483,7 @@ IN    TRUE if the operand is equal to one of a list of expressions
 LIKE    TRUE if the operand matches a pattern    
 NOT    Displays a record if the condition(s) is NOT TRUE    
 OR    TRUE if any of the conditions separated by OR is TRUE    
+```
 
 ## Match
 A match is equal to a Publish-Subscribe message delivery, it occurs when both of the two conditions hold: Content correspondence and context match. Content correspondence happens when publishers publish on content in which subscribers subscribe. Context matching occurs when for instance the subscription zone overlaps with the publication zone while both of pub/sub are still active (Not exceeded duration).
