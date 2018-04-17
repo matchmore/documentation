@@ -142,7 +142,18 @@ Create a subscription to await matches on the `test` topic.
 * Use the wrapper MatchMore and call the method createSubscriptionForMainDevice() to send the creation request to Matchmore service.
 N.B.: Don't forget we need to handle two cases, in case of success we retrieve the created object, and in case of failure, we retrieve an error.
 4. When matches occur subscribers are notified of the presence of the publisher
-When matches occur, all classes conform to `MatchDelegate` protocol is notified.
+When matches occur, all classes conform to `MatchDelegate` protocol are notified.
+
+Define an object that's `MatchDelegate` implementing OnMatchClosure.
+
+```swift
+class ExampleMatchHandler: MatchDelegate {
+    var onMatch: OnMatchClosure?
+    init(_ onMatch: @escaping OnMatchClosure) {
+        self.onMatch = onMatch
+    }
+}
+```
 
 In this example we make class ViewController conform to the MatchDelegate protocol.
 Also, you need to add var onMatch which is a closure.
@@ -177,8 +188,14 @@ a. Safely unwrap the value you'll use.
 b. Use the match information as you need
 c. Earlier, we have made ViewController conform to MatchDelegate protocol. In order to be informed of every match, you'll need to add ViewController to Matchmore wrapper match delegates list.
 ## IOS (Configuration(Info.plist, CocoaPods, API-Key, MainDevice, Pub, Sub, Match, Start updating location))
+## Versioning
+
+SDK is written using Swift 4.
+
+MatchmoreSDK requires iOS 9+.
+
 ### Standard Integration
-We will use CocoaPods. In order to install this package manager you'll need to execute this command in the terminal:
+We will use CocoaPods. If you don't have CocoaPods installed on your computer, you'll need to execute this command in the terminal:
 ```
 sudo gem install cocoapods
 ```
@@ -208,8 +225,105 @@ Save the Podfile, and inside **Terminal** enter the following command:
 `pod install`
 
 ### Custom Integration
+```swift
+/// `MatchMoreConfig` is a structure that defines all variables needed to configure MatchMore SDK.
+public struct MatchMoreConfig {
+    let apiKey: String
+    let serverUrl: String
+    let customLocationManager: CLLocationManager?
+
+    public init(apiKey: String,
+                serverUrl: String = "https://api.matchmore.io/v5",
+                customLocationManager: CLLocationManager? = nil) {
+        self.apiKey = apiKey
+        self.serverUrl = serverUrl
+        self.customLocationManager = customLocationManager
+    }
+}
+
+// Custom Location Manager
+let locationManager = CLLocationManager()
+locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+locationManager.pausesLocationUpdatesAutomatically = true
+locationManager.allowsBackgroundLocationUpdates = true
+locationManager.requestAlwaysAuthorization()
+locationManager.requestWhenInUseAuthorization()
+
+// Basic setup
+let config = MatchMoreConfig(apiKey: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJhbHBzIiwic3ViIjoiMTc3NjdhN2UtNzU0OC00ZTk5LWEwMGMtYTFkYTM2NmIwNGFmIiwiYXVkIjpbIlB1YmxpYyJdLCJuYmYiOjE1MjA0MjQyMDQsImlhdCI6MTUyMDQyNDIwNCwianRpIjoiMSJ9.ayQMcG6jPmVX4eVfqRwcdrwAAOblZPXHVV8WuZSG7m8dWCr65lgvwnIxwqOBg3Oco2aUiKuNaBWllmfpKawaug", customLocationManager: locationManager) // create your own app at https://www.matchmore.io
+MatchMore.configure(config)
+
+```
 ### Apple Push Notification service
 We use Apple Push Notification service (APNs) which is the main remote notification service provided by Apple. APNs allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
+
+In order to get the certificates and upload them to our portal, `**A membership in the Apple iOS developer program is required.**`
+1. Enabling the Push Notification Service via Xcode
+
+First, go to App Settings -> General and change Bundle Identifier to something unique.
+
+Right below this, select your development Team. **This must be a paid developer account**.
+
+After that, you need to create an App ID in your developer account that has the push notification entitlement enabled. Xcode has a simple way to do this. Go to App Settings -> Capabilities and flip the switch for Push Notifications to On.
+
+![apns capabilities switch](https://github.com/matchmore/alps-ios-sdk/blob/master/assets/apns1.png)
+
+Note: If any issues occur, visit the Apple Developer Center. You may simply need to agree to a new developer license.
+
+At this point, you should have the App ID created and the push notifications entitlement should be added to your project. You can log into the Apple Developer Center and verify this.
+
+![verification apns activated](https://github.com/matchmore/alps-ios-sdk/blob/master/assets/apns2.png)
+
+2. Enable Remote Push Notifications on your App ID
+
+Sign in to your account in the **Apple developer center**, and then go to Certificates, Identifiers & Profiles
+
+Go to Identifiers -> App IDs. If you followed previous instructions, you should be able to see the App ID of your application( create it if you don't see it). Click on your application and ensure that the Push Notifications service is enabled.
+
+![apns capabilities switch](https://github.com/matchmore/alps-ios-sdk/blob/master/assets/apns3.png)
+
+Click on the Development or Production certificate button and follow the steps. We recommend you for a Production push certificate. It works for most general cases and is the required certificate for Apple store.
+
+#####Difference between Development and Production certificate
+
+The choice of APNs host depends on which kinds of iOS app you wish to send push notifications to. There are two kinds of iOS app:
+
+    Published apps. These are published to the App Store and installed from there. These apps go through the usual App Store publication process, such as code-signing.
+
+    Development apps. These are “everything else”, such as apps installed from Xcode, or through private app publication systems.
+
+**Warning**
+Do not submit Apps to Apple with Development certificates.
+
+3. Exporting certificates
+
+After completing the steps to generate a Development SSL or Production SSL certificat and downloading the certificate.
+
+From Finder, double-click the ~/certificate.cer file, or run open ~/certificate.cer. This will open Keychain Access. The certificate should now be added to the list under “My Certificates”.
+
+Right click on the certificate, and select "Export ....". Select the p12 format and create a password for the file, do not lose this password as you will need it a next step.
+**For now : Leave this password blank.**
+
+Upload the generated certificate to Matchmore Portal.
+
+4. Enable Push Notification in Application
+
+Add the following lines to your appDelegate.
+
+```swift
+func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    // Convert token to string
+    let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+    MatchMore.registerDeviceToken(deviceToken: deviceTokenString)
+    createApnsSubscription()
+}
+
+func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+    MatchMore.processPushNotification(pushNotification: userInfo)
+}
+```
+
+You can now start sending notifications to your users using Matchmore SDK.
 ### Web Socket
 When it comes to deliver matches, ALPS uses Web socket as well to provide alternative solutions to APNs.
 ### Polling
