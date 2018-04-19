@@ -285,13 +285,13 @@ Starting with a basic setup. Use MatchmoreSDK with default configuration.
 
 ```swift
 // Basic setup
-let config = MatchMoreConfig(apiKey: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJhbHBzIiwic3ViIjoiMTc3NjdhN2UtNzU0OC00ZTk5LWEwMGMtYTFkYTM2NmIwNGFmIiwiYXVkIjpbIlB1YmxpYyJdLCJuYmYiOjE1MjA0MjQyMDQsImlhdCI6MTUyMDQyNDIwNCwianRpIjoiMSJ9.ayQMcG6jPmVX4eVfqRwcdrwAAOblZPXHVV8WuZSG7m8dWCr65lgvwnIxwqOBg3Oco2aUiKuNaBWllmfpKawaug") // create your own app at https://www.matchmore.io
+let config = MatchMoreConfig(apiKey: "YOUR_API_KEY") // create your own app at https://www.matchmore.io
 MatchMore.configure(config)
 ```
 
 ### Custom Integration
-You can also custom MatchmoreSDK to fit different needs other than provided by default.
-In the example below, simply inject the custom location manager inside of MatchmoreSDK.
+You can also customize MatchmoreSDK to meet other needs than those provided by default.
+In the example below, simply inject the custom location manager into the MatchmoreSDK.
 
 ```swift
 // Custom Location Manager
@@ -302,11 +302,11 @@ locationManager.allowsBackgroundLocationUpdates = true
 locationManager.requestAlwaysAuthorization()
 
 // Setup MatchmoreSDK
-let config = MatchMoreConfig(apiKey: "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJhbHBzIiwic3ViIjoiMTc3NjdhN2UtNzU0OC00ZTk5LWEwMGMtYTFkYTM2NmIwNGFmIiwiYXVkIjpbIlB1YmxpYyJdLCJuYmYiOjE1MjA0MjQyMDQsImlhdCI6MTUyMDQyNDIwNCwianRpIjoiMSJ9.ayQMcG6jPmVX4eVfqRwcdrwAAOblZPXHVV8WuZSG7m8dWCr65lgvwnIxwqOBg3Oco2aUiKuNaBWllmfpKawaug", customLocationManager: locationManager) // create your own app at https://www.matchmore.io
+let config = MatchMoreConfig(apiKey: "YOUR_API_KEY", customLocationManager: locationManager) // create your own app at https://www.matchmore.io
 MatchMore.configure(config)
 ```
 ### Apple Push Notification service
-We use Apple Push Notification service (APNs), it allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
+We use Apple Push Notification service (APNs). It allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
 
 In order to get the certificates and upload them to our portal, `**A membership in the Apple iOS developer program is required.**`
 1. Enabling the Push Notification Service via Xcode
@@ -374,63 +374,33 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 }
 ```
 
-You can now start sending notifications to your users using Matchmore SDK.
+You can now start sending notifications to your users.
 ### Web Socket
-When it comes to deliver matches, ALPS uses Web socket as well to provide alternative solutions to APNs.
+When it comes to deliver matches, Matchmore SDK uses Web socket as well to provide alternative solutions to APNs.
+By initializing this, you inform Matchmore Cloud service that you want to be notified via web socket.
 
 ```swift
     // MARK: - Socket
-    func openSocketForMatches() {
-        if socket != nil { return }
-        guard let deviceId = monitoredDevices.first?.id else { return }
-        let worldId = MatchMore.config.apiKey.getWorldIdFromToken()
-        var url = MatchMore.config.serverUrl
-        url = url.replacingOccurrences(of: "https://", with: "")
-        url = url.replacingOccurrences(of: "http://", with: "")
-        url = url.replacingOccurrences(of: "/v5", with: "")
-        let request = URLRequest(url: URL(string: "ws://\(url)/pusher/v5/ws/\(deviceId)")!)
-        socket = WebSocket(request: request, protocols: ["api-key", worldId])
-        socket?.disableSSLCertValidation = true
-        socket?.onText = { text in
-            if text != "ping" && text != "" && text != "pong" { // empty string or "ping" just keeps connection alive
-                self.getMatches()
-            }
-        }
-        socket?.onDisconnect = { error in
-            self.socket?.connect()
-        }
-        socket?.onPong = { _ in
-            self.socket?.write(ping: "ping".data(using: .utf8)!)
-        }
-        socket?.connect()
-    }
-
-    func closeSocketForMatches() {
-        socket?.disconnect()
-        socket = nil
-    }
+    func openSocketForMatches()
+    func closeSocketForMatches()
 ```
 ### Polling
+Use these functions to start or stop polling matches from Matchmore Cloud.
+
 ```swift
     // MARK: - Polling
-    func startPollingMatches(pollingTimeInterval: TimeInterval) {
-        if timer != nil { return }
-        timer = Timer.scheduledTimer(timeInterval: pollingTimeInterval, target: self, selector: #selector(getMatches), userInfo: nil, repeats: true)
-    }
-
-    func stopPollingMatches() {
-        timer?.invalidate()
-        timer = nil
-    }
+    func startPollingMatches(pollingTimeInterval: TimeInterval)
+    func stopPollingMatches()
 ```
 ## Android
 ### Standard Integration
 ### Custom Integration
 ### Google Firebase Cloud Notification
-We use Apple Push Notification service (APNs) which is the main remote notification service provided by Apple. APNs allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
 ### Web Socket
 When it comes to deliver matches, ALPS uses Web socket as well to provide alternative solutions to APNs.
+By initializing this, you inform Matchmore Cloud service that you want to be notified via web socket.
 ### Polling
+Use these functions to start or stop polling matches from Matchmore Cloud.
 ## Unity 3D
 ### Standard Integration
 ### Custom Integration
@@ -438,29 +408,147 @@ When it comes to deliver matches, ALPS uses Web socket as well to provide altern
 ### Standard Integration
 ### Custom Integration
 
-## Devices
+### Location
+A location consists of a geographical position of a Device. A conventionally known *update location* is a `Location` object sent to Matchmore cloud service to inform of changes upon position for a device.
+
+* createdAt
+integer <int64>
+The timestamp of the location creation in seconds since Jan 01 1970 (UTC).
+
+* latitude
+number <double> Required
+The latitude of the device in degrees, for instance '46.5333' (Lausanne, Switzerland).
+
+* longitude
+number <double> Required
+The longitude of the device in degrees, for instance '6.6667' (Lausanne, Switzerland).
+
+* altitude
+number <double> Required
+The altitude of the device in meters, for instance '495.0' (Lausanne, Switzerland).
+
+* horizontalAccuracy
+number <double>
+The horizontal accuracy of the location, measured on a scale from '0.0' to '1.0', '1.0' being the most accurate. If this value is not specified then the default value of '1.0' is used.
+
+* verticalAccuracy
+number <double>
+The vertical accuracy of the location, measured on a scale from '0.0' to '1.0', '1.0' being the most accurate. If this value is not specified then the default value of '1.0' is used.
+### Device
 A device might be either virtual like a pin device or physical like a mobile device.
 Devices may issue publications and subscriptions at any time; it may also cancel publications and subscriptions issued previously. Publications and subscriptions do have a definable, finite duration, after which they are deleted from the Matchmore cloud service and don’t participate anymore in the matching process.
-
-### Mobile
+#### Mobile
 A mobile device is one that potentially moves together with its user and therefore has a geographical location associated with it. A mobile device is typically a location-aware smartphone, which knows its location thanks to GPS or to some other means like cell tower triangulation, etc.
 
-### Pin
-A pin device is one that has geographical location associated with it but is not represented by any object in the physical world; usually it’s location doesn’t change frequently if at all.
+* id
+string
+The id (UUID) of the device.
 
-#### Using Pin Device
+* createdAt
+integer <int64>
+The timestamp of the device's creation in seconds since Jan 01 1970 (UTC).
 
-### Beacon
+* updatedAt
+integer <int64>
+The timestamp of the device's creation in seconds since Jan 01 1970 (UTC).
+
+* name
+string
+The name of the device.
+
+* platform
+string Required
+The platform of the device, this can be any string representing the platform type, for instance 'iOS'.
+
+* deviceToken
+string Required
+The deviceToken is the device push notification token given to this device by the OS, either iOS or Android for identifying the device with push notification services.
+
+* location 	
+Location Required
+
+#### Pin
+A pin device has an ultimate geographical location associated with it but is not represented by any object in the physical world; usually it’s location doesn’t change frequently if at all.
+
+* id
+string
+The id (UUID) of the device.
+
+* createdAt
+integer <int64>
+The timestamp of the device's creation in seconds since Jan 01 1970 (UTC).
+
+* updatedAt
+integer <int64>
+The timestamp of the device's creation in seconds since Jan 01 1970 (UTC).
+
+* name
+string
+The name of the device.
+
+* location 	
+Location Required
+##### Using Pin Device
+
+#### iBeacon
 Beacons are high-tech tools that repeatedly broadcast a single signal under the form of advertising packet. Other devices interact with beacons through bluetooth and receive an advertising packet which consist of different letters and numbers. With the information received through the packet, devices like smartphones know how close they are to a specific beacon. The main purpose behind beacons is to improve indoor location. When developers know how close they are to this specific location, thanks to beacons, they can do something useful with this information.
-#### Beacons standard
+
+* name
+string
+The name of the device.
+
+* proximityUUID
+string Required
+The UUID of the beacon, the purpose is to distinguish iBeacons in your network, from all other beacons in networks outside your control.
+
+* major
+integer <int32> [ 0 .. 65535 ] Required
+Major values are intended to identify and distinguish a group.
+
+* minor
+integer <int32> [ 0 .. 65535 ] Required
+Minor values are intended to identify and distinguish an individual.
+##### Beacons standard
 The iBeacon is the standard defined by Apple. There is also other beacons standard like Eddystone by Google or AltBeacons by Kontakt.io. Basically, the content of the advertising packet could vary slightly from one standard to another, but the communication protocol (bluetooth) remains the same. As a consequence, most beacons on the market support at least the iBeacon standard and the Eddystone standard.
 
-## Publication
+### Publication
 A publication is similar to a Publish-Subscribe model publication extended with the notion of a geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Publications which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
 
 The following data types are allowed in Properties:  `String`, `Int`, `Set` and `Boolean`.
 
-## Subscription
+* id
+string
+The id (UUID) of the publication.
+
+* createdAt
+integer <int64>
+The timestamp of the publication creation in seconds since Jan 01 1970 (UTC).
+
+* worldId
+string Required
+The id (UUID) of the world that contains device to attach a publication to.
+
+* deviceId
+string Required
+The id (UUID) of the device to attach a publication to.
+
+* topic
+string Required
+The topic of the publication. This will act as a first match filter. For a subscription to be able to match a publication they must have the exact same topic.
+
+* range
+number <double> Required
+The range of the publication in meters. This is the range around the device holding the publication in which matches with subscriptions can be triggered.
+
+* duration
+number <double> Required
+The duration of the publication in seconds. If set to '0' it will be instant at the time of publication. Negative values are not allowed.
+
+* properties 	
+properties Required
+The dictionary of key, value pairs. Allowed values are number, boolean, string and array of aforementioned types
+
+### Subscription
 A subscription is similar to a Publish- Subscribe subscription extended with the notion of geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Subscriptions which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
 
 SQL Comparison Operators
@@ -485,8 +573,59 @@ NOT    Displays a record if the condition(s) is NOT TRUE
 OR    TRUE if any of the conditions separated by OR is TRUE    
 ```
 
-## Match
+* id
+string
+The id (UUID) of the subscription.
+
+* createdAt
+integer <int64>
+The timestamp of the subscription creation in seconds since Jan 01 1970 (UTC).
+
+* worldId
+string Required
+The id (UUID) of the world that contains device to attach a subscription to.
+
+* deviceId
+string Required
+The id (UUID) of the device to attach a subscription to.
+
+* topic
+string Required
+The topic of the subscription. This will act as a first match filter. For a subscription to be able to match a publication they must have the exact same topic.
+
+* selector
+string Required
+This is an expression to filter the publications. For instance 'job='developer'' will allow matching only with publications containing a 'job' key with a value of 'developer'.
+
+* range
+number <double> Required
+The range of the subscription in meters. This is the range around the device holding the subscription in which matches with publications can be triggered.
+
+* duration
+number <double> Required
+The duration of the subscription in seconds. If set to '0' it will be instant at the time of subscription. Negative values are not allowed.
+
+* pushers
+string
+When match will occurs, they will be notified on these provided URI(s) address(es) in the pushers array.
+### Match
 A match is equal to a Publish-Subscribe message delivery, it occurs when both of the two conditions hold: Content correspondence and context match. Content correspondence happens when publishers publish on content in which subscribers subscribe. Context matching occurs when for instance the subscription zone overlaps with the publication zone while both of pub/sub are still active (Not exceeded duration).
+
+* id
+string
+The id (UUID) of the match.
+
+* createdAt
+integer <int64>
+The timestamp of the match in seconds since Jan 01 1970 (UTC).
+
+* publication 	
+Publication Required
+A publication can be seen as a JavaMessagingService (JMS) publication extended with the notion of a geographical zone. The zone is defined as circle with a center at the given location and a range around that location.
+
+* subscription 	
+Subscription Required
+A subscription can be seen as a JMS subscription extended with the notion of geographical zone. The zone again being defined as circle with a center at the given location and a range around that location.
 ## Best Practices
 
 # Dashboard
