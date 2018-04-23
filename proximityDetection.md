@@ -1,77 +1,38 @@
-# Home
-## Matchmore
+---
+title: Proximity Detection
+sections:
+  - Quickstart
+  - Modeling
+  - iOS
+  - Android
+    - KOTLIN
+    - JAVA
+  - Unity
+  - JavaScript
+---
 
-As the fast-growing world of mobile connected objects computing era is becoming a reality, Matchmore aims at becoming the leading cloud-based software platform supporting the creation of highly dynamic proximity-based applications. At the heart of our vision is the notion of geomatching, which builds on the location-based publish/subscribe communication model.
-
-### Description
-
-Our goal is to provide tools that dramatically simplify and accelerate the development, testing and deployment of rich application scenarios based on **multiple moving and connected objects**, making such applications the new low hanging fruits of the mobile app industry.
-
-Get familiar with the Matchmore products and explore their features:
-
-**links to our products opens quickstart of || Matchmore SDK || Dashboard || Account }**
-
-### Understanding Matchmore
-Matchmore helps you model any geolocated or proximity-based applications, by taking advantage of advanced location-based publish/subscribe (ALPS) model, create any type of interactions for connected objects from smartphones to any sensors and everything in between.
-
-#### In-depth Publish/subscribe
-The purpose of Publish/Subscribe model is to create communication between several computers, applications, and users. Entities interested in a specific topic subscribe to the topic and whenever there is a message on this topic, they will receive it. Content-based filtering is an additional layer, namely selector, allowing subscribers to filter incoming messages based on the message’s content. On the other hand, publishers/senders are able to send messages without any knowledge of the future receivers, ensuring anonymity. Concerning content-based filtering, publishers are able to customize their messages with the additional layer, namely properties. For instance, a publication and a subscription were issued on the same topic and have compatible properties and the evaluation of the selector against those properties returns a true value, so there is a content correspondence which leads to a message delivery.
-**/OR SHORTER/**
-
-The publish/subscribe model is a message-oriented paradigm in which, publishers can publish anonymously on a topic and subscribers can receive messages on that topic. The additional layer, namely selector, allows subscribers to filter incoming messages based on the message’s content.
-
-#### Advanced Location based Publish/Subscribe
-ALPS is designed to simplify software developer’s life. It is an extension of the Publish-Subscribe model adding user context while remaining message-oriented. Publications and subscriptions are extended with the notion of geographical zone. The zone is defined as a circle with a center at the given location and a range around that location.
-Publications and subscriptions which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location. The crossing of the range and corresponding topic and content lead to the delivery of the message, in fact, a **match**.
-
-To facilitate the mobile application development, ALPS is provided in enhanced Software Development Kits (SDK).
-
-So what exactly can you do with Matchmore?
-
-### Geomatching (Matching Moving Content)
-ALPS enables you to notify the user whenever there’s someone/something they could be interested in close by. Create proximity detection easily on web or mobile by using the advanced location-based publish/subscribe paradigm.
-
-### Create Smart Geofences
-Geofences are used to define special areas in the real world, that you are particularly interested in.
-With smart geofences, you can go further in the filtering process. It can be used for analytics uses: count how many app users based on their preference enter a specific area, thanks to the topic and content filtering. Or for triggering content inside the mobile or externally depending on user's attached pieces of information. Works indoor (beacons) and outdoor (GPS).
-
-### Smart activation with IoT
-Activate a connected device when you approach it (a camera by example).
-
-### Geochat
-Broadcast anonymous message to people around you.
-
-### Smart checkpoints
-Create virtual gates or points to control the passage of users. A trail is validated if the user has passed by every point related to the trail.
-
-### And many other uses that we didn't think of yet..!
-We have a sample app where we grouped a lot of interesting uses, here is a link to the Github.
-ALPS paradigm is applicable to many domains and eases the modelization of any geolocated applications.
-
-### Some links to help // (Examples of links : contact us, examples, tutorials)
-### Redirection // (What next, OR recently added)
-### Questions ?
-We're always happy to help with code or other questions you might have! Search our documentation, contact support, or connect with our sales team.
-
-**/GENERAL IMPRESSION AT THE END OF THIS PAGE/ The reader should understand Matchmore briefly and should be able to find his next step.**
-
-# Proximity Detection or ALPS
-
-## Quickstart
+{: #Quickstart}
+### Quickstart
 Quickly create proximity detection for any types of `Device`.
 
+Creating proximity detection using Matchmore is a four steps process:
 1. Create a device to **feature proximity detection**
+2. Create a publication to **broadcast the presence of a device**
+3. Create a subscription to **start discovering near devices**
+4. When subscribers and publishers are within range of each other, there is a `Match`
+
 The [devices](#Device) are core models for proximity detection. A `Device` defines an object that is either virtual or physical which you can find useful when it is proximity detected. A device without publication or subscription is not detectable nor detecting, you need to attach `Publication` or `Subscription` on a `Device` in order to start either **broadcast presence** or **discover nearby devices**.
 
 `Match` is the event object to notify a proximity detection based on the encounter of two different devices.
 
+#### STEP 1: Create a device to **feature proximity detection**
 Matchmore relies on different sensors to provide the proximity detection; such as GPS, Bluetooth, and more. Each `Device` is unique and offers distinct possibilities:
 * `Mobile Device` is based on a constant `Location` update, thanks to GPS,
 * `Beacon Device` is made for indoor and outdoor location services. It relies on Bluetooth technology,
 * `Pin Device` is non-physical and at a fixed geographical `Location`.
 * More types of `Device` will be added in the future.
 
-MatchmoreSDK can be used in different ways, but the most common way is to have a `Main Device`. Usually, this `Main Device` is the device on which the app is running, typically it represents your actual users; Smartphones (mobile app) or Browser (web app).
+Matchmore SDK can be used in different ways, but the most common way is to have a `Main Device`. Usually, this `Main Device` is the device on which the app is running, typically it represents your actual users; Smartphones (mobile app) or Browser (web app).
 
 The following code demonstrates how to create the main device:
 **/SWIFT, KOTLIN or/AND JAVA, UNITY and JS/**
@@ -115,7 +76,7 @@ When creating a device through the API, the response includes an ID, which you c
 * c. When using our SDK, polling the `Match` in Matchmore cloud service is that easy, just one line of code.
 * d. Again, using our SDK will discharge you of many tasks. This single line of code starts informing Matchmore service of the user's main device updates location.
 
-2. Create a publication to **broadcast the presence of a device**
+#### STEP 2: Create a publication to **broadcast the presence of a device**
 When a `Device` has a `Publication` attached, it is as if it broadcasts its presence. You can see a publication as a message, you might store metadata, such as a phone number, a name, or any relevant information, on the publication object. Publications can contain customized information destined for future `Match` receivers. The metadata are grouped in the `properties` parameter.
 You can attach as many `Publication` and `Subscription` as you want to a `Device`. It means a device can be both publisher and subscriber at the same time. You may need to define just one publication/subscription or several hundred, depending on how many services you offer.
 **Please be aware that publishers** are NOT notified of matches occurrence, if you want your publishers to be notified, he must be subscribing as well.
@@ -171,7 +132,8 @@ In case of success, Matchmore returns a new `Publication` object with all the re
 }
 ```
 Once you create the publication, store the id value in your own database for later reference (presumably with the user's deviceId).
-3. Create a subscription to **start discovering near devices**
+
+#### STEP 3: Create a subscription to **start discovering near devices**
 When a `Match` occurs, every **subscriber** receive a message based on their topic and content selection. With the selector parameter, you can filter publications based on the metadata contained within them to discover only the devices that might interest you.
 
 Matchmore offers the ability to simultaneously subscribe a device to multiple topics. This provides supplement channel for easily include your features in flexible ways. For example, if your business offers multiple features or services based on proximity detection, each could be represented by its own topic and the same device could be subscribed to more than one topic. Imagine an app that has two features: geochatting (Broadcast messages to nearby users) and proximity detection (discover how many users are nearby).
@@ -216,7 +178,7 @@ In case of success, Matchmore returns a new `Subscription` object with all the r
 ```
 Once you create the subscription, store the id value in your own database for later reference (presumably with the user's deviceId).
 
-4. When subscribers and publishers are within range of each other, there is a `Match`
+#### STEP 4: When subscribers and publishers are within range of each other, there is a `Match`
 A match warns the subscribers of the presence of nearby publishers.
 In other words, `Device` that has `Subscription` attached to, are notified when `Match` occurs. It is not the case for `Device` with `Publication` attached to.
 
@@ -310,9 +272,10 @@ The returned callback is composed of an array of hundred last matches, plus the 
 * d. Earlier, we have made ViewController conform to MatchDelegate protocol. In order to be informed of every match, you'll need to add ViewController to Matchmore wrapper match delegates list.
 Every time Matchmore SDK is informed of a new delegate, it will automatically include this new delegate of match occurences notification.
 
+{: #Modeling}
 ### Modeling
 ### Location and Device
-
+TODO text qui parles de la liaison entre location et device
 ### Device
 A device might be either virtual like a pin device or physical like a mobile device.
 Devices may issue publications and subscriptions at any time; it may also cancel publications and subscriptions issued previously. Publications and subscriptions do have a definable, finite duration, after which they are deleted from the Matchmore cloud service and don’t participate anymore in the matching process.
@@ -417,15 +380,15 @@ Minor values are intended to identify and distinguish an individual.
 ##### Beacons standard
 The iBeacon is the standard defined by Apple. There is also other beacons standard like Eddystone by Google or AltBeacons by Kontakt.io. Basically, the content of the advertising packet could vary slightly from one standard to another, but the communication protocol (bluetooth) remains the same. As a consequence, most beacons on the market support at least the iBeacon standard and the Eddystone standard.
 
-
-## IOS (Configuration(Info.plist, CocoaPods, API-Key, MainDevice, Pub, Sub, Match, Start updating location))
-## Versioning
+{: #iOS}
+### iOS
+#### Versioning
 
 SDK is written using Swift 4.
 
 MatchmoreSDK requires iOS 9+.
 
-### Inject MatchmoreSDK with CocoaPods
+#### Inject MatchmoreSDK with CocoaPods
 If you don't have CocoaPods installed on your computer, you'll need to execute this command in the terminal:
 ```
 sudo gem install cocoapods
@@ -455,7 +418,7 @@ Save the Podfile, and inside **Terminal** enter the following command:
 
 `pod install`
 
-### Requesting permission for Location Services
+#### Requesting permission for Location Services
 Depending on your needs, your app may require Location Services to work in the background, which means we need to set up Location Services usage description. This description will be shown to the user when asking them about allowing the app to access their location.
 
 Users must grant permission for an app to access personal information, including the current location. Although people appreciate the convenience of using an app that has access to this information, they also expect to have control over their private data.
@@ -488,7 +451,7 @@ When opening app for the first time, the system will prompt `authorization alert
 
 *GOOD PRACTICE* Request permission at launch only when necessary for your app to function. Users won’t be bothered by this request if it’s obvious that your app depends on their personal information to operate. For example, an app might only request access to the current location when activating a location tracking feature.
 
-### Set up Matchmore Cloud Credentials
+#### Set up Matchmore Cloud Credentials
 MatchmoreSDK is very malleable. It is configured by default to work for general cases. But it is possible to configure it according to your needs.
 First set up MatchmoreSDK Cloud credentials, this will allow the SDK to communicate with Matchmore Cloud on your behalf.
 
@@ -520,7 +483,7 @@ let config = MatchMoreConfig(apiKey: "YOUR_API_KEY") // create your own app at h
 MatchMore.configure(config)
 ```
 
-### Custom Integration
+#### Custom Integration
 You can also customize MatchmoreSDK to meet other needs than those provided by default.
 In the example below, simply inject the custom location manager into the MatchmoreSDK.
 
@@ -536,7 +499,7 @@ locationManager.requestAlwaysAuthorization()
 let config = MatchMoreConfig(apiKey: "YOUR_API_KEY", customLocationManager: locationManager) // create your own app at https://www.matchmore.io
 MatchMore.configure(config)
 ```
-### Apple Push Notification service
+#### Apple Push Notification service
 We use Apple Push Notification service (APNs). It allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
 
 In order to get the certificates and upload them to our portal, `**A membership in the Apple iOS developer program is required.**`
@@ -606,7 +569,7 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 ```
 
 You can now start sending notifications to your users.
-### Web Socket
+#### Web Socket
 When it comes to deliver matches, Matchmore SDK uses Web socket as well to provide alternative solutions to APNs.
 By initializing this, you inform Matchmore Cloud service that you want to be notified via web socket.
 
@@ -615,7 +578,7 @@ By initializing this, you inform Matchmore Cloud service that you want to be not
     func openSocketForMatches()
     func closeSocketForMatches()
 ```
-### Polling
+#### Polling
 Use these functions to start or stop polling matches from Matchmore Cloud.
 
 ```swift
@@ -623,252 +586,21 @@ Use these functions to start or stop polling matches from Matchmore Cloud.
     func startPollingMatches(pollingTimeInterval: TimeInterval)
     func stopPollingMatches()
 ```
-## Android
-### Standard Integration
-### Custom Integration
-### Google Firebase Cloud Notification
-### Web Socket
+{: #Android}
+### Android
+#### Standard Integration
+#### Custom Integration
+#### Google Firebase Cloud Notification
+#### Web Socket
 When it comes to deliver matches, ALPS uses Web socket as well to provide alternative solutions to APNs.
 By initializing this, you inform Matchmore Cloud service that you want to be notified via web socket.
-### Polling
+#### Polling
 Use these functions to start or stop polling matches from Matchmore Cloud.
-## Unity 3D
-### Standard Integration
-### Custom Integration
-## JS
-### Standard Integration
-### Custom Integration
-
-## Best Practices
-
-# Dashboard
-Dashboard allows the developers to register their application and services, monitor the costs and interact with their applications.
-## Overview
-## Apps
-## Beacons
-## Tools
-## Billing
-## Phomo
-
-# Account
-## Your account
-
-## API
-### Location
-A location consists of a geographical position of a Device. A conventionally known *update location* is a `Location` object sent to Matchmore cloud service to inform of changes upon position for a device.
-
-* createdAt
-integer <int64>
-The timestamp of the location creation in seconds since Jan 01 1970 (UTC).
-
-* latitude
-number <double> Required
-The latitude of the device in degrees, for instance '46.5333' (Lausanne, Switzerland).
-
-* longitude
-number <double> Required
-The longitude of the device in degrees, for instance '6.6667' (Lausanne, Switzerland).
-
-* altitude
-number <double> Required
-The altitude of the device in meters, for instance '495.0' (Lausanne, Switzerland).
-
-* horizontalAccuracy
-number <double>
-The horizontal accuracy of the location, measured on a scale from '0.0' to '1.0', '1.0' being the most accurate. If this value is not specified then the default value of '1.0' is used.
-
-* verticalAccuracy
-number <double>
-The vertical accuracy of the location, measured on a scale from '0.0' to '1.0', '1.0' being the most accurate. If this value is not specified then the default value of '1.0' is used.
-### Device
-A device might be either virtual like a pin device or physical like a mobile device.
-Devices may issue publications and subscriptions at any time; it may also cancel publications and subscriptions issued previously. Publications and subscriptions do have a definable, finite duration, after which they are deleted from the Matchmore cloud service and don’t participate anymore in the matching process.
-#### Mobile
-A mobile device is one that potentially moves together with its user and therefore has a geographical location associated with it. A mobile device is typically a location-aware smartphone, which knows its location thanks to GPS or to some other means like cell tower triangulation, etc.
-
-* id
-string
-The id (UUID) of the device.
-
-* createdAt
-integer <int64>
-The timestamp of the device's creation in seconds since Jan 01 1970 (UTC).
-
-* updatedAt
-integer <int64>
-The timestamp of the device's creation in seconds since Jan 01 1970 (UTC).
-
-* name
-string
-The name of the device.
-
-* platform
-string Required
-The platform of the device, this can be any string representing the platform type, for instance 'iOS'.
-
-* deviceToken
-string Required
-The deviceToken is the device push notification token given to this device by the OS, either iOS or Android for identifying the device with push notification services.
-
-* location
-Location Required
-
-#### Pin
-A pin device has an ultimate geographical location associated with it but is not represented by any object in the physical world; usually it’s location doesn’t change frequently if at all.
-
-* id
-string
-The id (UUID) of the device.
-
-* createdAt
-integer <int64>
-The timestamp of the device's creation in seconds since Jan 01 1970 (UTC).
-
-* updatedAt
-integer <int64>
-The timestamp of the device's creation in seconds since Jan 01 1970 (UTC).
-
-* name
-string
-The name of the device.
-
-* location
-Location Required
-##### Using Pin Device
-
-#### iBeacon
-Beacons are high-tech tools that repeatedly broadcast a single signal under the form of advertising packet. Other devices interact with beacons through bluetooth and receive an advertising packet which consist of different letters and numbers. With the information received through the packet, devices like smartphones know how close they are to a specific beacon. The main purpose behind beacons is to improve indoor location. When developers know how close they are to this specific location, thanks to beacons, they can do something useful with this information.
-
-* name
-string
-The name of the device.
-
-* proximityUUID
-string Required
-The UUID of the beacon, the purpose is to distinguish iBeacons in your network, from all other beacons in networks outside your control.
-
-* major
-integer <int32> [ 0 .. 65535 ] Required
-Major values are intended to identify and distinguish a group.
-
-* minor
-integer <int32> [ 0 .. 65535 ] Required
-Minor values are intended to identify and distinguish an individual.
-##### Beacons standard
-The iBeacon is the standard defined by Apple. There is also other beacons standard like Eddystone by Google or AltBeacons by Kontakt.io. Basically, the content of the advertising packet could vary slightly from one standard to another, but the communication protocol (bluetooth) remains the same. As a consequence, most beacons on the market support at least the iBeacon standard and the Eddystone standard.
-
-### Publication
-A publication is similar to a Publish-Subscribe model publication extended with the notion of a geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Publications which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
-
-The following data types are allowed in Properties:  `String`, `Int`, `Set` and `Boolean`.
-
-* id
-string
-The id (UUID) of the publication.
-
-* createdAt
-integer <int64>
-The timestamp of the publication creation in seconds since Jan 01 1970 (UTC).
-
-* worldId
-string Required
-The id (UUID) of the world that contains device to attach a publication to.
-
-* deviceId
-string Required
-The id (UUID) of the device to attach a publication to.
-
-* topic
-string Required
-The topic of the publication. This will act as a first match filter. For a subscription to be able to match a publication they must have the exact same topic.
-
-* range
-number <double> Required
-The range of the publication in meters. This is the range around the device holding the publication in which matches with subscriptions can be triggered.
-
-* duration
-number <double> Required
-The duration of the publication in seconds. If set to '0' it will be instant at the time of publication. Negative values are not allowed.
-
-* properties
-properties Required
-The dictionary of key, value pairs. Allowed values are number, boolean, string and array of aforementioned types
-
-### Subscription
-A subscription is similar to a Publish- Subscribe subscription extended with the notion of geographical zone. The zone is defined as circle with a center at the given location and a range around that location. Subscriptions which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location.
-
-SQL Comparison Operators
-```SQL
-=    Equal to
->    Greater than
-<    Less than
->=    Greater than or equal to
-<=    Less than or equal to
-<>    Not equal to
-```
-
-SQL Logical Operators
-```SQL
-ALL    TRUE if all of the subquery values meet the condition
-AND    TRUE if all the conditions separated by AND is TRUE
-ANY    TRUE if any of the subquery values meet the condition
-BETWEEN    TRUE if the operand is within the range of comparisons
-IN    TRUE if the operand is equal to one of a list of expressions
-LIKE    TRUE if the operand matches a pattern
-NOT    Displays a record if the condition(s) is NOT TRUE
-OR    TRUE if any of the conditions separated by OR is TRUE
-```
-
-* id
-string
-The id (UUID) of the subscription.
-
-* createdAt
-integer <int64>
-The timestamp of the subscription creation in seconds since Jan 01 1970 (UTC).
-
-* worldId
-string Required
-The id (UUID) of the world that contains device to attach a subscription to.
-
-* deviceId
-string Required
-The id (UUID) of the device to attach a subscription to.
-
-* topic
-string Required
-The topic of the subscription. This will act as a first match filter. For a subscription to be able to match a publication they must have the exact same topic.
-
-* selector
-string Required
-This is an expression to filter the publications. For instance 'job='developer'' will allow matching only with publications containing a 'job' key with a value of 'developer'.
-
-* range
-number <double> Required
-The range of the subscription in meters. This is the range around the device holding the subscription in which matches with publications can be triggered.
-
-* duration
-number <double> Required
-The duration of the subscription in seconds. If set to '0' it will be instant at the time of subscription. Negative values are not allowed.
-
-* pushers
-string
-When match will occurs, they will be notified on these provided URI(s) address(es) in the pushers array.
-### Match
-A match is equal to a Publish-Subscribe message delivery, it occurs when both of the two conditions hold: Content correspondence and context match. Content correspondence happens when publishers publish on content in which subscribers subscribe. Context matching occurs when for instance the subscription zone overlaps with the publication zone while both of pub/sub are still active (Not exceeded duration).
-
-* id
-string
-The id (UUID) of the match.
-
-* createdAt
-integer <int64>
-The timestamp of the match in seconds since Jan 01 1970 (UTC).
-
-* publication
-Publication Required
-A publication can be seen as a JavaMessagingService (JMS) publication extended with the notion of a geographical zone. The zone is defined as circle with a center at the given location and a range around that location.
-
-* subscription
-Subscription Required
-A subscription can be seen as a JMS subscription extended with the notion of geographical zone. The zone again being defined as circle with a center at the given location and a range around that location.
+{: #Unity}
+### Unity 3D
+#### Standard Integration
+#### Custom Integration
+{: #JavaScript}
+### JavaScript
+#### Standard Integration
+#### Custom Integration
