@@ -1,1 +1,27 @@
-theme: jekyll-theme-cayman
+remote_theme: LeakyAbstractions/pretty-docs
+
+#
+# Collections
+#
+collections:
+  doc:
+    output: true
+    permalink: /:path.html
+
+
+#
+# Default values
+#
+defaults:
+  -
+    scope:
+      path: ""
+      type: doc
+    values:
+      layout: doc
+  -
+    scope:
+      path: ""
+      type: pages
+    values:
+      layout: doc
