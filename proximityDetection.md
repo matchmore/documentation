@@ -5,13 +5,11 @@ sections:
   - Modeling
   - iOS
   - Android
-    - KOTLIN
-    - JAVA
   - Unity
   - JavaScript
 ---
 
-{: #Quickstart}
+{: #quickstart}
 ### Quickstart
 Quickly create proximity detection for any types of `Device`.
 
@@ -272,7 +270,7 @@ The returned callback is composed of an array of hundred last matches, plus the 
 * d. Earlier, we have made ViewController conform to MatchDelegate protocol. In order to be informed of every match, you'll need to add ViewController to Matchmore wrapper match delegates list.
 Every time Matchmore SDK is informed of a new delegate, it will automatically include this new delegate of match occurences notification.
 
-{: #Modeling}
+{: #modeling}
 ### Modeling
 ### Location and Device
 TODO text qui parles de la liaison entre location et device
@@ -380,7 +378,7 @@ Minor values are intended to identify and distinguish an individual.
 ##### Beacons standard
 The iBeacon is the standard defined by Apple. There is also other beacons standard like Eddystone by Google or AltBeacons by Kontakt.io. Basically, the content of the advertising packet could vary slightly from one standard to another, but the communication protocol (bluetooth) remains the same. As a consequence, most beacons on the market support at least the iBeacon standard and the Eddystone standard.
 
-{: #iOS}
+{: #ios}
 ### iOS
 #### Versioning
 
@@ -586,7 +584,7 @@ Use these functions to start or stop polling matches from Matchmore Cloud.
     func startPollingMatches(pollingTimeInterval: TimeInterval)
     func stopPollingMatches()
 ```
-{: #Android}
+{: #android}
 ### Android
 #### Standard Integration
 #### Custom Integration
@@ -596,11 +594,11 @@ When it comes to deliver matches, ALPS uses Web socket as well to provide altern
 By initializing this, you inform Matchmore Cloud service that you want to be notified via web socket.
 #### Polling
 Use these functions to start or stop polling matches from Matchmore Cloud.
-{: #Unity}
+{: #unity}
 ### Unity 3D
 #### Standard Integration
 #### Custom Integration
-{: #JavaScript}
+{: #javascript}
 ### JavaScript
 #### Standard Integration
 #### Custom Integration
