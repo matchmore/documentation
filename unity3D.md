@@ -1,8 +1,5 @@
 ---
 title: Unity 3D
-sections:
-  - standard
-  - custom
 ---
 
 {: #unity-3d}

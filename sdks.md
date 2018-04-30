@@ -1,15 +1,13 @@
 ---
-title: iOS integration & configuration
+title: SDKs integration & configuration
+sections:
+  - iOS
+  - Android
+  - Unity 3D
+  - JavaScript
 ---
 
-<!--
-- Installation
-- Start Matchmore
-- Requesting permission for location services
-- Apple Push Notification service
-- Web socket iOS
-- Polling iOS
--->
+## iOS
 ### installation
 #### Carthage
 #### other installations ?
@@ -216,3 +214,27 @@ Use these functions to start or stop polling matches from Matchmore Cloud.
     func startPollingMatches(pollingTimeInterval: TimeInterval)
     func stopPollingMatches()
 ```
+
+
+{: #android}
+## Android
+#### Standard Integration
+#### Custom Integration
+#### Google Firebase Cloud Notification
+#### Web Socket
+When it comes to deliver matches, ALPS uses Web socket as well to provide alternative solutions to APNs.
+By initializing this, you inform Matchmore Cloud service that you want to be notified via web socket.
+#### Polling
+Use these functions to start or stop polling matches from Matchmore Cloud.
+
+
+{: #unity-3d}
+## Unity 3D
+#### Standard Integration
+#### Custom Integration
+
+
+{: #javascript}
+## JavaScript
+#### Standard Integration
+#### Custom Integration

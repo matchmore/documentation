@@ -95,10 +95,11 @@ Learn more about the SDKs.
 You can access all of your Matchmore data, including devices, publications, subscriptions, and matches, via the API. You might use the API to list matches related to a device, or to create publications programmatically.
 
 Learn more about the [API](https://matchmore.io/documentation/api).
-
+<!--
 ### What is next ? // (Examples of links : contact us, examples, tutorials)
 ### Recently added // (What next, OR recently added)
 ### Questions ? // (Should be here in all the pages)
 We're always happy to help with code or other questions you might have! Search our documentation, contact support, or connect with our sales team.
 
 [*&nbsp;*{: .fa .fa-download} Download PrettyDocs](http://themes.3rdwavemedia.com){: .btn .btn-green}
+-->

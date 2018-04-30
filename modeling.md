@@ -1,11 +1,5 @@
 ---
 title: Modeling
-sections:
-  - Location
-  - Device
-  - Mobile
-  - Pin
-  - iBeacon
 ---
 
 {: #modeling}

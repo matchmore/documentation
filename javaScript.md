@@ -1,8 +1,5 @@
 ---
 title: JavaScript
-sections:
-  - standard
-  - custom
 ---
 
 {: #javascript}
