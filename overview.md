@@ -4,18 +4,19 @@ sections:
   - Matchmore
   - In-depth Publish/subscribe
   - ALPS
+  - Developer tools
 ---
 
 ## Matchmore
 As the fast-growing world of mobile connected objects computing era is becoming a reality, Matchmore aims at becoming the leading cloud-based software platform supporting the creation of highly dynamic proximity-based applications. At the heart of our vision is the notion of geomatching, which builds on the location-based publish/subscribe communication model.
 
-### Description
+#### Description
 
 Our goal is to provide tools that dramatically simplify and accelerate the development, testing and deployment of rich application scenarios based on **multiple moving and connected objects**, making such applications the new low hanging fruits of the mobile app industry.
 
 Get familiar with the Matchmore products and explore their features:
 
-**links to our products opens quickstart of || Matchmore SDK || Dashboard || Account }**
+**links to our products opens quickstart of || Matchmore SDK || Dashboard || Account**
 
 ### Understanding Matchmore
 Matchmore helps you model any geolocated or proximity-based applications, by taking advantage of advanced location-based publish/subscribe (ALPS) model, create any type of interactions for connected objects from smartphones to any sensors and everything in between.
@@ -95,11 +96,10 @@ Learn more about the SDKs.
 You can access all of your Matchmore data, including devices, publications, subscriptions, and matches, via the API. You might use the API to list matches related to a device, or to create publications programmatically.
 
 Learn more about the [API](https://matchmore.io/documentation/api).
-<!--
+
 ### What is next ? // (Examples of links : contact us, examples, tutorials)
 ### Recently added // (What next, OR recently added)
 ### Questions ? // (Should be here in all the pages)
 We're always happy to help with code or other questions you might have! Search our documentation, contact support, or connect with our sales team.
 
 [*&nbsp;*{: .fa .fa-download} Download PrettyDocs](http://themes.3rdwavemedia.com){: .btn .btn-green}
--->

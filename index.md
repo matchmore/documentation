@@ -9,7 +9,6 @@ color: blue
 sections:
   - /overview
   - /proximityDetection
-  - /modeling
   - /sdks
   - /dashboard
   - /account
