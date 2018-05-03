@@ -7,10 +7,14 @@ icon:
   name: fa-graduation-cap
 color: blue
 sections:
-  - /matchmore
+  - /overview
   - /proximityDetection
+  - /sdks
+  - /dashboard
+  - /account
 promo:
-  title: "*&nbsp;*{: .fa .fa-heart} [AppKit - Bootstrap Angular Admin Theme for Developers](https://wrapbootstrap.com/theme/admin-appkit-admin-theme-angularjs-WB051SCJ1?ref=3wm)"
+  title: "*&nbsp;*{: .fa .fa-heart} Questions ?
+  We're always happy to help with code or other questions you might have! Search our documentation, contact support, or connect with our sales team."
   link: https://wrapbootstrap.com/theme/admin-appkit-admin-theme-angularjs-WB051SCJ1?ref=3wm
   image:
     alt: AppKit Theme
