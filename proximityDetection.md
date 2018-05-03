@@ -600,3 +600,26 @@ Matches can also be retrieved by issuing a API call for a particular device.
 
 
 ##### Example
+Any instances can handle matches for you.
+You need to make the class of your handler conform to MatchDelegate protocol and implement onMatchClosure.
+
+*MatchHandler.swift*
+```swift
+class MatchHandler: MatchDelegate {
+    var onMatch: OnMatchClosure?
+    init(_ onMatch: @escaping OnMatchClosure) {
+        self.onMatch = onMatch
+    }
+}
+```
+
+Create an instance of MatchHandler and add it to match delegates.
+```swift
+let matchHandler = MatchHandler.init({ matches, device in
+    print(matches.description)
+    print(device)
+})
+MatchMore.matchDelegates.add(matchHandler)
+```
+
+When you have described the code that must be run when matches occur, just delegate your instances conform to MatchDelegate protocol to MatchDelegate. They will be notified for every match occurence.
