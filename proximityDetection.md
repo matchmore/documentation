@@ -7,7 +7,7 @@ sections:
 
 {: #quickstart}
 ### Quickstart
-Quickly create proximity detection for any types of `Device`.
+Quickly create proximity detection for any types of device.
 
 Follow these four steps to create proximity detection:
 1. Create a device to **feature proximity detection**
@@ -15,33 +15,32 @@ Follow these four steps to create proximity detection:
 3. Create a subscription to **start discovering near devices**
 4. **Handle Match**, when subscribers and publishers are within range of each other
 
-The [devices](#Device) are core models for proximity detection. A `Device` defines an object that is either virtual or physical which you can find useful when it is proximity detected. A device without publication or subscription is not detectable nor detecting, you need to attach `Publication` or `Subscription` on a `Device` in order to start either **broadcast presence** or **discover nearby devices**.
+The devices are core models for proximity detection. A `Device` defines an object that is either virtual or physical which you can find useful when it is proximity detected. A device without publication or subscription is not detectable nor detecting, you need to attach `Publication` or `Subscription` on a device in order to start either **broadcast presence** or **discover nearby devices**.
 
 `Match` is the event object to notify a proximity detection based on the encounter of two different devices.
 
 #### STEP 1: Create a device to **feature proximity detection**
-Matchmore relies on different sensors to provide the proximity detection; such as GPS, Bluetooth, and more. Each `Device` is unique and offers distinct possibilities:
+Matchmore relies on different sensors to provide the proximity detection; such as GPS, Bluetooth, and more. Each device is unique and offers distinct possibilities:
 * `Mobile Device` is based on a constant `Location` update, thanks to GPS,
 * `Beacon Device` is made for indoor and outdoor location services. It relies on Bluetooth technology,
-* `Pin Device` is non-physical and at a fixed geographical `Location`.
-* More types of `Device` will be added in the future.
+* `Pin Device` is non-physical and at a fixed geographical location.
+* More types of device will be added in the future.
 
-Matchmore SDK can be used in different ways, but the most common way is to have a `Main Device`. Usually, this `Main Device` is the device on which the app is running, typically it represents your actual users; Smartphones (mobile app) or Browser (web app).
+Matchmore SDK can be used in different ways, but the most common way is to have a main device. Usually, this main device is the device on which the app is running, typically it represents your actual users; Smartphones (mobile app) or Browser (web app).
 
 The following code demonstrates how to create the main device:
-**/SWIFT, KOTLIN or/AND JAVA, UNITY and JS/**
 ```swift
 // a. Create the main device
-        MatchMore.startUsingMainDevice { result in
-            // b. Unwrap the result
-            guard case .success(let mainDevice) = result else { print(result.errorMessage ?? ""); return }
-            print("🏔 Using device: 🏔\n\(mainDevice.encodeToJSON())")
+MatchMore.startUsingMainDevice { result in
+    // b. Unwrap the result
+    guard case .success(let mainDevice) = result else { print(result.errorMessage ?? ""); return }
+    print("🏔 Using device: 🏔\n\(mainDevice.encodeToJSON())")
 
-            // c. Start getting matches
-            MatchMore.startPollingMatches()
-            // d. Start location track in Matchmore
-            MatchMore.startUpdatingLocation()
-        }
+    // c. Start getting matches
+    MatchMore.startPollingMatches()
+    // d. Start location track in Matchmore
+    MatchMore.startUpdatingLocation()
+}
 ```
 
 * a. Use the wrapper MatchMore and call the method startUsingMainDevice() to start the registration of the app running device in Matchmore service.
@@ -50,16 +49,16 @@ The following code demonstrates how to create the main device:
 In case of success, Matchmore returns a new device object with all of the relevant details:
 ```JSON
 {
-    "id": "84579fd3-58da-433f-a776-ed01c5c3f992",
-    "createdAt": 1524214702782,
-    "name": "My iphone",
-    "platform": "iOs 11",
-    "deviceToken": "some-apn-token-for-push",
-    "location": {
-        "latitude": 46.445015,
-        "longitude": 6.908000,
-        "altitude": 452
-    }
+  "id": "84579fd3-58da-433f-a776-ed01c5c3f992",
+  "createdAt": 1524214702782,
+  "name": "My iphone",
+  "platform": "iOs 11",
+  "deviceToken": "some-apn-token-for-push",
+  "location": {
+      "latitude": 46.445015,
+      "longitude": 6.908000,
+      "altitude": 452
+  }
 }
 ```
 
@@ -76,24 +75,23 @@ You can attach as many `Publication` and `Subscription` as you want to a `Device
 **Please be aware that publishers** are NOT notified of matches occurrence, if you want your publishers to be notified, he must be subscribing as well.
 
 This code creates a publication via the SDK and this publication will be directly attached to the main device:
-**/SWIFT, KOTLIN, JAVA, UNITY and JS/**
 ```swift
-        // a. Create a Publication, set topic and properties
-        let publication = Publication(topic: "test", range: 100, duration: 60, properties: ["band": "Metallica",
-        "tags": ["rock", "metal"],
-        "price": 400,
-        "currency": "CHF",
-        "free_parking": true])
-        // b. Create a Publication for Main Device
-        MatchMore.createPublicationForMainDevice(publication: publication, completion: { result in
-            switch result {
-            case .success(let publication):
-                print("🏔 Pub was created: 🏔\n\(publication.encodeToJSON())")
-            case .failure(let error):
-                print("🌋 \(String(describing: error?.message)) 🌋")
-            }
-        })
+// a. Create a Publication, set topic and properties
+let publication = Publication(topic: "test", range: 100, duration: 60, properties: ["band": "Metallica",
+"tags": ["rock", "metal"],
+"price": 400,
+"currency": "CHF",
+"free_parking": true])
+// b. Create a Publication for Main Device
+MatchMore.createPublicationForMainDevice(publication: publication, completion: { result in
+    switch result {
+    case .success(let publication):
+        print("🏔 Pub was created: 🏔\n\(publication.encodeToJSON())")
+    case .failure(let error):
+        print("🌋 \(String(describing: error?.message)) 🌋")
     }
+  })
+}
 ```
 * a. Create a publication and fulfill the required parameters.
 - The topic is our first filter. In order to match, both a `Publication` and a `Subscription` need to be created on the same unique topic.
@@ -107,22 +105,22 @@ N.B.: Don't forget we need to handle two cases, in case of success we retrieve t
 In case of success, Matchmore returns a new `Publication` object with all the relevant details:
 ```JSON
 {
-  "id": "c62b5a4f-ce4a-4249-a1fa-33235732ce13",
-  "createdAt": 1524212756568,
-  "deviceId": "cc8ec61f-913c-4e81-b959-01153f8eb46d",
-  "topic": "test",
-  "range": 100,
-  "duration": 60,
-  "properties": {
-    "band": "Metallica",
-    "tags": [
-      "rock",
-      "metal"
-    ],
-    "price": 400,
-    "currency": "CHF",
-    "free_parking": true
-  }
+    "id": "c62b5a4f-ce4a-4249-a1fa-33235732ce13",
+    "createdAt": 1524212756568,
+    "deviceId": "cc8ec61f-913c-4e81-b959-01153f8eb46d",
+    "topic": "test",
+    "range": 100,
+    "duration": 60,
+    "properties": {
+      "band": "Metallica",
+      "tags": [
+        "rock",
+        "metal"
+      ],
+      "price": 400,
+      "currency": "CHF",
+      "free_parking": true
+    }
 }
 ```
 Once you create the publication, store the id value in your own database for later reference (presumably with the user's deviceId).
@@ -134,18 +132,17 @@ Matchmore offers the ability to simultaneously subscribe a device to multiple to
 You can create the features on two different topics for example, "geochat" in regards of geochatting and "detection" in regards of proximity detection to fully separate both features.
 
 ```swift
-        // a. Create a Subscription, set topic and selector.
-        let subscription = Subscription(topic: "test", range: 1, duration: 60, selector: "band <> 'Ramstein' AND price < 500")
-        // b. Create a Subscription for Main Device
-        MatchMore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
-            switch result {
-            case .success(let sub):
-                print("🏔 Socket Sub was created 🏔\n\(sub.encodeToJSON())")
-            case .failure(let error):
-                print("🌋 \(String(describing: error?.message)) 🌋")
-            }
-        })
+// a. Create a Subscription, set topic and selector.
+let subscription = Subscription(topic: "test", range: 1, duration: 60, selector: "band <> 'Ramstein' AND price < 500")
+// b. Create a Subscription for Main Device
+MatchMore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
+    switch result {
+    case .success(let sub):
+        print("🏔 Socket Sub was created 🏔\n\(sub.encodeToJSON())")
+    case .failure(let error):
+        print("🌋 \(String(describing: error?.message)) 🌋")
     }
+})
 ```
 
 * a. Create a subscription to await matches on the `test` topic.
@@ -197,29 +194,28 @@ var onMatch: OnMatchClosure?
 
 Next, implement how your matches should be handled:
 ```swift
-       // Handle Matches
-       self.onMatch = { [weak self] matches, device in
-           // a. Get most recent Match
-           let mostRecentMatch = matches.max(by: {
-               $0.createdAt! < $1.createdAt!
-           })
+ // Handle Matches
+ self.onMatch = { [weak self] matches, device in
+     // a. Get most recent Match
+     let mostRecentMatch = matches.max(by: {
+         $0.createdAt! < $1.createdAt!
+     })
 
-           // b. Unwrap properties
-           guard let properties = mostRecentMatch?.publication?.properties else {
-               print("No properties.")
-               return
-           }
-           guard let band = properties["band"] as? String else {return}
-           guard let tags = properties["tags"] as? Set else {return}
-           guard let price = properties["price"] as? Int else {return}
-           guard let currency = properties["currency"] as? String else {return}
-           guard let free_parking = properties["free_parking"] as? Bool else {return}
+     // b. Unwrap properties
+     guard let properties = mostRecentMatch?.publication?.properties else {
+         print("No properties.")
+         return
+     }
+     guard let band = properties["band"] as? String else {return}
+     guard let tags = properties["tags"] as? Set else {return}
+     guard let price = properties["price"] as? Int else {return}
+     guard let currency = properties["currency"] as? String else {return}
+     guard let free_parking = properties["free_parking"] as? Bool else {return}
 
-           // c. Do something
-       }
-       // d. Add a new match delegate to Matchmore
-       MatchMore.matchDelegates += self
-   }
+     // c. Do something
+ }
+ // d. Add a new match delegate to Matchmore
+ MatchMore.matchDelegates += self
 ```
 
 You need to create the delegate function for the onMatch listener. Every onMatchClosure are triggered when there is a new match.
@@ -260,7 +256,7 @@ The returned callback is composed of an array of hundred last matches, plus the 
     "pushers": [
         "localhost"
     ]
-  }
+    }
 }
 ```
 * d. Earlier, we have made ViewController conform to MatchDelegate protocol. In order to be informed of every match, you'll need to add ViewController to Matchmore wrapper match delegates list.
@@ -287,7 +283,7 @@ Any objects in Matchmore can exist in any of the following states:
 
 A creation has been initiated by sending a request to Matchmore. This is a transient state; it will be followed either by a transition to created, or failed
 
-* created
+* Created
 
 Creation has succeeded. In the created state an object is considered active in Matchmore. It has a unique id generated by Matchmore and a time of creation.
 
@@ -295,13 +291,18 @@ Creation has succeeded. In the created state an object is considered active in M
 
 A deletion has been initiated on the created objects by sending a request to Matchmore. This is a transient state; it will be followed either by a transition to deleted or failed
 
-* deleted
+* Deleted
 
 The Objects, having previously been created, has been deleted by the user
 
-* failed
+<div class="callout-block callout-danger"><div class="icon-holder">*&nbsp;*{: .fa .fa-exclamation-triangle}
+</div><div class="content">
+{: .callout-title}
+#### failed creation or deletion
 
-An indefinite failure condition. This state is entered if an error has been received from the Matchmore service (such as an attempt to create without the necessary access rights)
+Matchmore always try to inform you with error messages if any creation or deletion has failed. This state is entered if an error has been received from the Matchmore service (such as an attempt to create without the necessary access rights).
+
+</div></div>
 
 
 ### Location and Device
@@ -320,41 +321,15 @@ A device might be either virtual like a pin device or physical like a mobile or 
 In order to publish or subscribe to, you must first obtain a device instance and then attach pub/sub to that device. In most instances, as a convenience, it is unnecessary to explicitly attach to a device as it will implicitly attached to your main device when performing any publishing or subscribing.
 Devices may issue publications and subscriptions at any time; it may also cancel publications and subscriptions issued previously.
 
+In the following examples, you will learn how to obtain each types of device instance.
 
 #### Mobile
 A mobile device is one that potentially moves together with its user and therefore has a geographical location associated with it. A mobile device is typically a location-aware smartphone, which knows its location thanks to GPS or to some other means like cell tower triangulation, etc.
 
 
-##### Example
+##### Example obtain a Mobile device
 When starting your application, you want to make sure a Mobile device is corresponding to your smartphone running app in Matchmore's end.
 By calling method `startUsingMainDevice()`, you can either create a new mobile device or reuse one that you are aware that it exists in Matchmore cloud service.
-
-```swift
-      /// Creates or reuses cached mobile device object. Mobile device object is used to represent the smartphone.
-      ///
-      /// - Parameters:
-      ///   - device: (Optional) Device object that will be created on MatchMore's cloud. When device is `nil` this function will use `UIDevice.current` properties to create new Mobile Device.
-      ///   - shouldStartMonitoring: (Optional) flag that determines if created device should monitored for matches immediately after creating.
-      ///   - completion: Callback that returns response from the MatchMore cloud.
-      public class func startUsingMainDevice(device: MobileDevice? = nil, shouldStartMonitoring: Bool = true, completion: @escaping ((Result<MobileDevice>) -> Void)) {
-      if let mainDevice = instance.mobileDevices.main, device == nil {
-          instance.matchMonitor.startMonitoringFor(device: mainDevice)
-          completion(.success(mainDevice))
-          return
-      }
-      let uiDevice = UIDevice.current
-      let mobileDevice = MobileDevice(name: device?.name ?? uiDevice.name,
-                                      platform: device?.platform ?? uiDevice.systemName,
-                                      deviceToken: device?.deviceToken ?? instance.remoteNotificationManager.deviceToken ?? "",
-                                      location: device?.location ?? instance.locationUpdateManager.lastLocation)
-      instance.mobileDevices.create(item: mobileDevice) { (result) in
-          if let mainDevice = result.responseObject, shouldStartMonitoring {
-              instance.matchMonitor.startMonitoringFor(device: mainDevice)
-          }
-          completion(result)
-        }
-      }
-```
 
 1. **Create a new mobile device**
 
@@ -362,49 +337,83 @@ To create a new mobile device, call function `startUsingMainDevice()` with empty
 If you are using Matchmore SDK, then it automatically creates a mobile device in the Matchmore cloud for you.
 
 ```swift
-
+MatchMore.startUsingMainDevice { result in
+    guard case .success(let mainDevice) = result else { print("🌋 \(String(describing: result.errorMessage)) 🌋"); return }
+    print("🏔 Using device: 🏔\n\(mainDevice.encodeToJSON())")
+}
 ```
 
 2. **Reuse a mobile device**
 First, you need to be able to pass the ID of an existing mobile device. Presumably, it should be locally stored on the smartphone memory.
 
 ```swift
-
+var myMainDevice : MobileDevice?
+MatchMore.mobileDevices.find(byId: "ID stored in your backend", completion: {result in
+    if (result != nil){
+        myMainDevice = result
+        MatchMore.startUsingMainDevice(device: myMainDevice, shouldStartMonitoring: true, completion: {result in
+            switch result{
+            case .success(let mobile):
+                print("🏔 Main Device successfully retrieved 🏔\n\(mobile.encodeToJSON())")
+                myMainDevice = mobile
+            case .failure(let error):
+                print("🌋 \(String(describing: error?.message)) 🌋")
+            }
+        })
+    } else {
+        print("The id used to retrieve a main device does not correspond to any known mobile devices.")
+    }
+})
 ```
 
 
 #### Pin
 A pin device has an ultimate geographical location associated with it but is not represented by any object in the physical world; usually it’s location doesn’t change frequently if at all.
 
-##### Example
+##### Example obtain a pin device
 
 
 ```swift
-        let locationTest = Location.init(latitude: 46.490513, longitude: 6.430700)
-        let myPinDevice = PinDevice.init(name: "pin test", location: locationTest)
-        MatchMore.createPinDevice(pinDevice: myPinDevice, completion: { (result) in
-            switch result{
-            case .success(let pin):
-                print("🏔 Pin device was created 🏔\n\(pin.encodeToJSON())")
-            case .failure(let error):
-                print("🌋 \(String(describing: error?.message)) 🌋")
-            }})
+let locationTest = Location.init(latitude: 46.490513, longitude: 6.430700)
+let myPinDevice = PinDevice.init(name: "pin test", location: locationTest)
+MatchMore.createPinDevice(pinDevice: myPinDevice, completion: { (result) in
+    switch result{
+    case .success(let pin):
+        print("🏔 Pin device was created 🏔\n\(pin.encodeToJSON())")
+    case .failure(let error):
+        print("🌋 \(String(describing: error?.message)) 🌋")
+    }
+})
 ```
 
 #### iBeacon
 Beacons are high-tech tools that repeatedly broadcast a single signal under the form of advertising packet. Other devices interact with beacons through bluetooth and receive an advertising packet which consist of different letters and numbers. With the information received through the packet, devices like smartphones know how close they are to a specific beacon. The main purpose behind beacons is to improve indoor location. When developers know how close they are to this specific location, thanks to beacons, they can do something useful with this information. Proximity detection with beacons is done via Bluetooth technology, as a result, the beacons are not geographically located with geographic coordinates.
 
-##### Exemple
+##### Example obtain a beacon device
+Beacon device works slightly different from Mobile and Pin.
+It requires a pre-registration of all beacons in our portal.
 
+1. Go on Matchmore portal and start registering the beacons that you are going to use.
+We need you to provide us their UUID, major and minor parameters.
+
+2. Stay on Matchmore portal, and go to your applications view.
+Assign the beacons to the applications that will use them.
+When it is done, all registered beacons are accessible with right credentials via REST API or SDKs.
+
+3. Get your registered beacons in your app and start publishing to or subscribing to.
 ```swift
-        MatchMore.knownBeacons.findAll(completion: { beacons in
-            // store the beacon that you are looking for
-        })
+MatchMore.knownBeacons.findAll(completion: { beacons in
+    // store the beacon that you are looking for
+})
 ```
 
+<div class="callout-block callout-info"><div class="icon-holder">*&nbsp;*{: .fa .fa-info-circle}
+</div><div class="content">
+{: .callout-title}
+#### Beacons standard
 
-##### Beacons standard
 The iBeacon is the standard defined by Apple. There is also other beacons standard like Eddystone by Google or AltBeacons by Kontakt.io. Basically, the content of the advertising packet could vary slightly from one standard to another, but the communication protocol (bluetooth) remains the same. As a consequence, most beacons on the market support at least the iBeacon standard and the Eddystone standard.
+</div></div>
 
 
 #### Publication & Subscription
@@ -457,38 +466,137 @@ In other words, Matchmore topics support one-to-many, many-to-one, and many-to-m
 
 
 ##### Properties & selector
-Inside of publications messages and subscriptions, Matchmore allows accurate filtering.
+Inside of publications messages and subscriptions, Matchmore allows accurate filtering. Thanks to parameters `properties` and `selector`.
 
-> Properties
+* Publishers :
 
-`Publishers` are able to customized their messages, namely properties parameter.
+publications are entirely customizable, via parameter `properties`.
+Properties is a Map, you can set keys and values pairs to transmit supplement metadata to allow finer filtering for the subscribers of your topic.
+The following data types are allowed in Properties: String, Int, Set and Boolean.
 
-> Selector
+* Subscribers :
 
-Content based filtering is an additional layer, namely selector, allowing `subscribers` to filter incoming messages based on the message’s content.
+`selector` parameter let subscribers filter incoming matches based on the publication's content (properties).
 
-I.e., a publication and a subscription were issued on the same topic and have compatible properties and the evaluation of the selector against those properties returns true value, so there is a content correspondence which leads to a message delivery.
+Here is a list of operators you can use to filter incoming matches.
+
+<div class="table-responsive">
+
+{: .table .table-striped}
+| Supported SQL operators | Description
+|-
+| Comparison Operators |
+| = | Equal to
+| > | Greater than
+| < | Less than
+| >= | Greater than or equal to
+| <= | Less than or equal to
+| <> | Not equal to
+| Logical Operators |
+|-
+| ALL | TRUE if all of the subquery values meet the condition
+| AND | TRUE if all the conditions separated by AND is TRUE
+| ANY | TRUE if any of the subquery values meet the condition
+| BETWEEN | TRUE if the operand is within the range of comparisons
+| IN | TRUE if the operand is equal to one of a list of expressions
+| LIKE | TRUE if the operand matches a pattern
+| NOT | Displays a record if the condition(s) is NOT TRUE
+| OR | TRUE if any of the conditions separated by OR is TRUE
+
+</div>
+
+I.e., a publication and a subscription were issued on the same topic and have compatible properties and the evaluation of the selector against those properties returns true value, so there is a content correspondence which could lead to a match delivery (match occurs when both zones overlap).
 
 
 ##### Range
 When publishing or subscribing, you can decide the range in which it is interesting to start being discovered or discovering.
+The range is defined in meters.
+Upper limit is 5000 meters and lower limit is 1 meter.
 
 
 ##### Duration
 When publishing or subscribing, you decide how long it is useful for you to be discovered or discovering other devices.
+The duration is defined in seconds.
+There is no upper limit to duration and you can't set negative duration.
 
 
-##### Pushers
-Pushers can be used to trigger execution of code on your servers, when matches occur. With pushers, you can choose **how and where** you want to be notified when matches occur.
+{: #pushers}
+##### Subscription's Pushers
+With pushers, you can choose **how and where** you want to be notified when matches occur.
 You can stream the realtime matches within the Matchmore platform directly to another streaming, queueing service, devices or servers.
-For example, you could persist each match of a user to your own database, start counting matches, or trigger an event if a device has matched with a location that indicates that it has reached its destination. Pushers help solve many of the challenges associated with consuming matches data server-side or client-side.
+For example, you could persist each match of a user to your own database, start counting matches, trigger an event if a device has matched with a location that indicates that it has reached its destination, trigger execution of code on your servers. Pushers help solve many of the challenges associated with consuming matches data server-side or client-side.
 
 
-##### Exemple
+##### Example
+You are a company selling food and you want to count how many of your app users food hungry pass-by one of your store.
+This data is useful to know when to open your store for example.
 
+1. Create your store as a `Pin device`.
+```swift
+// Company's store location
+let locationTest = Location.init(latitude: 46.490513, longitude: 6.430700)
+var myPinDevice = PinDevice.init(name: "pin test", location: locationTest)
+MatchMore.createPinDevice(pinDevice: myPinDevice, completion: { (result) in
+    switch result{
+    case .success(let pin):
+        // Store this created Pin in the variable myPinDevice
+        myPinDevice = pin
+        // Start monitoring for matches
+        MatchMore.startMonitoringMatches(forDevice: pin)
+    case .failure(let error):
+        print("🌋 \(String(describing: error?.message)) 🌋")
+        // make sure your variable myPinDevice doesn't no contain a device that does not exist
+        myPinDevice = nil
+    }
+})
+```
 
+2. You know that each of your app users have a publication on the topic "pass-by-store" attached to the main device.
+For example, some information are known when the users login to your app. These information are then set in the publication.
+```swift
+MatchMore.startUsingMainDevice { result in
+    let userProperties : [String: Any] = ["name":"Jon",
+                                          "age": 24,
+                                          "gender":"male",
+                                          "starving": true]
+    let publication = Publication.init(topic: "pass-by-store", range: 10, duration: 5000, properties: userProperties)
+    MatchMore.createPublicationForMainDevice(publication: publication, completion: {result in
+        switch result {
+        case .success(let publication):
+            print(publication.encodeToJSON())
+        case .failure(let error):
+            print("🌋 \(String(describing: error?.message)) 🌋")
+        }
+    })
+}
+```
+
+3. Finally, you need to attach a subscription to the store (created pin device at point 1) on the topic "pass-by-store".
+Remember, you are interested only for food hungry users, so you use selector to filter their interest.
+Each day is 86400 second long so you set that duration. You are now ready to detect any of your app users passing-by your store.
+```swift
+let subscription = Subscription.init(topic: "pass-by-store", range: 5, duration: 86400, selector: "starving = true")
+MatchMore.createSubscription(subscription: subscription, forDevice: myPinDevice, completion: {result in
+    switch result{
+    case .success(let sub):
+        print(sub.encodeToJSON())
+    case .failure(let error):
+        print("🌋 \(String(describing: error?.message)) 🌋")
+    }
+})
+```
 
 
 #### Match
-Match events – get notified when devices with pub/sub on unique topic overlap zone.
-##### Exemple
+A match between a publication and a subscription occurs when both of the following two conditions hold:
+
+1. There is a context match occurs when for instance the subscription zone overlaps with the publication zone or a proximity event with an iBeacon device within the defined range occurred.
+
+2. There is a content match: the publication and the subscription match with respect to their counterparts namely, properties and selector, i.e., they were issued on the same topic and have compatible properties and the evaluation of the selector against those properties returns true value.
+
+Whenever a match between a publication and a subscription occurs, the device which owns the subscription receives that match asynchronously via a push notification if there exists a registered push endpoint. A push endpoint is an URI which is able to consume the matches for a particular device and subscription. The push endpoint doesn't necessary point to a mobile device but is rather a very flexible mechanism to define where the matches should be delivered. Look for [pushers](#pushers) for more information.
+
+Matches can also be retrieved by issuing a API call for a particular device.
+
+
+##### Example

@@ -6,6 +6,10 @@ sections:
   - Unity 3D
   - JavaScript
 ---
+[*&nbsp;*{: .fa .fa-download}           iOS         ](#ios){: .btn .btn-blue .btn-cta}
+[*&nbsp;*{: .fa .fa-download}           Android     ](#android){: .btn .btn-green .btn-cta}
+[*&nbsp;*{: .fa .fa-download}           Unity 3D    ](#unity-3d){: .btn .btn-primary .btn-cta}
+[*&nbsp;*{: .fa .fa-download}           JavaScript  ](#javascript){: .btn .btn-orange .btn-cta}
 
 ## iOS
 ### installation
