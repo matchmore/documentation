@@ -44,7 +44,7 @@ MatchMore.startUsingMainDevice { result in
 ```
 
 * a. Use the wrapper MatchMore and call the method startUsingMainDevice() to start the registration of the app running device in Matchmore service.
-* b. MatchMore SDK's methods are generally having an asynchronous callback. To handle that, you need to declare a closure. `result` is an enum, you need to unwrap it. When it is a success, the callback returns the object created in Matchmore's side, else when it is a failure, the callback is an error containing a message that describes what failed.
+* b. MatchMore SDK's methods are generally having an asynchronous callback. To handle that, you need to declare a closure. Callback result is an enum, you need to unwrap it. When it is a success, the callback returns the object created in Matchmore's side, else when it is a failure, the callback is an error containing a message that describes what failed.
 
 In case of success, Matchmore returns a new device object with all of the relevant details:
 ```JSON
@@ -70,8 +70,8 @@ When creating a device through the API, the response includes an ID, which you c
 * d. Again, using our SDK will discharge you of many tasks. This single line of code starts informing Matchmore service of the user's main device updates location.
 
 #### STEP 2: Create a publication to **broadcast the presence of a device**
-When a `Device` has a `Publication` attached, it is as if it broadcasts its presence. You can see a publication as a message, you might store metadata, such as a phone number, a name, or any relevant information, on the publication object. Publications can contain customized information destined for future `Match` receivers. The metadata are grouped in the `properties` parameter.
-You can attach as many `Publication` and `Subscription` as you want to a `Device`. It means a device can be both publisher and subscriber at the same time. You may need to define just one publication/subscription or several hundred, depending on how many services you offer.
+When a `Device` has a `Publication` attached to, it is as if it broadcasts its presence. You can see a publication as a message, you might store metadata, such as a phone number, a name, or any relevant information, on the publication object. Publications can contain customized information destined for future `Match` receivers. The metadata are grouped in the `properties` parameter.
+You can attach as many publications and subscriptions as you want to a device. It means a device can be both publisher and subscriber at the same time. You may need to define just one publication/subscription or several hundred, depending on how many services you offer.
 **Please be aware that publishers** are NOT notified of matches occurrence, if you want your publishers to be notified, he must be subscribing as well.
 
 This code creates a publication via the SDK and this publication will be directly attached to the main device:
@@ -99,10 +99,10 @@ Here, the topic is *test*. Every publication that is set on topic *test* will co
 - You can select the size of the zone around any publications/subscriptions, it is defined as a circle with a center at the given location and a range around that location. The range is defined in meters.
 - You can also set the duration of your publications. The duration is defined in seconds.
 - Now, you can set some properties to transmit supplement metadata to allow finer filtering for the subscribers of your topic.
-The following data types are allowed in `Properties` parameters: `String`, `Int`, `Set` and `Boolean`.
+The following data types are allowed in `Properties` parameters: String, Int, Set and Boolean.
 * b. Use the MatchMore SDK and call the method createPublicationForMainDevice() to send the creation request to Matchmore service.
 N.B.: Don't forget we need to handle two cases, in case of success we retrieve the created object, and in case of failure, we retrieve an error.
-In case of success, Matchmore returns a new `Publication` object with all the relevant details:
+In case of success, Matchmore returns a new publication object with all the relevant details:
 ```JSON
 {
     "id": "c62b5a4f-ce4a-4249-a1fa-33235732ce13",
@@ -171,11 +171,11 @@ Once you create the subscription, store the id value in your own database for la
 
 #### STEP 4: **Handle Match**, when subscribers and publishers are within range of each other
 A match warns the subscribers of the presence of nearby publishers.
-In other words, `Device` that has `Subscription` attached to, are notified when `Match` occurs. It is not the case for `Device` with `Publication` attached to.
+In other words, device that has subscription attached to, are notified when `Match` occurs. It is not the case for device with only publication attached to.
 
-In order to receive a match, you need to create an instance which is conform to `MatchDelegate` protocol. All instances conform to `MatchDelegate` protocol and that is a delegate of `MatchMonitor`, are notified.
+In order to receive a match, you need to create an instance which is conform to `MatchDelegate` protocol. All instances conform to MatchDelegate protocol and that is a delegate of `MatchMonitor`, are notified.
 
-Define an object that's `MatchDelegate` implementing OnMatchClosure.
+Define an object that's conform to MatchDelegate protocol implementing OnMatchClosure.
 ```swift
 class ExampleMatchHandler: MatchDelegate {
     var onMatch: OnMatchClosure?
@@ -603,6 +603,7 @@ Matches can also be retrieved by issuing a API call for a particular device.
 Any instances can handle matches for you.
 You need to make the class of your handler conform to MatchDelegate protocol and implement onMatchClosure.
 
+Here is an example of class.
 *MatchHandler.swift*
 ```swift
 class MatchHandler: MatchDelegate {
@@ -613,7 +614,7 @@ class MatchHandler: MatchDelegate {
 }
 ```
 
-Create an instance of MatchHandler and add it to match delegates.
+Create an instance of MatchHandler class and add it to match delegates.
 ```swift
 let matchHandler = MatchHandler.init({ matches, device in
     print(matches.description)
@@ -622,4 +623,4 @@ let matchHandler = MatchHandler.init({ matches, device in
 MatchMore.matchDelegates.add(matchHandler)
 ```
 
-When you have described the code that must be run when matches occur, just delegate your instances conform to MatchDelegate protocol to MatchDelegate. They will be notified for every match occurence.
+When you have described the code that must be run when matches occur, just delegate your instances conform to MatchDelegate protocol to MatchDelegate. In this example, for every match there will be a message printed in the console describing all the received matches, and the related device.
