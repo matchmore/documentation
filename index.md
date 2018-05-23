@@ -8,10 +8,10 @@ icon:
 color: blue
 sections:
   - /overview
-  - /proximityDetection
-  - /sdks
-  - /dashboard
-  - /account
+  - /geomatching
+  - /sdk
+  - /api
+  - /portal
 promo:
   title: "*&nbsp;*{: .fa .fa-heart} Questions ?
   We're always happy to help with code or other questions you might have! Search our documentation, contact support, or connect with our sales team."

@@ -1,5 +1,5 @@
 ---
-title: Proximity Detection
+title: Geomatching
 sections:
   - Quickstart
   - How it works

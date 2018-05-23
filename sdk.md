@@ -1,10 +1,12 @@
 ---
-title: SDKs integration & configuration
+title: SDK
 sections:
   - iOS
   - Android
   - Unity 3D
   - JavaScript
+  - React Native
+  - Xamarin
 ---
 [*&nbsp;*{: .fa .fa-download}           iOS         ](#ios){: .btn .btn-blue .btn-cta}
 [*&nbsp;*{: .fa .fa-download}           Android     ](#android){: .btn .btn-green .btn-cta}
@@ -222,23 +224,101 @@ Use these functions to start or stop polling matches from Matchmore Cloud.
 
 {: #android}
 ## Android
-#### Standard Integration
-#### Custom Integration
-#### Google Firebase Cloud Notification
-#### Web Socket
-When it comes to deliver matches, ALPS uses Web socket as well to provide alternative solutions to APNs.
-By initializing this, you inform Matchmore Cloud service that you want to be notified via web socket.
-#### Polling
-Use these functions to start or stop polling matches from Matchmore Cloud.
-
+### Getting started (Installations, alternatives installations, example for ios: cocoapods, framework, carthage, source)
+### Configuration
+#### Configure project (Request permission)
+#### Add SDK to project
+#### Start/stop Matchmore
+#### Start/Stop updating location
+#### For iOS/Android : Configure LocationManager
+##### Foreground update locations
+##### Background update locations
+##### Manual update locations
+### Tutorials
+#### Create a Mobile Device
+#### Create a Pin Device
+#### Create a Beacon Device (Except for SDKs that don’t support beacons yet)
+#### Start/Stop Monitoring for device, APNS/FCM, WebSocket and Polling
+#### Publish
+#### Subscribe
+#### GetMatches
+#### Local CRUD request (Create, Find, FindAll, Delete and DeleteAll)
+### Changelog
+### Supported Platform
 
 {: #unity-3d}
 ## Unity 3D
-#### Standard Integration
-#### Custom Integration
+### Getting started (Installations, alternatives installations, example for ios: cocoapods, framework, carthage, source)
+### Configuration
+#### Configure project (Request permission)
+#### Add SDK to project
+#### Start/stop Matchmore
+#### Start/Stop updating location
+#### For iOS/Android : Configure LocationManager
+##### Foreground update locations
+##### Background update locations
+##### Manual update locations
+### Tutorials
+#### Create a Mobile Device
+#### Create a Pin Device
+#### Create a Beacon Device (Except for SDKs that don’t support beacons yet)
+#### Start/Stop Monitoring for device, APNS/FCM, WebSocket and Polling
+#### Publish
+#### Subscribe
+#### GetMatches
+#### Local CRUD request (Create, Find, FindAll, Delete and DeleteAll)
+### Changelog
+### Supported Platform
 
 
 {: #javascript}
 ## JavaScript
-#### Standard Integration
-#### Custom Integration
+### Getting started (Installations, alternatives installations, example for ios: cocoapods, framework, carthage, source)
+### Configuration
+#### Configure project (Request permission)
+#### Add SDK to project
+#### Start/stop Matchmore
+#### Start/Stop updating location
+#### For iOS/Android : Configure LocationManager
+##### Foreground update locations
+##### Background update locations
+##### Manual update locations
+### Tutorials
+#### Create a Mobile Device
+#### Create a Pin Device
+#### Create a Beacon Device (Except for SDKs that don’t support beacons yet)
+#### Start/Stop Monitoring for device, APNS/FCM, WebSocket and Polling
+#### Publish
+#### Subscribe
+#### GetMatches
+#### Local CRUD request (Create, Find, FindAll, Delete and DeleteAll)
+### Changelog
+### Supported Platform
+
+{: #react-native}
+## React Native
+### Getting started (Installations, alternatives installations, example for ios: cocoapods, framework, carthage, source)
+### Configuration
+#### Configure project (Request permission)
+#### Add SDK to project
+#### Start/stop Matchmore
+#### Start/Stop updating location
+#### For iOS/Android : Configure LocationManager
+##### Foreground update locations
+##### Background update locations
+##### Manual update locations
+### Tutorials
+#### Create a Mobile Device
+#### Create a Pin Device
+#### Create a Beacon Device (Except for SDKs that don’t support beacons yet)
+#### Start/Stop Monitoring for device, APNS/FCM, WebSocket and Polling
+#### Publish
+#### Subscribe
+#### GetMatches
+#### Local CRUD request (Create, Find, FindAll, Delete and DeleteAll)
+### Changelog
+### Supported Platform
+
+{: #xamarin}
+## Xamarin
+On production, please subscribe to our blog to be informed !
