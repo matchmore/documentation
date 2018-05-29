@@ -268,7 +268,7 @@ Every time Matchmore SDK is informed of a new delegate, it will automatically in
 We run through all you need to know about Matchmore's service.
 Fundamental objects and their interaction are described in details, so you can handle Matchmore by your own.
 
-Matchmore service organizes the proximity detection with devices, publications and subscriptions. Devices are the central point of proximity detection; clients create devices to publish and subscribe to their interests, and every proximity detection, namely `match` is broadcast by Matchmore to the concerned subscribers.
+Matchmore's proximity detection rely on devices, publications and subscriptions. Devices are the central point of proximity detection; clients create devices to publish and subscribe to their interests, and every proximity detection, namely `match` is broadcast by Matchmore to the concerned subscribers.
 
 
 ### Object id

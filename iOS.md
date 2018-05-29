@@ -2,18 +2,10 @@
 title: iOS integration & configuration
 ---
 
-<!--
-- Installation
-- Start Matchmore
-- Requesting permission for location services
-- Apple Push Notification service
-- Web socket iOS
-- Polling iOS
--->
-### installation
+### Getting started
 #### Carthage
 #### other installations ?
-#### Inject MatchmoreSDK with CocoaPods
+#### CocoaPods
 If you don't have CocoaPods installed on your computer, you'll need to execute this command in the terminal:
 ```
 sudo gem install cocoapods
@@ -43,59 +35,7 @@ Save the Podfile, and inside **Terminal** enter the following command:
 
 `pod install`
 
-
-{: ##start-matchmore}
-#### Start Matchmore
-MatchmoreSDK is very malleable. It is configured by default to work for general cases. But it is possible to configure it according to your needs.
-First set up MatchmoreSDK Cloud credentials, this will allow the SDK to communicate with Matchmore Cloud on your behalf.
-
-You can generate a token API-key for yourself on matchmore.io.
-When you have your token, create your `MatchMoreConfig` with your API-key.
-
-```swift
-/// MatchMoreConfig is a structure that defines all variables needed to configure MatchMore SDK.
-public struct MatchMoreConfig {
-    let apiKey: String
-    let serverUrl: String
-    let customLocationManager: CLLocationManager?
-
-    public init(apiKey: String,
-                serverUrl: String = "https://api.matchmore.io/v5",
-                customLocationManager: CLLocationManager? = nil) {
-        self.apiKey = apiKey
-        self.serverUrl = serverUrl
-        self.customLocationManager = customLocationManager
-    }
-}
-```
-
-Starting with a basic setup. Use MatchmoreSDK with default configuration.
-
-```swift
-// Basic setup
-let config = MatchMoreConfig(apiKey: "YOUR_API_KEY") // create your own app at https://www.matchmore.io
-MatchMore.configure(config)
-```
-
-
-#### Custom Integration
-You can also customize MatchmoreSDK to meet other needs than those provided by default.
-In the example below, simply inject the custom location manager into the MatchmoreSDK.
-
-```swift
-// Custom Location Manager
-let locationManager = CLLocationManager()
-locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-locationManager.pausesLocationUpdatesAutomatically = true
-locationManager.allowsBackgroundLocationUpdates = true
-locationManager.requestAlwaysAuthorization()
-
-// Setup MatchmoreSDK
-let config = MatchMoreConfig(apiKey: "YOUR_API_KEY", customLocationManager: locationManager) // create your own app at https://www.matchmore.io
-MatchMore.configure(config)
-```
-
-
+### Configuration
 #### Requesting permission for Location Services
 Depending on your needs, your app may require Location Services to work in the background, which means we need to set up Location Services usage description. This description will be shown to the user when asking them about allowing the app to access their location.
 
@@ -129,8 +69,66 @@ When opening app for the first time, the system will prompt `authorization alert
 
 *GOOD PRACTICE* Request permission at launch only when necessary for your app to function. Users won’t be bothered by this request if it’s obvious that your app depends on their personal information to operate. For example, an app might only request access to the current location when activating a location tracking feature.
 
+#### Add SDK to the project
+MatchmoreSDK is very malleable. It is configured by default to work for general cases. But it is possible to configure it according to your needs.
+First set up Matchmore SDK Cloud credentials, this will allow the SDK to communicate with Matchmore Cloud on your behalf.
 
-#### Apple Push Notification service
+You can generate a token API-key for yourself on matchmore.io.
+When you have your token, create your `MatchMoreConfig` with your API-key.
+
+```swift
+/// MatchMoreConfig is a structure that defines all variables needed to configure MatchMore SDK.
+public struct MatchMoreConfig {
+    let apiKey: String
+    let serverUrl: String
+    let customLocationManager: CLLocationManager?
+
+    public init(apiKey: String,
+                serverUrl: String = "https://api.matchmore.io/v5",
+                customLocationManager: CLLocationManager? = nil) {
+        self.apiKey = apiKey
+        self.serverUrl = serverUrl
+        self.customLocationManager = customLocationManager
+    }
+}
+```
+
+Starting with a basic setup. Use MatchmoreSDK with default configuration.
+
+```swift
+// Basic setup
+let config = MatchMoreConfig(apiKey: "YOUR_API_KEY") // create your own app at https://www.matchmore.io
+MatchMore.configure(config)
+```
+
+
+##### Custom Integration
+You can also customize Matchmore SDK to meet other needs than those provided by default.
+In the example below, simply inject the custom location manager into the Matchmore SDK.
+
+```swift
+// Custom Location Manager
+let locationManager = CLLocationManager()
+locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+locationManager.pausesLocationUpdatesAutomatically = true
+locationManager.allowsBackgroundLocationUpdates = true
+locationManager.requestAlwaysAuthorization()
+
+// Setup MatchmoreSDK
+let config = MatchMoreConfig(apiKey: "YOUR_API_KEY", customLocationManager: locationManager) // create your own app at https://www.matchmore.io
+MatchMore.configure(config)
+```
+
+#### Start/Stop Matchmore
+#### Start/Stop location updates
+#### Configure Location updates
+
+### Tutorials
+#### Create a Mobile Device
+#### Create a Pin Device
+#### Create a Beacon Device
+#### Start/Stop Monitoring for device
+##### Apple Push Notification service
 We use Apple Push Notification service (APNs). It allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
 
 In order to get the certificates and upload them to our portal, `**A membership in the Apple iOS developer program is required.**`
@@ -154,7 +152,7 @@ Go to Identifiers -> App IDs. If you followed previous instructions, you should 
 
 Click on the Development or Production certificate button and follow the steps. We recommend you for a Production push certificate. It works for most general cases and is the required certificate for Apple store.
 
-##### Difference between Development and Production certificate
+###### Difference between Development and Production certificate
 
 The choice of APNs host depends on which kinds of iOS app you wish to send push notifications to. There are two kinds of iOS app:
 
@@ -197,7 +195,7 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 You can now start sending notifications to your users.
 
 {: #web-socket-ios}
-#### Web Socket
+##### Web Socket
 When it comes to deliver matches, Matchmore SDK uses Web socket as well to provide alternative solutions to APNs.
 By initializing this, you inform Matchmore Cloud service that you want to be notified via web socket.
 
@@ -208,7 +206,7 @@ By initializing this, you inform Matchmore Cloud service that you want to be not
 ```
 
 {: #polling-ios}
-#### Polling
+##### Polling
 Use these functions to start or stop polling matches from Matchmore Cloud.
 
 ```swift
@@ -216,3 +214,9 @@ Use these functions to start or stop polling matches from Matchmore Cloud.
     func startPollingMatches(pollingTimeInterval: TimeInterval)
     func stopPollingMatches()
 ```
+#### Publish
+#### Subscribe
+#### GetMatches
+#### Local States request (Create, Find, FindAll, Delete and DeleteAll)
+### ChangeLog
+### Supported Platform
