@@ -55,78 +55,118 @@ async Task SetupMatchmore()
 #### QuickStart
 Create main mobile device, publication and subscription. Please note that we're not caring about errors right now.
 
-```csharp
-var tsk = Task.Run(async () =>
-            {
-                // Configure Matchmore with your credentials
-                await Matchmore.SDK.Matchmore.ConfigureAsync("YOUR_API_KEY");
+```csharp 
+// Configure Matchmore with your credentials
+await Matchmore.SDK.Matchmore.ConfigureAsync("YOUR_API_KEY");
+//you can access the device later by calling Matchmore.SDK.Matchmore.Instance.MainDevice
+await Matchmore.SDK.Matchmore.Instance.SetupMainDeviceAsync();
+//this will start a simple polling based service which queries the local location services frequently, there are iOS and Android implementation available, but for other platforms check the Customization Section
+Matchmore.SDK.Matchmore.Instance.StartLocationService();
 
-                //you can access the device later by calling Matchmore.SDK.Matchmore.Instance.MainDevice
-                await Matchmore.SDK.Matchmore.Instance.SetupMainDeviceAsync();
+// Create the subscription
+var sub = new Subscription
+{
+    Topic = "Test Topic",
+    Duration = 30,
+    Range = 100,
+    Selector = "test = true and price <= 200"
+};
+// Start the creation of your subscription in Matchmore service
+var createdSub = await Matchmore.SDK.Matchmore.Instance.CreateSubscriptionAsync(sub);
+Console.WriteLine($"created subscription {createdSub.Id}");
+var pubDevice = await Matchmore.SDK.Matchmore.Instance.CreateDeviceAsync(new PinDevice
+{
+    Name = "Publisher"
+});
+var pub = new Publication
+{
+    Topic = "Test Topic",
+    Duration = 30,
+    Range = 100,
+    Properties = new Dictionary<string, object>{
+    {"test", true},
+    {"price", 199}
+}
+};
+//you can pass explicitly the device you would want to use, here we use a "virtual" second device for publication, like a pin
+var createdPub = await Matchmore.SDK.Matchmore.Instance.CreatePublicationAsync(pub, pubDevice);
+Console.WriteLine($"created publication {createdPub.Id}");
+// To receive matches, you need to create a monitor
+//default params of .SubscribeMatches() use your main device, Polling and Websocket as a channel delivery mechanism
+var monitor = Matchmore.SDK.Matchmore.Instance.SubscribeMatches();
+monitor.MatchReceived += (object sender, MatchReceivedEventArgs e) =>
+{
+    Console.WriteLine($"Got match from {e.Channel}, {e.Matches[0].Id}");
+};
+//if  you don't have access to your monitor, you can attach the event handler on the Matchmore Instance
+Matchmore.SDK.Matchmore.Instance.MatchReceived += (object sender, MatchReceivedEventArgs e) =>
+{
+    Console.WriteLine($"Got match using global event handler {e.Matches[0].Id}");
+};
+//lets update locations for both devices, in real life the published would pass
+await Matchmore.SDK.Matchmore.Instance.UpdateLocationAsync(new Location
+{
+    Latitude = 54.414662,
+    Longitude = 18.625498
+});
+await Matchmore.SDK.Matchmore.Instance.UpdateLocationAsync(new Location
+{
+    Latitude = 54.414662,
+    Longitude = 18.625498
+}, pubDevice);
 
-                // Create the subscription
-                var sub = new Subscription
-                {
-                    Topic = "Test Topic",
-                    Duration = 30,
-                    Range = 100,
-                    Selector = "test = true and price <= 200"
-                };
-
-                // Start the creation of your subscription in Matchmore service
-                var createdSub = await Matchmore.SDK.Matchmore.Instance.CreateSubscriptionAsync(sub);
-                System.Diagnostics.Debug.WriteLine($"{createdSub.CreatedAt}");
-
-                var pubDevice = await Matchmore.SDK.Matchmore.Instance.CreateDeviceAsync(new MobileDevice
-                {
-                    Name = "Publisher"
-                });
-
-                var pub = new Publication
-                {
-                    Topic = "Test Topic",
-                    Duration = 30,
-                    Range = 100,
-                    Properties = new Dictionary<string, object>(){
-                {"test", true},
-                {"price", 199}
-            }
-                };
-                //you can pass explicitly the device you would want to use
-                var createdPub = await Matchmore.SDK.Matchmore.Instance.CreatePublicationAsync(pub);
-                System.Console.WriteLine($"created publication {createdPub.Id}");
-
-                // To receive matches, you need to create a monitor
-                //default params of .SubscribeMatches() use your main device and Polling as a channel delivery mechanism
-                var monitor = Matchmore.SDK.Matchmore.Instance.SubscribeMatches();
-                monitor.MatchReceived += (object sender, MatchReceivedEventArgs e) => {
-                    //handle your match
-                };
-
-                //if  you don't have access to your monitor, you can attach the event handler on the Matchmore Instance
-                Matchmore.SDK.Matchmore.Instance.MatchReceived += (object sender, MatchReceivedEventArgs e) => {
-                    //handle your match, the sender will be your monitor
-                };
-            }
-
-                    );
-            Task.WaitAll(tsk);
 ```
 #### Start/stop Matchmore
+```csharp
+//Reset will stop monitors and location updates
+Matchmore.SDK.Matchmore.Reset();
+```
 #### Start/Stop updating location
+```csharp
+//this will start a simple polling based service which queries the local location services frequently, there are iOS and Android implementation available, but for other platforms check the Customization Section
+Matchmore.SDK.Matchmore.Instance.StartLocationService();
+```
+
+#### Customization
+The shown ConfigureAsync method is a shorthand, you can pass config object contain more information, like implementations for location services, state repositories
+```csharp
+await Matchmore.SDK.Matchmore.ConfigureAsync(new GenericConfig{
+                ApiKey = "YOUR_API_KEY",
+                LocationService = myLocationService, //implements ILocationService
+                StateManager = myStateManager, // implements IStateRepository
+            });
+```
+
+
+
 #### For iOS/Android : Configure LocationManager
 ##### Foreground update locations
 ##### Background update locations
 ##### Manual update locations
+
+```csharp
+await Matchmore.SDK.Matchmore.Instance.UpdateLocationAsync(new Location
+{
+    Latitude = 54.414662,
+    Longitude = 18.625498
+});
+```
+
 ### Tutorials
 #### Create a Mobile Device
 ```csharp
-            var pubDevice = await Matchmore.SDK.Matchmore.Instance.CreateDeviceAsync(new MobileDevice
-            {
-                Name = "Publisher"
-            });
+var pubDevice = await Matchmore.SDK.Matchmore.Instance.CreateDeviceAsync(new MobileDevice
+{
+    Name = "Publisher"
+});
 ```
 #### Create a Pin Device
+```csharp
+var pubDevice = await Matchmore.SDK.Matchmore.Instance.CreateDeviceAsync(new PinDevice
+{
+    Name = "Publisher"
+});
+```
 #### Create a Beacon Device (Except for SDKs that don’t support beacons yet)
 #### Start/Stop Monitoring for device, APNS/FCM, WebSocket and Polling
 #### Publish
@@ -157,6 +197,10 @@ var sub = new Subscription
 var createdSub = await Matchmore.SDK.Matchmore.Instance.CreateSubscriptionAsync(sub);
 ```
 #### GetMatches
+```csharp
+//you can call to get matches at your leisure, if you don't want to use the monitors. In the end the monitors are calling exactly this method
+var matches = await Matchmore.SDK.Matchmore.Instance.GetMatches();
+```
 #### Third party match providers (APNS and FCM)
 
 To use your match provider of your choice, you need to wire it differently depending on the platform.
@@ -223,14 +267,16 @@ Additional info you might find useful
 * [apns in xamarin](https://docs.microsoft.com/en-us/xamarin/ios/platform/user-notifications/deprecated/remote-notifications-in-ios)
 
 #### Local CRUD request (Create, Find, FindAll, Delete and DeleteAll)
-### Development
+```csharp
+//You can access locally cached publications and subscriptions by calling, these are IEnumerables which you can easily query with LINQ
+Matchmore.SDK.Matchmore.Instance.ActiveSubscriptions;
+Matchmore.SDK.Matchmore.Instance.ActivePublications;
 
-To run tests for .NET Standard use `dotnet` command line utility
+//you can delete also your sub and pub calling
+await Matchmore.SDK.Matchmore.Instance.DeleteSubscriptionAsync(sub.Id);
+await Matchmore.SDK.Matchmore.Instance.DeletePublicationAsync(pub.Id);
+await Matchmore.SDK.Matchmore.Instance.DeleteDeviceAsync(device.Id)
 ```
-dotnet test SDK.Tests/SDK.NetStandard.Tests.csproj
-```
-
-Other devices can be run from visual studio
 
 ### Changelog
 ### Supported Platform
