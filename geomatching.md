@@ -7,26 +7,26 @@ sections:
 
 {: #quickstart}
 ### Quickstart
-Quickly create geomatching for any types of device.
+Quickly start geomatching for any type of device.
 
-Follow these four steps to create geomatching:
+Follow these four steps to start geomatching:
 1. Create a device to **feature geomatching**
 2. Create a publication to **broadcast the presence of a device**
-3. Create a subscription to **start discovering near devices**
-4. **Handle Match**, when subscribers and publishers are within range of each other
+3. Create a subscription to **start discovering nearby devices**
+4. **Handle the Match**, when subscribers and publishers are within range of each other
 
-The devices are core models for geomatching. A `Device` defines an object that is either virtual or physical which you can find useful when it is proximity detected. A device without publication or subscription is not detectable nor detecting, you need to attach `Publication` or `Subscription` on a device in order to start either **broadcast presence** or **discover nearby devices**.
+The devices are core elements of the domain model for geomatching. A `Device` defines an object that is either virtual or physical. A device without publication or subscription is not detectable nor detecting, so you need to attach `Publication` or `Subscription` on a device in order to start either to **broadcast presence** or to **discover nearby devices**.
 
-`Match` is the event object to notify a geomatching based on the encounter of two different devices geographically and respective topic and content properties corresponding.
+A `Match` is the event object to notify a device of any geomatching. It is location and content based, in other words a `Match` event is triggered only if both devices are in the specified range and their Publication/Subscription content match.
 
 #### STEP 1: Create a device to **feature geomatching**
-Matchmore relies on different sensors to provide the geomatching; such as GPS, Bluetooth, and more. Each device is unique and offers distinct possibilities:
-* `Mobile Device` is based on a constant `Location` update, thanks to GPS,
-* `Beacon Device` is made for indoor and outdoor location services. It relies on Bluetooth technology,
-* `Pin Device` is non-physical and at a fixed geographical location.
+To provide geomatching Matchmore relies on different hardware sensors such as GPS, Bluetooth, and others. Each device is unique and offers distinct possibilities:
+* `Mobile Device` is providing `Location` updates, thanks to its GPS
+* `Beacon Device` is made for indoor and outdoor location services. It relies on Bluetooth technology.
+* `Pin Device` is a virtual (non-physical) device and placed at geographic coordinates.
 * More types of device will be added in the future.
 
-Matchmore SDK can be used in different ways, but the most common way is to have a main device. Usually, this main device is the device on which the app is running, typically it represents your actual users; Smartphones (mobile app) or Browser (web app).
+Matchmore SDK can be used in different ways, but the most common way is to have a main device. Usually, this main device is the device on which the app is running, typically it is operated by your actual user: Smartphone (mobile app) or Browser (web app).
 
 The following code demonstrates how to create the main device:
 ```swift
@@ -43,8 +43,8 @@ MatchMore.startUsingMainDevice { result in
 }
 ```
 
-* a. Use the wrapper MatchMore and call the method startUsingMainDevice() to start the registration of the app running device in Matchmore service.
-* b. MatchMore SDK's methods are generally having an asynchronous callback. To handle that, you need to declare a closure. Callback result is an enum, you need to unwrap it. When it is a success, the callback returns the object created in Matchmore's side, else when it is a failure, the callback is an error containing a message that describes what failed.
+* a. Use the wrapper MatchMore and call the method startUsingMainDevice() to start the registration of the application running on your device in Matchmore service.
+* b. MatchMore SDK's methods are generally using an asynchronous callback. To handle it, you need to declare a closure. Callback's result is an enum, so you need to unwrap it. When it is a success, the callback returns the `Device` object that has been created, when it is a failure, the callback provides you with an `Error` object containing a message to describe why it has failed.
 
 In case of success, Matchmore returns a new device object with all of the relevant details:
 ```JSON
@@ -62,16 +62,16 @@ In case of success, Matchmore returns a new device object with all of the releva
 }
 ```
 
-Once you create the device, store the id value in your own database for later reference (presumably with the user's email address).
+Once you have created a device, we advise you to store it's id value in your own database for later reference.
 Devices have a universally unique identifier (UUID) that is generated automatically upon device creation.
 
-When creating a device through the API, the response includes a UUID, which you can use to attach `Publication` or `Subscription`. Provide this UUID in your Matchmore requests to attach a publication/subscription to an existing device. Pass the UUID of the desired device as the deviceId value of the publication/subscription parameter.
-* c. When using our SDK, polling the `Match` in Matchmore cloud service is that easy, just one line of code.
-* d. Again, using our SDK will discharge you of many tasks. This single line of code starts informing Matchmore service of the user's main device location.
+When creating a device through the API, the response includes an UUID, which you can use to attach a `Publication` or `Subscription` to this `Device`. To attach a Publication/Subscription to an existing device provide it's UUID in your Matchmore requests. Pass the UUID of the desired device as the deviceId value of the Publication/Subscription parameter.
+* c. When using our SDK, polling the `Match` in Matchmore cloud service is easy, just one line of code.
+* d. Again, using our SDK will relieve you of many tasks. This single line of code starts informing Matchmore service of the user's device location.
 
 #### STEP 2: Create a publication to **broadcast the presence of a device**
 When a `Device` has a `Publication` attached to, it is as if it broadcasts its presence. You can see a publication as a message, you might store metadata, such as a phone number, a name, or any relevant information, on the publication object. Publications can contain customized information destined for future `Match` receivers. The metadata are grouped in the `properties` parameter.
-You can attach as many publications and subscriptions as you want to a device. It means a device can be both publisher and subscriber at the same time. You may need to define just one publication/subscription or several hundred, depending on scenarios.
+You can attach as many publications and subscriptions as you want to a device. It means a device can be both publisher and subscriber at the same time. You may need to define just one Publication/Subscription or several hundred, depending on scenarios.
 **Publishers** are NOT notified of matches occurrence, if you want your publishers to be notified, he must be subscribing as well.
 
 This code creates a publication via the SDK and this publication will be directly attached to the main device:
