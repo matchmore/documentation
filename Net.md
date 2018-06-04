@@ -3,6 +3,9 @@ title: .NET SDK
 ---
 
 ### Getting started
+#### Creating your project
+When creating your project, be sure to choose "Use Shared Library" for `Shared Code` option.
+
 #### NuGet package
 You can integrate Matchmore to your project via NuGet.
 
@@ -55,7 +58,7 @@ async Task SetupMatchmore()
 #### QuickStart
 Create main mobile device, publication and subscription. Please note that we're not caring about errors right now.
 
-```csharp 
+```csharp
 // Configure Matchmore with your credentials
 await Matchmore.SDK.Matchmore.ConfigureAsync("YOUR_API_KEY");
 //you can access the device later by calling Matchmore.SDK.Matchmore.Instance.MainDevice
@@ -140,8 +143,6 @@ await Matchmore.SDK.Matchmore.ConfigureAsync(new GenericConfig{
 
 
 #### For iOS/Android : Configure LocationManager
-##### Foreground update locations
-##### Background update locations
 ##### Manual update locations
 
 ```csharp
@@ -167,8 +168,6 @@ var pubDevice = await Matchmore.SDK.Matchmore.Instance.CreateDeviceAsync(new Pin
     Name = "Publisher"
 });
 ```
-#### Create a Beacon Device (Except for SDKs that don’t support beacons yet)
-#### Start/Stop Monitoring for device, APNS/FCM, WebSocket and Polling
 #### Publish
 ```csharp
 var pub = new Publication
@@ -266,7 +265,7 @@ Additional info you might find useful
 * [fcm in xamarin](https://docs.microsoft.com/en-us/xamarin/android/data-cloud/google-messaging/remote-notifications-with-fcm?tabs=vswin)
 * [apns in xamarin](https://docs.microsoft.com/en-us/xamarin/ios/platform/user-notifications/deprecated/remote-notifications-in-ios)
 
-#### Local CRUD request (Create, Find, FindAll, Delete and DeleteAll)
+#### Local States request (Create, Find, FindAll, Delete and DeleteAll)
 ```csharp
 //You can access locally cached publications and subscriptions by calling, these are IEnumerables which you can easily query with LINQ
 Matchmore.SDK.Matchmore.Instance.ActiveSubscriptions;

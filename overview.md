@@ -9,9 +9,9 @@ sections:
 ---
 
 ## Matchmore
-As the fast-growing world of mobile connected objects computing era is becoming a reality, Matchmore aims at becoming the leading cloud-based software platform supporting the creation of highly dynamic proximity-based applications. At the heart of our vision is the notion of geomatching, which builds on the location-based publish/subscribe communication model.
+As the fast-growing world of mobile connected objects computing era is becoming a reality, Matchmore aims at becoming the leading cloud-based software platform supporting the creation of highly dynamic proximity-based applications. At the heart of our vision is the notion of geomatching, which is built on the location-based publish/subscribe communication model.
 
-#### Description
+#### Mission
 
 Our mission is to provide tools that dramatically simplify and accelerate the development, testing and deployment of rich application scenarios based on **multiple moving and connected objects**, making such applications the new low hanging fruits of the mobile app industry.
 
@@ -22,7 +22,7 @@ Get familiar with the Matchmore products and explore their features:
 [*&nbsp;*{: .fa .fa-exclamation-circle} Discover our SDKs                   ](#sdks-integration-configuration){: .btn .btn-orange .btn-cta}
 
 ### Understanding Matchmore
-Matchmore helps you model any geolocated or proximity-based applications, by taking advantage of advanced location-based publish/subscribe model, create any type of interactions for connected objects from smartphones to any sensors and everything in between.
+Matchmore helps you to model any geolocated or proximity-based applications, by taking advantage of advanced location-based publish/subscribe model. Create any type of interactions for connected objects (Internet of Things) from smartphones to any sensors and everything in between.
 
 {: #in-depth-publish-subscribe}
 #### In-depth Publish/subscribe
@@ -32,7 +32,7 @@ The publish/subscribe model is a message-oriented paradigm in which, publishers 
 {: #matchmore-cloud-service}
 #### Matchmore Cloud Service
 Matchmore is designed to simplify software developer’s life. It is an extension of the Publish-Subscribe model adding user context while remaining message-oriented. Publications and subscriptions are extended with the notion of geographical zone. The zone is defined as a circle with a center at the given location and a range around that location.
-Publications and subscriptions which are associated with a mobile device, e.g. user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location. The crossing of the range and corresponding topic and content lead to the delivery of the message, in fact, a **match**.
+Publications and subscriptions which are associated with a mobile device, beacons or pin points. For example, user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location. The crossing of the range and corresponding topic and content lead to the delivery of the message, in fact, a **match**.
 
 To facilitate the mobile application development, Matchmore is provided in enhanced Software Development Kits (SDK).
 
@@ -52,8 +52,8 @@ Matchmore enables you to notify the user whenever there’s someone/something th
 
 * **Create Smart Geofences**
 
-Geofences are used to define special areas in the real world, that you are particularly interested in.
-With smart geofences, you can go further in the filtering process. It can be used for analytics uses: count how many app users based on their preference enter a specific area, thanks to the topic and content filtering. Or for triggering content inside the mobile or externally depending on user's attached pieces of information. Works indoor (beacons) and outdoor (GPS).
+Geofences are used to define virtual areas in the real world, that you are particularly interested in.
+With smart geofences, you can go further in the filtering process. It can be used for analytics: count how many app's users based on their preference enter a specific area, thanks to the topic and content filtering. Or for triggering content inside the mobile or externally depending on user's attached pieces of information. Works indoor (beacons) and outdoor (GPS).
 
 * **Smart activation with IoT**
 
@@ -65,23 +65,23 @@ Broadcast anonymous message to people around you.
 
 * **Smart checkpoints**
 
-Create virtual gates or points to control the passage of users. A trail is validated if the user has passed by every point related to the trail.
+Create virtual gates or points to control the passage of users. Example : A trail is validated if the user has passed by every point related to the trail.
 
 <div class="callout-block callout-success"><div class="icon-holder">*&nbsp;*{: .fa .fa-thumbs-up}
 </div><div class="content">
 {: .callout-title}
 #### Interesting, isn't it ?
 
-You can add any of those above listed features with [Proximity Detection](#proximity-detection). Simply use Matchmore to add location context and tracking to your apps with just a few lines of code.
+You can add any of those above listed features with [geomatching](#geomatching). Simply use Matchmore to add location context and tracking to your apps with just a few lines of code.
 
-We are convinced that Matchmore is applicable to many domains and eases the modelization of any geolocated applications.
+Matchmore is applicable to many domains and eases the modelization and deployment of any geolocated applications.
 
 Want to get started quickly? Follow our [quickstart guide](#quickstart).
 
 </div></div>
 
 ### Developer tools
-You can integrate Matchmore with your apps using our developer tools: the SDKs and the API.
+You can integrate Matchmore in your apps using our developer tools: SDKs and the REST API.
 
 #### SDK
 Integrate the SDK into your iOS and Android apps to start tracking users and generating matches. The SDKs abstracts away cross-platform differences between location services on iOS and Android, allowing you to add location context and proximity detection to your apps with just a few lines of code.

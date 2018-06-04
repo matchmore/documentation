@@ -7,20 +7,20 @@ sections:
 
 {: #quickstart}
 ### Quickstart
-Quickly create proximity detection for any types of device.
+Quickly create geomatching for any types of device.
 
-Follow these four steps to create proximity detection:
-1. Create a device to **feature proximity detection**
+Follow these four steps to create geomatching:
+1. Create a device to **feature geomatching**
 2. Create a publication to **broadcast the presence of a device**
 3. Create a subscription to **start discovering near devices**
 4. **Handle Match**, when subscribers and publishers are within range of each other
 
-The devices are core models for proximity detection. A `Device` defines an object that is either virtual or physical which you can find useful when it is proximity detected. A device without publication or subscription is not detectable nor detecting, you need to attach `Publication` or `Subscription` on a device in order to start either **broadcast presence** or **discover nearby devices**.
+The devices are core models for geomatching. A `Device` defines an object that is either virtual or physical which you can find useful when it is proximity detected. A device without publication or subscription is not detectable nor detecting, you need to attach `Publication` or `Subscription` on a device in order to start either **broadcast presence** or **discover nearby devices**.
 
-`Match` is the event object to notify a proximity detection based on the encounter of two different devices.
+`Match` is the event object to notify a geomatching based on the encounter of two different devices geographically and respective topic and content properties corresponding.
 
-#### STEP 1: Create a device to **feature proximity detection**
-Matchmore relies on different sensors to provide the proximity detection; such as GPS, Bluetooth, and more. Each device is unique and offers distinct possibilities:
+#### STEP 1: Create a device to **feature geomatching**
+Matchmore relies on different sensors to provide the geomatching; such as GPS, Bluetooth, and more. Each device is unique and offers distinct possibilities:
 * `Mobile Device` is based on a constant `Location` update, thanks to GPS,
 * `Beacon Device` is made for indoor and outdoor location services. It relies on Bluetooth technology,
 * `Pin Device` is non-physical and at a fixed geographical location.
@@ -128,8 +128,8 @@ Once you create the publication, store the id value in your own database for lat
 #### STEP 3: Create a subscription to **start discovering near devices**
 When a `Match` occurs, every **subscriber** receive a message based on their topic and content selection. With the selector parameter, you can filter publications based on the metadata contained within them to discover only the devices that might interest you.
 
-Matchmore offers the ability to simultaneously subscribe a device to multiple topics. This provides supplement channel for easily include your features in flexible ways. For example, if your business offers multiple features or services based on proximity detection, each could be represented by its own topic and the same device could be subscribed to more than one topic. Imagine an app that has two features: geochatting (Broadcast messages to nearby users) and proximity detection (discover how many users are nearby).
-You can create the features on two different topics for example, "geochat" in regards of geochatting and "detection" in regards of proximity detection to fully separate both features.
+Matchmore offers the ability to simultaneously subscribe a device to multiple topics. This provides supplement channel for easily include your features in flexible ways. For example, if your business offers multiple features or services based on proximity detection, each could be represented by its own topic and the same device could be subscribed to more than one topic. Imagine an app that has two features: geochatting (Broadcast messages to nearby users) and geomatching (discover how many users are nearby).
+You can create the features on two different topics for example, "geochat" in regards of geochatting and "detection" in regards of geomatching to fully separate both features.
 
 ```swift
 // a. Create a Subscription, set topic and selector.
@@ -268,7 +268,7 @@ Every time Matchmore SDK is informed of a new delegate, it will automatically in
 We run through all you need to know about Matchmore's service.
 Fundamental objects and their interaction are described in details, so you can handle Matchmore by your own.
 
-Matchmore's proximity detection rely on devices, publications and subscriptions. Devices are the central point of proximity detection; clients create devices to publish and subscribe to their interests, and every proximity detection, namely `match` is broadcast by Matchmore to the concerned subscribers.
+Matchmore's geomatching rely on devices, publications and subscriptions. Devices are the central point of geomatching; clients create devices to publish and subscribe to their interests, and every geomatching, namely `match` is broadcast by Matchmore to the concerned subscribers.
 
 
 ### Object id
@@ -387,7 +387,7 @@ MatchMore.createPinDevice(pinDevice: myPinDevice, completion: { (result) in
 ```
 
 #### iBeacon
-Beacons are high-tech tools that repeatedly broadcast a single signal under the form of advertising packet. Other devices interact with beacons through bluetooth and receive an advertising packet which consist of different letters and numbers. With the information received through the packet, devices like smartphones know how close they are to a specific beacon. The main purpose behind beacons is to improve indoor location. When developers know how close they are to this specific location, thanks to beacons, they can do something useful with this information. Proximity detection with beacons is done via Bluetooth technology, as a result, the beacons are not geographically located with geographic coordinates.
+Beacons are high-tech tools that repeatedly broadcast a single signal under the form of advertising packet. Other devices interact with beacons through bluetooth and receive an advertising packet which consist of different letters and numbers. With the information received through the packet, devices like smartphones know how close they are to a specific beacon. The main purpose behind beacons is to improve indoor location. When developers know how close they are to this specific location, thanks to beacons, they can do something useful with this information. geomatching with beacons is done via Bluetooth technology, as a result, the beacons are not geographically located with geographic coordinates.
 
 ##### Example obtain a beacon device
 Beacon device works slightly different from Mobile and Pin.
