@@ -6,7 +6,7 @@ sections:
   - Unity 3D
   - JavaScript
   - React Native
-  - Xamarin
+  - .Net
 ---
 [*&nbsp;*{: .fa .fa-download}           iOS         ](#ios){: .btn .btn-blue .btn-cta}
 [*&nbsp;*{: .fa .fa-download}           Android     ](#android){: .btn .btn-green .btn-cta}
@@ -319,6 +319,6 @@ Use these functions to start or stop polling matches from Matchmore Cloud.
 ### Changelog
 ### Supported Platform
 
-{: #xamarin}
-## Xamarin
-On production, please subscribe to our blog to be informed !
+{: #.net}
+## .NET
+In development, please subscribe to our blog to be informed !
