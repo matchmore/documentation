@@ -4,7 +4,7 @@ sections:
   - Matchmore
   - In-depth Publish/Subscribe
   - Matchmore Cloud Service
-  - Example uses
+  - Examples
   - Developer tools
 ---
 
