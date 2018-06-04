@@ -1,5 +1,5 @@
 ---
-title: .NET SDK
+title: .NET & Xamarin SDK
 ---
 
 ### Getting started
@@ -277,5 +277,7 @@ await Matchmore.SDK.Matchmore.Instance.DeletePublicationAsync(pub.Id);
 await Matchmore.SDK.Matchmore.Instance.DeleteDeviceAsync(device.Id)
 ```
 
+### DEMO
+A console demo is available in our [.NET SDK github](https://github.com/matchmore/net-sdk).
 ### Changelog
 ### Supported Platform
