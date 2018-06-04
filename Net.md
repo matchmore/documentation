@@ -44,6 +44,7 @@ Also, find your AndroidManifest.xml file in the properties folder and tick the f
 Required permissions :
 * ACCESS_COARSE_LOCATION
 * ACCESS_FINE_LOCATION
+
 #### Add SDK to project
 
 Setup application API key and world, get it for free from [http://matchmore.io/](http://matchmore.io/).
