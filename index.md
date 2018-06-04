@@ -9,7 +9,8 @@ color: blue
 sections:
   - /overview
   - /geomatching
-  - /sdk
+  - /sdks
+  - /Net
   - /api
   - /portal
 promo:
