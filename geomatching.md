@@ -47,7 +47,7 @@ MatchMore.startUsingMainDevice { result in
 * b. MatchMore SDK's methods are generally using an asynchronous callback. To handle it, you need to declare a closure. Callback's result is an enum, so you need to unwrap it. When it is a success, the callback returns the `Device` object that has been created, when it is a failure, the callback provides you with an `Error` object containing a message to describe why it has failed.
 
 In case of success, Matchmore returns a new device object with all of the relevant details:
-```JSON
+```json
 {
   "id": "84579fd3-58da-433f-a776-ed01c5c3f992",
   "createdAt": 1524214702782,
@@ -103,7 +103,7 @@ The following data types are allowed in `Properties` parameters: String, Int, Se
 * b. Use the MatchMore SDK and call the method createPublicationForMainDevice() to send a creation request to the Matchmore service.
 Don't forget that we need to handle two cases: in case of success we retrieve the created object, and in case of failure, we retrieve an error.
 In case of success, Matchmore returns a new `Publication` object with all the relevant details:
-```JSON
+```json
 {
     "id": "c62b5a4f-ce4a-4249-a1fa-33235732ce13",
     "createdAt": 1524212756568,
@@ -153,7 +153,7 @@ MatchMore.createSubscriptionForMainDevice(subscription: subscription, completion
 Don't forget that we need to handle two cases: in case of success we retrieve the created object, and in case of failure, we retrieve an error.
 
 In case of success, Matchmore returns a new `Subscription` object with all the relevant details:
-```JSON
+```json
 {
   "id": "376880ff-52af-4424-8cc7-6033f01ec077",
   "createdAt": 1524232785653,
@@ -223,7 +223,7 @@ The returned callback is composed of an array containing the hundred last matche
 * a. Filter the Set of hundred returned last matches and get the most recent one.
 * b. Safely unwrap the value you'll use.
 * c. Use the match information that you need
-```JSON
+```json
 {
   "id": "c67dha4f-ce4a-4249-a1fa-33235732ce13",
   "createdAt": 1524232995653,
