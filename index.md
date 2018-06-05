@@ -1,7 +1,7 @@
 ---
 title: Matchmore documentation
-excerpt: Demo example, consectetuer adipiscing elit
-date: 2018-04-25
+excerpt: The full documentation portal of Matchmore
+date: 2018-06-05
 icon:
   type: fa
   name: fa-graduation-cap
