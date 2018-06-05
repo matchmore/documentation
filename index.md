@@ -8,7 +8,7 @@ title: Documentation portal
 color: blue
 sections:
   - /overview
-  - /geomatching
+  - /matching
   - /sdks
   - /Net
   - /api
