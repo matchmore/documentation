@@ -34,7 +34,7 @@ The following code demonstrates how to create the main device:
 MatchMore.startUsingMainDevice { result in
     // b. Unwrap the result
     guard case .success(let mainDevice) = result else { print(result.errorMessage ?? ""); return }
-    print("🏔 Using device: 🏔\n\(mainDevice.encodeToJSON())")
+    print("Using device: \n\(mainDevice.encodeToJSON())")
 
     // c. Start getting matches
     MatchMore.startPollingMatches()
@@ -86,9 +86,9 @@ let publication = Publication(topic: "test", range: 100, duration: 60, propertie
 MatchMore.createPublicationForMainDevice(publication: publication, completion: { result in
     switch result {
     case .success(let publication):
-        print("🏔 Pub was created: 🏔\n\(publication.encodeToJSON())")
+        print("Pub was created: \n\(publication.encodeToJSON())")
     case .failure(let error):
-        print("🌋 \(String(describing: error?.message)) 🌋")
+        print("\(String(describing: error?.message))")
     }
   })
 }
@@ -138,9 +138,9 @@ let subscription = Subscription(topic: "test", range: 1, duration: 60, selector:
 MatchMore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
     switch result {
     case .success(let sub):
-        print("🏔 Socket Sub was created 🏔\n\(sub.encodeToJSON())")
+        print("Socket Sub was created \n\(sub.encodeToJSON())")
     case .failure(let error):
-        print("🌋 \(String(describing: error?.message)) 🌋")
+        print("\(String(describing: error?.message))")
     }
 })
 ```
@@ -343,8 +343,8 @@ To use the current mobile device, call function `startUsingMainDevice()` with em
 
 ```swift
 MatchMore.startUsingMainDevice { result in
-    guard case .success(let mainDevice) = result else { print("🌋 \(String(describing: result.errorMessage)) 🌋"); return }
-    print("🏔 Using device: 🏔\n\(mainDevice.encodeToJSON())")
+    guard case .success(let mainDevice) = result else { print("\(String(describing: result.errorMessage))"); return }
+    print("Using device: \n\(mainDevice.encodeToJSON())")
 }
 ```
 
@@ -361,10 +361,10 @@ MatchMore.mobileDevices.find(byId: "ID stored in your backend", completion: {res
         MatchMore.startUsingMainDevice(device: myMainDevice, shouldStartMonitoring: true, completion: {result in
             switch result{
             case .success(let mobile):
-                print("🏔 Main Device successfully retrieved 🏔\n\(mobile.encodeToJSON())")
+                print("Main Device successfully retrieved \n\(mobile.encodeToJSON())")
                 myMainDevice = mobile
             case .failure(let error):
-                print("🌋 \(String(describing: error?.message)) 🌋")
+                print("\(String(describing: error?.message))")
             }
         })
     } else {
@@ -386,9 +386,9 @@ let myPinDevice = PinDevice.init(name: "pin test", location: locationTest)
 MatchMore.createPinDevice(pinDevice: myPinDevice, completion: { (result) in
     switch result{
     case .success(let pin):
-        print("🏔 Pin device was created 🏔\n\(pin.encodeToJSON())")
+        print("Pin device was created \n\(pin.encodeToJSON())")
     case .failure(let error):
-        print("🌋 \(String(describing: error?.message)) 🌋")
+        print("\(String(describing: error?.message))")
     }
 })
 ```
@@ -552,7 +552,7 @@ MatchMore.createPinDevice(pinDevice: myEiffelPin, completion: { (result) in
         // Start monitoring for matches
         MatchMore.startMonitoringMatches(forDevice: pin)
     case .failure(let error):
-        print("🌋 \(String(describing: error?.message)) 🌋")
+        print("\(String(describing: error?.message))")
         // make sure your variable myPinDevice doesn't no contain a device that does not exist
         myEiffelPin = nil
     }
@@ -573,7 +573,7 @@ MatchMore.startUsingMainDevice { result in
         case .success(let publication):
             print(publication.encodeToJSON())
         case .failure(let error):
-            print("🌋 \(String(describing: error?.message)) 🌋")
+            print("\(String(describing: error?.message))")
         }
     })
 }
@@ -588,7 +588,7 @@ MatchMore.createSubscription(subscription: subscription, forDevice: myEiffelPin,
     case .success(let sub):
         print(sub.encodeToJSON())
     case .failure(let error):
-        print("🌋 \(String(describing: error?.message)) 🌋")
+        print("\(String(describing: error?.message))")
     }
 })
 ```
