@@ -9,7 +9,7 @@ sections:
 ---
 
 ## Matchmore
-As the fast-growing world of mobile connected objects computing era is becoming a reality, Matchmore aims at becoming the leading cloud-based software platform supporting the creation of highly dynamic proximity-based applications. At the heart of our vision is the notion of geomatching, which is built on the ocation-based Publish/Subscribe communication model.
+As the fast-growing world of mobile connected objects computing era is becoming a reality, Matchmore aims at becoming the leading cloud-based software platform supporting the creation of highly dynamic proximity-based applications. At the heart of our vision is the notion of geomatching, which is built on the location-based Publish/Subscribe communication model.
 
 #### Mission
 
