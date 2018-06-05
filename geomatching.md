@@ -376,7 +376,7 @@ MatchMore.mobileDevices.find(byId: "ID stored in your backend", completion: {res
 
 #### Pin
 
-A pin device has geographical coordinates associated with it but is not represented by any object in the physical world; usually it’s location doesn’t change frequently if at all.
+A pin device has geographical coordinates associated with it but is not represented by any object in the physical world; usually its location doesnt change frequently if at all.
 
 ##### Example: How to obtain a Pin device
 
@@ -426,7 +426,7 @@ iBeacon is the standard defined by Apple. There is also other beacons standards 
 
 
 #### Publication & Subscription
-When devices are created, you can start to attach publications and subscriptions to them. A `Publication` is a message extended with the notion of a geographical zone. The zone is defined as a circle with a center at the given location of the attached device and a range around that location. Publications and subscriptions do have a definable, finite duration, after which they are deleted from the Matchmore cloud service and don’t participate anymore in the matching process.
+When devices are created, you can start to attach publications and subscriptions to them. A `Publication` is a message extended with the notion of a geographical zone. The zone is defined as a circle with a center at the given location of the attached device and a range around that location. Publications and subscriptions do have a definable, finite duration, after which they are deleted from the Matchmore cloud service and don't participate anymore in the matching process.
 
 ###### Publication
 
@@ -468,7 +468,7 @@ The Matchmore service organizes the traffic within any application into named to
 
 Topics are uniquely identified by a string specified when publishing or subscribing to a topic. Publishers and subscribers are asynchronous:
 * a publisher can publish a message without any subscribers on that particular topic, but later when a `Subscription` is created on that topic and when the ranges overlap there will be a match;
-* subscribers can listen on topics that don’t have publishers yet, similarly if a `Publication` is created later on and if both zones overlap there will be a match;
+* subscribers can listen on topics that don't have publishers yet, similarly if a `Publication` is created later on and if both zones overlap there will be a match;
 * arbitrarily many subscribers can match with a single publication published on a topic;
 * the other way around is also possible, many publishers can match with a single subscriber on a topic.
 In other words, Matchmore topics handle one-to-many, many-to-one, and many-to-many relationships.
