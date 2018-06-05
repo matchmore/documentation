@@ -2,14 +2,14 @@
 title: Overview
 sections:
   - Matchmore
-  - In-depth Publish/subscribe
+  - In-depth Publish/Subscribe
   - Matchmore Cloud Service
-  - Example uses
+  - Examples
   - Developer tools
 ---
 
 ## Matchmore
-As the fast-growing world of mobile connected objects computing era is becoming a reality, Matchmore aims at becoming the leading cloud-based software platform supporting the creation of highly dynamic proximity-based applications. At the heart of our vision is the notion of geomatching, which is built on the location-based publish/subscribe communication model.
+As the fast-growing world of mobile connected objects computing era is becoming a reality, Matchmore aims at becoming the leading cloud-based software platform supporting the creation of highly dynamic proximity-based applications. At the heart of our vision is the notion of geomatching, which is built on the location-based Publish/Subscribe communication model.
 
 #### Mission
 
@@ -22,42 +22,43 @@ Get familiar with the Matchmore products and explore their features:
 [*&nbsp;*{: .fa .fa-exclamation-circle} Discover our SDKs                   ](#sdks-integration-configuration){: .btn .btn-orange .btn-cta}
 
 ### Understanding Matchmore
-Matchmore helps you to model any geolocated or proximity-based applications, by taking advantage of advanced location-based publish/subscribe model. Create any type of interactions for connected objects (Internet of Things) from smartphones to any sensors and everything in between.
+
+Matchmore helps you to model any geolocated or proximity-based applications, by taking advantage of advanced location-based Publish/Subscribe model. Create any type of interactions for connected objects (Internet of Things) from Smartphones to iBeacons and everything in between.
 
 {: #in-depth-publish-subscribe}
-#### In-depth Publish/subscribe
+#### In-depth Publish/Subscribe
 
-The publish/subscribe model is a message-oriented paradigm in which, publishers can publish messages anonymously on a topic and subscribers can receive messages on that topic. The additional layer, namely selector, allows subscribers to filter incoming messages based on the message’s content.
+The Publish/Subscribe model is a message-oriented paradigm in which, publishers can publish messages anonymously on a topic and subscribers can receive messages on that topic. The additional layer, namely selector, allows subscribers to filter incoming messages based on the message’s content.
 
 {: #matchmore-cloud-service}
 #### Matchmore Cloud Service
-Matchmore is designed to simplify software developer’s life. It is an extension of the Publish-Subscribe model adding user context while remaining message-oriented. Publications and subscriptions are extended with the notion of geographical zone. The zone is defined as a circle with a center at the given location and a range around that location.
-Publications and subscriptions which are associated with a mobile device, beacons or pin points. For example, user’s mobile phone, potentially follow the movements of the user carrying the device and therefore change their associated location. The crossing of the range and corresponding topic and content lead to the delivery of the message, in fact, a **match**.
 
-To facilitate the mobile application development, Matchmore is provided in enhanced Software Development Kits (SDK).
+Matchmore is designed to simplify software developer’s life. It is an extension of the Publish/Subscribe model adding user context while remaining message-oriented. Publications and subscriptions are extended with the notion of geographical zone. The zone is defined as a circle with a center at a given location and a range around that location.
 
-So what exactly can you do with Matchmore?
+Publications and subscriptions are associated with any mobile device (i.e. smartphones and tablets), beacons or pin points and stay linked to it if the device moves. Both the crossing of the range and the correspondance of topic + content lead to the delivery of the message, called, a **match**.
 
-#### Exemple uses
+To ease mobile application development, Matchmore is provided as various Software Development Kits (SDK) for different platforms.
 
-Have a look at apps we have built with Matchmore
+#### Examples
 
-* [The steamLink](https://itunes.apple.com/us/app/the-steamlink/id1341462059?l=fr&ls=1&mt=8), built in less than 48 hours during Game Jam Geneva.
+Please have a look at some applications that have been built with Matchmore:
+
+* [The steamLink](https://itunes.apple.com/us/app/the-steamlink/id1341462059?l=fr&ls=1&mt=8), built in less than 48 hours during the [Global Game Jam in Geneva](https://globalgamejam.org).
 
 * [iTicketing Github Repo](https://github.com/matchmore/ios-ticketing-app)
 
 * **Geomatching (Matching Moving Content)**
 
-Matchmore enables you to notify the user whenever there’s someone/something they could be interested in close by. Create proximity detection easily on web or mobile by using the advanced location-based publish/subscribe paradigm.
+Matchmore enables you to notify your Application's users whenever there is someone or something they could be interested in close by. Create proximity detection easily on web or mobile by using the advanced location-based Publish/Subscribe paradigm.
 
 * **Create Smart Geofences**
 
 Geofences are used to define virtual areas in the real world, that you are particularly interested in.
-With smart geofences, you can go further in the filtering process. It can be used for analytics: count how many app's users based on their preference enter a specific area, thanks to the topic and content filtering. Or for triggering content inside the mobile or externally depending on user's attached pieces of information. Works indoor (beacons) and outdoor (GPS).
+With smart geofences, you can go further in the filtering process. Thanks to the topic and content filtering it can be used for analytics, for instance to count how many users enter a specific area based on their preference. Or for triggering content displaying matching on your Application. Matchmore works indoor (beacons) and outdoor (GPS).
 
 * **Smart activation with IoT**
 
-Activate a connected device when you approach it (a camera by example).
+Activate a connected device when you approach it (for instance a camera).
 
 * **Geochat**
 
@@ -72,9 +73,9 @@ Create virtual gates or points to control the passage of users. Example : A trai
 {: .callout-title}
 #### Interesting, isn't it ?
 
-You can add any of those above listed features with [geomatching](#geomatching). Simply use Matchmore to add location context and tracking to your apps with just a few lines of code.
+You can add any of those features listed above with [geomatching](#geomatching). Simply use Matchmore to add location context and tracking to your apps with just a few lines of code.
 
-Matchmore is applicable to many domains and eases the modelization and deployment of any geolocated applications.
+Matchmore is applicable to many usecases and eases the modelization and deployment of any geolocated applications.
 
 Want to get started quickly? Follow our [quickstart guide](#quickstart).
 
@@ -84,7 +85,7 @@ Want to get started quickly? Follow our [quickstart guide](#quickstart).
 You can integrate Matchmore in your apps using our developer tools: SDKs and the REST API.
 
 #### SDK
-Integrate the SDK into your iOS and Android apps to start tracking users and generating matches. The SDKs abstracts away cross-platform differences between location services on iOS and Android, allowing you to add location context and proximity detection to your apps with just a few lines of code.
+Integrate the SDK into your iOS or Android applications to start generating matches. The SDKs abstracts away cross-platform differences between location services, allowing you to add location context and proximity detection to your apps with just a few lines of code.
 
 Learn more about the SDKs.
 
@@ -112,7 +113,7 @@ Learn more about the SDKs.
 </div>
 
 #### API
-You can access all of your Matchmore data, including devices, publications, subscriptions, and matches, via the API. You might use the API to list matches related to a device, or to create publications programmatically.
+You can manage your Matchmore objects, including devices, publications, subscriptions, and matches, using our restful API. For instance, you may use the API to list matches related to a device, or to create some publications programmatically.
 
 Learn more about the [*&nbsp;*{: .fa .fa-download}           API ](https://matchmore.io/documentation/api){: .btn .btn-orange .btn-cta}
 
@@ -121,6 +122,6 @@ Learn more about the [*&nbsp;*{: .fa .fa-download}           API ](https://match
 {: .callout-title}
 #### Questions ?
 
-We're always happy to help with code or other questions you might have! Search our documentation, contact support, or connect with our sales team.
+We're always happy to help with code or other questions you might have! Search our documentation, contact our support, or connect with our sales team.
 
 </div></div>
