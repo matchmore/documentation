@@ -19,7 +19,7 @@ Get familiar with the Matchmore products and explore their features:
 
 [*&nbsp;*{: .fa .fa-exclamation-circle} Start directly with our quickstart ](#quickstart){: .btn .btn-green .btn-cta}
 [*&nbsp;*{: .fa .fa-exclamation-circle} How it works                       ](#how-it-works){: .btn .btn-blue .btn-cta}
-[*&nbsp;*{: .fa .fa-exclamation-circle} Discover our SDKs                   ](#sdks-integration-configuration){: .btn .btn-orange .btn-cta}
+[*&nbsp;*{: .fa .fa-exclamation-circle} Discover our SDKs                   ](#sdks){: .btn .btn-orange .btn-cta}
 
 ### Understanding Matchmore
 
@@ -108,6 +108,11 @@ Learn more about the SDKs.
  <div class="col-md-6 col-sm-6 col-xs-12">
 
 [*&nbsp;*{: .fa .fa-download}           JavaScript  ](#javascript){: .btn .btn-orange .btn-cta}
+
+ </div>
+ <div class="col-md-6 col-sm-6 col-xs-12">
+
+[*&nbsp;*{: .fa .fa-download}           .NET  ](#net){: .btn .btn-orange .btn-cta}
 
  </div>
 </div>
