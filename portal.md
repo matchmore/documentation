@@ -11,3 +11,5 @@ section:
   - Billing
   - Pricing
 ---
+
+In development, please subscribe to our blog to be informed !
