@@ -8,11 +8,11 @@ title: JavaScript
 In a project backed by npm(like react) you can just type
 
 ```
-npm install matchmore --save
+npm install @matchmore/matchmore --save
 ```
 or
 ```
-yarn add matchmore
+yarn add @matchmore/matchmore
 ```
 
 Or in a html document
@@ -24,7 +24,7 @@ Or in a html document
 
 #### Get the API key
 
-Setup application API key and world, get it for free from [http://matchmore.io/](http://matchmore.io/).
+Setup application API key and world, get it for free from [matchmore.io/](https://matchmore.io/).
 
 And then start your application with minimum config, with in memory persistence
 
@@ -201,11 +201,12 @@ async multiplePublications(){
 
 ### Main device
 
-First you need to create the main device, first device you create is the main device
+First you need to create the main device
 
 ```javascript
 //use your own application specific names
-await manager.createMobileDevice("me", "iOS", "");
+//device token can be kept empty, but it is used for third party match delivery mechanics which we will introduce to the sdk soon, it can be considered also optional
+await manager.createMobileDevice("me", "iOS", "<device_token>");
 manager.startMonitoringMatches();
 manager.startUpdatingLocation();
 manager.onMatch = (match) => {
