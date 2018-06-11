@@ -1,6 +1,6 @@
 ---
 excerpt: The full documentation portal of Matchmore
-date: 2018-06-05
+date: 2018-06-08
 icon:
   type: fa
   name: fa-graduation-cap
