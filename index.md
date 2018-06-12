@@ -10,6 +10,7 @@ sections:
   - /overview
   - /matching
   - /sdks
+  - /javaScript
   - /Net
   - /api
   - /portal
