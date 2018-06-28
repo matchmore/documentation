@@ -3,8 +3,7 @@ title: iOS integration & configuration
 ---
 
 ### Getting started
-#### Carthage
-#### other installations ?
+
 #### CocoaPods
 If you don't have CocoaPods installed on your computer, you'll need to execute this command in the terminal:
 ```
@@ -18,24 +17,14 @@ When installation is done, open **Terminal**, locate to your project folder and 
 It will create a file named Podfile in the main directory of the project.
 Open the Podfile and add the following line under `use_frameworks`.
 
-`pod 'AlpsSDK', '~> 0.6'`
-
-See example below.
-
-```
-target 'myApp' do
-  # Comment the next line if you're not using Swift ...
-  use_frameworks!
-
-  pod 'AlpsSDK', '~> 0.6'
-  ...
-```
+`pod 'Matchmore'`
 
 Save the Podfile, and inside **Terminal** enter the following command:
 
 `pod install`
 
 ### Configuration
+
 #### Requesting permission for Location Services
 Depending on your needs, your app may require Location Services to work in the background, which means we need to set up Location Services usage description. This description will be shown to the user when asking them about allowing the app to access their location.
 
@@ -59,11 +48,11 @@ we can also alert you via notifications if you don't have the app open.</string>
 ```
 Why the three keys and what do they mean?
 
-NSLocationWhenInUseUsageDescription should describe how your app uses Location Services when it’s in use (or “in the foreground”).
+`NSLocationWhenInUseUsageDescription` should describe how your app uses Location Services when it’s in use (or “in the foreground”).
 
-NSLocationAlwaysUsageDescription should describe how your app uses Location Services both when in use, and in the background. This description is only for users of your app with iOS 10 or earlier. The user can agree to the “always” authorization, or disable Location Services in the app completely.
+`NSLocationAlwaysUsageDescription` should describe how your app uses Location Services both when in use, and in the background. This description is only for users of your app with iOS 10 or earlier. The user can agree to the “always” authorization, or disable Location Services in the app completely.
 
-NSLocationAlwaysAndWhenInUseUsageDescription should describe how your app use Location Services both when in use, and in the background. This description is only for users of your app with iOS 11. The user can select between the “always” or “only when in use” authorizations, or disable Location Services in the app completely.
+`NSLocationAlwaysAndWhenInUseUsageDescription` should describe how your app use Location Services both when in use, and in the background. This description is only for users of your app with iOS 11. The user can select between the “always” or “only when in use” authorizations, or disable Location Services in the app completely.
 
 When opening app for the first time, the system will prompt `authorization alert` with the filled description. Users can decide wether to accept or reject the request permission.
 
@@ -101,33 +90,75 @@ let config = MatchMoreConfig(apiKey: "YOUR_API_KEY") // create your own app at h
 MatchMore.configure(config)
 ```
 
+#### Start/Stop location updates
 
-##### Custom Integration
-You can also customize Matchmore SDK to meet other needs than those provided by default.
-In the example below, simply inject the custom location manager into the Matchmore SDK.
-
+Both custom and deault location managers can be started or stopped by simply calling:
 ```swift
-// Custom Location Manager
-let locationManager = CLLocationManager()
-locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-locationManager.pausesLocationUpdatesAutomatically = true
-locationManager.allowsBackgroundLocationUpdates = true
-locationManager.requestAlwaysAuthorization()
+// Start
+Matchmore.startUpdatingLocation()
 
-// Setup MatchmoreSDK
-let config = MatchMoreConfig(apiKey: "YOUR_API_KEY", customLocationManager: locationManager) // create your own app at https://www.matchmore.io
-MatchMore.configure(config)
+// Stop
+Matchmore.stopUpdatingLocation()
 ```
 
-#### Start/Stop Matchmore
-#### Start/Stop location updates
-#### Configure Location updates
+#### Configure custom location manager
+
+Location manager can be easily overwriten by custom configuration like this:
+```swift
+lazy var locationManager: CLLocationManager = {
+        let locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.activityType = .fitness
+        locationManager.pausesLocationUpdatesAutomatically = true
+        locationManager.allowsBackgroundLocationUpdates = true
+        return locationManager
+    }()
+```
+Than make sure you inject your customer manager when configuring Matchmore:
+```swift
+let config = MatchMoreConfig(apiKey: "API_KEY",
+              customLocationManager: self.locationManager)
+```
 
 ### Tutorials
+
 #### Create a Mobile Device
+
+If you need to create other mobile than device than main mobile device you can do so by:
+```swift
+Matchmore.mobileDevices.create(item: device) { (result) in
+    switch result {
+    case let .success(device):
+        print("Created Mobile Device: \(device.id)")
+    case let .failure(error):
+        print(error?.localizedDescription)
+    }
+}
+```
+
 #### Create a Pin Device
-#### Create a Beacon Device
+
+To create new pin device you can simply call:
+```swift
+let location = Location(latitude: 46.519962, longitude: 6.633597, altitude: 0.0, horizontalAccuracy: 0.0, verticalAccuracy: 0.0)
+let pin = PinDevice(name: "Pin Device", location: location)
+Matchmore.createPinDevice(pinDevice: pin) { result in
+    switch result {
+    case let .success(device):
+        print("Created Pin Device: \(device.id)")
+    case let .failure(error):
+        print(error?.localizedDescription)
+    }
+}
+```
+
 #### Start/Stop Monitoring for device
+
+Create main device is being monitored automatically, but you can monitor any device:
+```swift
+Matchmore.startMonitoringMatches(forDevice: pin)
+```
+
 ##### Apple Push Notification service
 We use Apple Push Notification service (APNs). It allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
 
@@ -211,7 +242,7 @@ Use these functions to start or stop polling matches from Matchmore Cloud.
 
 ```swift
     // MARK: - Polling
-    func startPollingMatches(pollingTimeInterval: TimeInterval)
+    func startPollingMatches(pollingTimeInterval: 10)
     func stopPollingMatches()
 ```
 #### Publish
