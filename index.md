@@ -10,6 +10,8 @@ sections:
   - /overview
   - /matching
   - /sdks
+  - /iOS
+  - /android
   - /javaScript
   - /Net
   - /api

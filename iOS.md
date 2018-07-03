@@ -1,8 +1,10 @@
 ---
-title: iOS integration & configuration
+title: iOS SDK
 ---
 
 ### Getting started
+
+To include Matchmore SDK in your project you need to use CocoaPods.
 
 #### CocoaPods
 If you don't have CocoaPods installed on your computer, you'll need to execute this command in the terminal:
@@ -23,6 +25,133 @@ Save the Podfile, and inside **Terminal** enter the following command:
 
 `pod install`
 
+#### Quickstart example
+Setup application API key and world, get it for free from http://matchmore.io/.
+
+Our quick sample shows you how to create a first device, a publication, a subscription and get the matches.
+```swift
+import Matchmore // <- Here is our Matchmore module import.
+import UIKit
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+
+    var exampleMatchHandler: ExampleMatchHandler!
+
+    func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        // Start Matchmore by providing the api-key.
+        let config = MatchMoreConfig(apiKey: "YOUR_API_KEY")
+        Matchmore.configure(config)
+
+        // Create first device, publication and subscription. Please note that we're not caring about errors right now.
+        Matchmore.startUsingMainDevice { result in
+            guard case let .success(mainDevice) = result else { print(result.errorMessage ?? ""); return }
+            print("Using device: \n\(mainDevice.encodeToJSON())")
+
+            // Start Monitoring Matches
+            self.exampleMatchHandler = ExampleMatchHandler { matches, _ in
+                print("You've got new matches!!! \n\(matches.map { $0.encodeToJSON() })")
+            }
+            Matchmore.matchDelegates += self.exampleMatchHandler
+
+            // Create New Publication
+            Matchmore.createPublicationForMainDevice(publication: Publication(topic: "Test Topic", range: 20, duration: 100, properties: ["test": "true"]), completion: { result in
+                switch result {
+                case let .success(publication):
+                    print("🏔 Pub was created: 🏔\n\(publication.encodeToJSON())")
+                case let .failure(error):
+                    print("🌋 \(String(describing: error?.message)) 🌋")
+                }
+            })
+
+            // Polling
+            Matchmore.startPollingMatches(pollingTimeInterval: 5)
+            self.createPollingSubscription()
+
+            // Socket (requires world_id)
+            Matchmore.startListeningForNewMatches()
+            self.createSocketSubscription()
+
+            // APNS (Subscriptions is being created after receiving device token)
+            UIApplication.shared.registerForRemoteNotifications()
+
+            Matchmore.startUpdatingLocation()
+        }
+        return true
+    }
+
+    // Subscriptions
+
+    // Create a web-socket subscription to Matchmore, and get your match notification via web-socket
+    func createSocketSubscription() {
+        let subscription = Subscription(topic: "Test Topic", range: 20, duration: 100, selector: "test = true")
+        subscription.pushers = ["ws"]
+        Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
+            switch result {
+            case let .success(sub):
+                print("🏔 Socket Sub was created 🏔\n\(sub.encodeToJSON())")
+            case let .failure(error):
+                print("🌋 \(String(describing: error?.message)) 🌋")
+            }
+        })
+    }
+
+    // Create a polling subscription to Matchmore, and get your match notification via polling
+    func createPollingSubscription() {
+        let subscription = Subscription(topic: "Test Topic", range: 20, duration: 100, selector: "test = true")
+        Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
+            switch result {
+            case let .success(sub):
+                print("🏔 Polling Sub was created 🏔\n\(sub.encodeToJSON())")
+            case let .failure(error):
+                print("🌋 \(String(describing: error?.message)) 🌋")
+            }
+        })
+    }
+
+    // Create a Apple push notification service subscription to Matchmore, and get your match notification via APNS
+    func createApnsSubscription(_ deviceToken: String) {
+        let subscription = Subscription(topic: "Test Topic", range: 20, duration: 100, selector: "test = true")
+        subscription.pushers = ["apns://" + deviceToken]
+        Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
+            switch result {
+            case let .success(sub):
+                print("🏔 APNS Sub was created 🏔\n\(sub.encodeToJSON())")
+            case let .failure(error):
+                print("🌋 \(String(describing: error?.message)) 🌋")
+            }
+        })
+    }
+
+    // MARK: - APNS
+    // To add Apple push notification service you need to add these functions
+    func application(_: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // Convert token to string
+        let deviceTokenString = deviceToken.reduce("", { $0 + String(format: "%02X", $1) })
+        Matchmore.registerDeviceToken(deviceToken: deviceTokenString)
+
+        createApnsSubscription(deviceTokenString)
+    }
+
+    func application(_: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        Matchmore.processPushNotification(pushNotification: userInfo)
+    }
+}
+```
+
+Define an object that's MatchDelegate implementing OnMatchClosure.
+This object will handle the matches.
+
+```swift
+class ExampleMatchHandler: MatchDelegate {
+    var onMatch: OnMatchClosure?
+    init(_ onMatch: @escaping OnMatchClosure) {
+        self.onMatch = onMatch
+    }
+}
+```
+
 ### Configuration
 
 #### Requesting permission for Location Services
@@ -30,7 +159,7 @@ Depending on your needs, your app may require Location Services to work in the b
 
 Users must grant permission for an app to access personal information, including the current location. Although people appreciate the convenience of using an app that has access to this information, they also expect to have control over their private data.
 
-In the project navigator, find the Info.plist file, right click on it, and select “Open As”, “Source Code”. Then, inside the top-level <dict> section, add:
+In the project navigator, find the *Info.plist* file, right click on it, and select “Open As”, “Source Code”. Then, inside the top-level <dict> section, add:
 
 ```XML
 <key>NSLocationWhenInUseUsageDescription</key>
@@ -46,7 +175,8 @@ notifications if you don't have the app open.</string>
 <string>MyApp will show you detected nearby devices in the app. With the "always" option,
 we can also alert you via notifications if you don't have the app open.</string>
 ```
-Why the three keys and what do they mean?
+
+When opening app for the first time, the system will prompt `authorization alert` with the filled description. Users can decide wether to accept or reject the request permission.
 
 `NSLocationWhenInUseUsageDescription` should describe how your app uses Location Services when it’s in use (or “in the foreground”).
 
@@ -54,12 +184,11 @@ Why the three keys and what do they mean?
 
 `NSLocationAlwaysAndWhenInUseUsageDescription` should describe how your app use Location Services both when in use, and in the background. This description is only for users of your app with iOS 11. The user can select between the “always” or “only when in use” authorizations, or disable Location Services in the app completely.
 
-When opening app for the first time, the system will prompt `authorization alert` with the filled description. Users can decide wether to accept or reject the request permission.
 
 *GOOD PRACTICE* Request permission at launch only when necessary for your app to function. Users won’t be bothered by this request if it’s obvious that your app depends on their personal information to operate. For example, an app might only request access to the current location when activating a location tracking feature.
 
 #### Add SDK to the project
-MatchmoreSDK is very malleable. It is configured by default to work for general cases. But it is possible to configure it according to your needs.
+Matchmore SDKs are very malleable. The SDK is configured by default to work for general cases. But it is possible to configure it according to your needs.
 First set up Matchmore SDK Cloud credentials, this will allow the SDK to communicate with Matchmore Cloud on your behalf.
 
 You can generate a token API-key for yourself on matchmore.io.
@@ -92,7 +221,7 @@ MatchMore.configure(config)
 
 #### Start/Stop location updates
 
-Both custom and deault location managers can be started or stopped by simply calling:
+Both custom and default location managers can be started or stopped by simply calling:
 ```swift
 // Start
 Matchmore.startUpdatingLocation()
@@ -103,7 +232,7 @@ Matchmore.stopUpdatingLocation()
 
 #### Configure custom location manager
 
-Location manager can be easily overwriten by custom configuration like this:
+Location manager can be easily overwritten by custom configuration like this:
 ```swift
 lazy var locationManager: CLLocationManager = {
         let locationManager = CLLocationManager()
@@ -114,7 +243,7 @@ lazy var locationManager: CLLocationManager = {
         return locationManager
     }()
 ```
-Than make sure you inject your customer manager when configuring Matchmore:
+Then make sure you inject your customer manager when configuring Matchmore:
 ```swift
 let config = MatchMoreConfig(apiKey: "API_KEY",
               customLocationManager: self.locationManager)
@@ -154,9 +283,21 @@ Matchmore.createPinDevice(pinDevice: pin) { result in
 
 #### Start/Stop Monitoring for device
 
-Create main device is being monitored automatically, but you can monitor any device:
+Create main device is being monitored automatically, but you can monitor any device.
+For the following example, we monitor a pin device.
+
 ```swift
-Matchmore.startMonitoringMatches(forDevice: pin)
+let location = Location(latitude: 46.519962, longitude: 6.633597, altitude: 0.0, horizontalAccuracy: 0.0, verticalAccuracy: 0.0)
+let pin = PinDevice(name: "Pin Device", location: location)
+Matchmore.createPinDevice(pinDevice: pin) { result in
+    switch result {
+    case let .success(device):
+        print("Created Pin Device: \(device.id)")
+        Matchmore.startMonitoringMatches(forDevice: device) // <- Start the monitoring of this pin device
+    case let .failure(error):
+        print(error?.localizedDescription)
+    }
+}
 ```
 
 ##### Apple Push Notification service
@@ -193,7 +334,6 @@ The choice of APNs host depends on which kinds of iOS app you wish to send push 
 
 **Warning**
 Do not submit Apps to Apple with Development certificates.
-
 
 3. Exporting certificates
 
@@ -245,9 +385,62 @@ Use these functions to start or stop polling matches from Matchmore Cloud.
     func startPollingMatches(pollingTimeInterval: 10)
     func stopPollingMatches()
 ```
+
 #### Publish
+```swift
+// Create New Publication
+var pub = Publication(topic: "Test Topic", range: 100, duration: 30, properties: ["test": "true", "price": 199])
+Matchmore.createPublicationForMainDevice(publication: pub, completion: { result in
+    switch result {
+    case let .success(publication):
+        print("🏔 Pub was created: 🏔\n\(publication.encodeToJSON())")
+    case let .failure(error):
+        print("🌋 \(String(describing: error?.message)) 🌋")
+    }
+})
+```
+
 #### Subscribe
+```swift
+let sub = Subscription(topic: "Test Topic", range: 100, duration: 30, selector: "test = true and price <= 200")
+Matchmore.createSubscriptionForMainDevice(subscription: sub, completion: { result in
+    switch result {
+    case let .success(subscription):
+        print("🏔 Polling Sub was created 🏔\n\(subscription.encodeToJSON())")
+    case let .failure(error):
+        print("🌋 \(String(describing: error?.message)) 🌋")
+    }
+})
+```
+
 #### GetMatches
+```swift
+//you can call to get matches at your leisure, if you don't want to use the monitors. In the end the monitors are calling exactly this method
+Matchmore.refreshMatches()
+```
+
 #### Local States request (Create, Find, FindAll, Delete and DeleteAll)
+```swift
+// You can access locally cached subscriptions, publications and devices
+Matchmore.subscriptions
+Matchmore.publications
+Matchmore.mainDevice
+Matchmore.pinDevices
+Matchmore.knownBeacons
+
+// you can delete also your sub, pub and device by calling:
+Matchmore.subscriptions.delete(item: sub, completion: { error in
+                print(error?.message)
+            })
+Matchmore.publications.delete(item: pub, completion: { error in
+                print(error?.message)
+            })
+Matchmore.pinDevices.delete(item: pin, completion: { (error) in
+                print(error?.message)
+            })
+Matchmore.mobileDevices.delete(item: mobile, completion: { (error) in
+                print(error?.message)
+            })
+```
 ### ChangeLog
 ### Supported Platform
