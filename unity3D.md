@@ -86,6 +86,75 @@ Clone and copy contents *Assets/Matchmore* of the repository into *Assets/Matchm
         };
 
 ```
+### Tutorials
+#### Start/stop Matchmore
+```csharp
+//Reset will stop monitors and location updates
+Matchmore.Reset();
+```
+#### Start/Stop updating location
+```csharp
+Matchmore.Instance.StartLocationService();
+```
+
+##### Manual update locations
+
+```csharp
+Matchmore.Instance.UpdateLocation(new Location
+        {
+            Latitude = 54.414662,
+            Longitude = 18.625498
+        });
+
+```
+
+#### Create a Mobile Device
+```csharp
+var pubDevice = Matchmore.Instance.CreateDevice(new MobileDevice
+{
+    Name = "Publisher"
+});
+```
+#### Create a Pin Device
+```csharp
+var pubDevice = Matchmore.Instance.CreateDevice(new PinDevice
+{
+    Name = "Publisher"
+});
+```
+#### Publish
+```csharp
+var pub = new Publication
+		{
+			Topic = "Test Topic",
+			Duration = 30,
+			Range = 100,
+			Properties = new Dictionary<string, object>(){
+				{"test", true},
+				{"price", 199}
+			}
+		};
+//you can pass explicitly the device you would want to use
+var createdPub = Matchmore.Instance.CreatePublication(pub, pubDevice);
+```
+#### Subscribe
+```csharp
+var sub = new Subscription
+        {
+            Topic = "Test Topic",
+            Duration = 30,
+            Range = 100,
+            Selector = "test = true and price <= 200"
+        };
+
+var createdSub = Matchmore.Instance.CreatePublicationCreateSubscription(sub);
+```
+
+#### GetMatches
+```csharp
+//you can call to get matches at your leisure, if you don't want to use the monitors. In the end the monitors are calling exactly this method
+var matches = Matchmore.Instance.GetMatches();
+```
 
 ## TLS 1.1 and 1.2
 
@@ -97,3 +166,4 @@ If this didn't work
 
 ## Demo
 A Unity demo is available in our [Unity github](https://github.com/matchmore/unity-sdk/blob/master/Assets/Matchmore/Example/MatchmoreExample.cs).
+

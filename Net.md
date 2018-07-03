@@ -5,7 +5,9 @@ title: .NET & Xamarin SDK
 {: #net}
 ### Getting started
 #### Creating your project
-When creating your project, be sure to choose "Use Shared Library" for `Shared Code` option.
+For Xamarin projects using the `Shared Code` strategy for sharing code use the [Matchmore.Xamarin.SDK](https://www.nuget.org/packages/Matchmore.Xamarin.SDK).
+
+For web services or Xamarin.Forms applications using .NET Standard use the [Matchmore.SDK](https://www.nuget.org/packages/Matchmore.SDK). Refer to [Customization](#net_customization)
 
 #### NuGet package
 You can integrate Matchmore to your project via NuGet.
@@ -132,6 +134,7 @@ Matchmore.SDK.Matchmore.Reset();
 Matchmore.SDK.Matchmore.Instance.StartLocationService();
 ```
 
+{: #net_customization}
 #### Customization
 The shown ConfigureAsync method is a shorthand, you can pass config object contain more information, like implementations for location services, state repositories
 ```csharp
@@ -142,9 +145,12 @@ await Matchmore.SDK.Matchmore.ConfigureAsync(new GenericConfig{
             });
 ```
 
+The location service is crucial for automated location updates for your device
 
 
 #### For iOS/Android : Configure LocationManager
+
+### Tutorials
 ##### Manual update locations
 
 ```csharp
@@ -155,7 +161,7 @@ await Matchmore.SDK.Matchmore.Instance.UpdateLocationAsync(new Location
 });
 ```
 
-### Tutorials
+
 #### Create a Mobile Device
 ```csharp
 var pubDevice = await Matchmore.SDK.Matchmore.Instance.CreateDeviceAsync(new MobileDevice
