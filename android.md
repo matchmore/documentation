@@ -19,7 +19,7 @@ Android Matchmore SDK requires Android 4.4+
 * [Get Started](#kotlin-get-started)
 1. [Gradle](#kotlin-gradle)
 2. [Maven](#kotlin-maven)
-2. [Quickstart example](#kotlin-quickstart-example)
+3. [Quickstart example](#kotlin-quickstart-example)
 * [Configuration](#kotlin-configuration)
 1. [Request permission for Location Services](#kotlin-request-permission-for-location-services)
 2. [Add SDK to the project](#kotlin-add-sdk-to-the-project)

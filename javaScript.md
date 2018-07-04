@@ -2,26 +2,70 @@
 title: JavaScript & React Native SDK
 ---
 
-{: #javascript}
-### Getting started
+* [Get Started](#javascript-get-started)
+1. [NPM](#javascript-npm)
+2. [Yarn](#javascript-yarn)
+3. [HTML document](#javascript-html-document)
+4. [Quickstart](#javascript-quickstart-example)
+5. [Get the API key](#javascript-get-the-api-key)
+6. [Web Setup](#javascript-web-setup)
+7. [React Native Setup](#javascript-react-native-setup)
+8. [Example](#javascript-example)
+* [Configuration](#javascript-configuration)
+1. [Request permission for Location Services](#javascript-request-permission-for-location-services)
+2. [Add SDK to the project](#javascript-add-sdk-to-the-project)
+3. [Start/Stop location updates](#javascript-start-stop-location-updates)
+4. [Configure custom location manager](#javascript-configure-custom-location-manager)
+5. [Manual update locations](#javascript-manual-update-locations)
+* [Tutorials](#javascript-tutorials)
+1. [Create a Mobile Device](#javascript-create-a-mobile-device)
+2. [Create a Pin Device](#javascript-create-a-pin-device)
+3. [Start/Stop Monitoring for a device](#javascript-start-stop-monitoring-for-a-device)
+4. [Apple Push Notification service](#javascript-apple-push-notification-service)
+5. [Google Firebase Cloud notification](#javascript-google-firebase-cloud-notification)
+6. [WebSocket](#javascript-websocket)
+7. [Polling](#javascript-polling)
+8. [Publish](#javascript-publish)
+9. [Subscribe](#javascript-subscribe)
+10. [Get Matches](#javascript-get-matches)
+11. [Local States request](#javascript-local-states-request)
+* [demo](#javascript-demo)
+* [ChangeLog](#javascript-changelog)
+* [Supported Platform](#javascript-supported-platform)
 
-In a project backed by npm(like react) you can just type
+{: #javascript-get-started}
+### Get started
+
+{: #javascript-npm}
+#### NPM
+In a project backed by npm (like react) you can just type
 
 ```
 npm install @matchmore/matchmore --save
 ```
-or
+
+{: #javascript-yarn}
+#### Yarn
+To include Matchmore SDK in your project you need to use Yarn.
+
 ```
 yarn add @matchmore/matchmore
 ```
 
-Or in a html document
+{: #javascript-html-document}
+#### HTML Document
+In a HTML document
 
 ```html
 <script src="../../dist/web/matchmore.js"></script>
 ```
 
+{: #javascript-quickstart-example
+### Quickstart example
 
+This is an example for web usage of the matchmore JavaScript SDK
+
+{: #javascript-get-the-api-key}
 #### Get the API key
 
 Setup application API key and world, get it for free from [matchmore.io/](https://matchmore.io/).
@@ -57,7 +101,21 @@ More robust setup
 
 ```
 
-React.Native persistence requires some setup, best if put in its own file and import at the start of the application
+{: #javascript-web-setup}
+#### Web Setup
+Web setup can done inline like this
+
+```javascript
+matchmore.PlatformConfig.storage = {
+  save: (key, value) => window.localStorage.setItem(key, value),
+  load: (key) => window.localStorage.getItem(key),
+  remove: (key) => window.localStorage.removeItem(key),
+}
+```
+
+{: #javascript-react-native-setup}
+#### React Native Setup
+React Native persistence requires some setup, best if put in its own file and import at the start of the application
 
 ```javascript
 const { AsyncStorage } = require('react-native');
@@ -82,21 +140,8 @@ module.exports = {
 
 ```
 
-Web setup can done inline like this
-
-```javascript
-matchmore.PlatformConfig.storage = {
-  save: (key, value) => window.localStorage.setItem(key, value),
-  load: (key) => window.localStorage.getItem(key),
-  remove: (key) => window.localStorage.removeItem(key),
-}
-```
-
-Developer is free to mix and match the styles
-
-### Quickstart example
-
-This is an example for web usage of the matchmore sdk
+{: #javascript-example}
+#### Example
 
 ```javascript
  matchmore.PlatformConfig.storage = {
@@ -125,7 +170,7 @@ This is an example for web usage of the matchmore sdk
                         resolve(loc);
                     };
                     manager.startUpdatingLocation();
-                    
+
                 });
 
                 location.then(location => {
@@ -168,7 +213,7 @@ This is an example for web usage of the matchmore sdk
                     );
                     return subscription;
                 });
-            
+
             });
 ```
 
@@ -196,25 +241,59 @@ async multiplePublications(){
        pin.id);
    return;
 }
-
 ```
 
-### Main device
+Developer is free to mix and match the styles
 
-First you need to create the main device
+{: #javascript-configuration}
+### Configuration
+
+{: #javascript-request-permission-for-location-services}
+#### Request permission for Location Services
+
+{: #javascript-add-sdk-to-the-project}
+#### Add SDK to the project
 
 ```javascript
-//use your own application specific names
-//device token can be kept empty, but it is used for third party match delivery mechanics which we will introduce to the sdk soon, it can be considered also optional
-await manager.createMobileDevice("me", "iOS", "<device_token>");
-manager.startMonitoringMatches();
-manager.startUpdatingLocation();
-manager.onMatch = (match) => {
-                    console.log(match.publication.properties.name + " matched!");
-                };
+import { Manager } from "matchmore";
+//...
+this.manager = new Manager(
+  "<Your api key>"
+)
 ```
 
+More robust setup
 
+```javascript
+    import { Manager, LocalStoragePersistenceManager } from "matchmore";
+    //...
+    const localPersistenceManager = new LocalStoragePersistenceManager();
+    await localPersistenceManager.load();
+    this.manager = new Manager(
+      apiKey,
+      undefined,
+      localPersistenceManager,
+      // undefined,
+      {
+        enableHighAccuracy: false,
+        timeout: 60000,
+        maximumAge: 60000
+      }
+    )
+
+```
+
+{: #javascript-start-stop-location-updates}
+#### Start/Stop location updates
+```javascript
+manager.startUpdatingLocation();
+manager.stopUpdatingLocation();
+```
+
+{: #javascript-configure-custom-location-manager}
+#### Configure custom location manager
+
+{: #javascript-manual-update-locations}
 ##### Manual update locations
 
 ```javascript
@@ -228,12 +307,25 @@ await manager.updateLocation({
 }, deviceId);
 ```
 
+{: #javascript-tutorials}
+### Tutorials
+
+{: #javascript-create-a-mobile-device}
 #### Create a Mobile Device
 
+First you need to create the main device
+
 ```javascript
-let newDevice = await manager.createMobileDevice("another mobile", "android");
+//use your own application specific names
+//device token can be kept empty, but it is used for third party match delivery mechanics which we will introduce to the sdk soon, it can be considered also optional
+await manager.createMobileDevice("my mobile device", "iOS", "<device_token>");
+manager.startMonitoringMatches();
+manager.onMatch = (match) => {
+                    console.log(match.publication.properties.name + " matched!");
+                };
 ```
 
+{: #javascript-create-a-pin-device}
 #### Create a Pin Device
 
 ```javascript
@@ -243,7 +335,21 @@ let newDevice = await manager.createPinDevice("pin", {
 });
 
 ```
+{: #javascript-start-stop-monitoring-for-a-device}
+#### Start/Stop Monitoring for a device
 
+{: #javascript-apple-push-notification-service}
+#### Apple Push Notification service
+
+{: #javascript-google-firebase-cloud-notification}
+#### Google Firebase Cloud Notification
+
+{: #javascript-websocket}
+#### WebSocket
+{: #javascript-polling}
+#### Polling
+
+{: #javascript-publish}
 #### Publish
 
 ```javascript
@@ -254,6 +360,7 @@ let publication =  await manager.createPublication(
       { "age": 20, "name": "Clara" });
 ```
 
+{: #javascript-subscribe}
 #### Subscribe
 
 ```javascript
@@ -265,7 +372,8 @@ let subscription = await this.manager.createSubscription(
     );
 ```
 
-#### GetMatches
+{: #javascript-get-matches}
+#### Get Matches
 
 ```javascript
 let matches = await manager.getAllMatches();
@@ -273,7 +381,8 @@ let otherDeviceMatches = await manager.getAllMatches(deviceId);
 let specificMatch = await manager.getMatch(matchId);
 ```
 
-#### Local persistence
+{: #javascript-local-states-request}
+#### Local States request
 
 To access the local persisted entities you can just call them direct from the manager, they are regular array so you can query them whatever way you likes
 ```javascript
@@ -282,10 +391,12 @@ let publications = this.manager.publications;
 let subscriptions = this.manager.subscriptions;
 ```
 
+{: #javascript-demo}
 ### DEMO
 Couple of demos to be found in [Javascript github](https://github.com/matchmore/js-sdk).
 
+{: #javascript-changelog}
 ### Changelog
+
+{: #javascript-supported-platform}
 ### Supported Platform
-
-
