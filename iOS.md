@@ -1,6 +1,11 @@
 ---
 title: iOS SDK
+sections:
+  - Swift
 ---
+
+# Swift
+
 * [Get Started](#ios-get-started)
 1. [Cocoapods](#ios-cocoapods)
 2. [Quickstart example](#ios-quickstart-example)
@@ -228,7 +233,7 @@ You can generate a token API-key for yourself on matchmore.io.
 When you have your token, create your `MatchMoreConfig` with your API-key.
 
 ```swift
-/// MatchMoreConfig is a structure that defines all variables needed to configure MatchMore SDK.
+// MatchMoreConfig is a structure that defines all variables needed to configure MatchMore SDK.
 public struct MatchMoreConfig {
     let apiKey: String
     let serverUrl: String
