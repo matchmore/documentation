@@ -1,6 +1,27 @@
 ---
 title: Android SDK
 ---
+* [Get Started](#android-get-started)
+1. [Cocoapods](#android-cocoapods)
+2. [Quickstart example](#android-quickstart-example)
+* [Configuration](#android-configuration)
+1. [Request permission for Location Services](#android-request-permission-for-location-services)
+2. [Add SDK to the project](#android-add-sdk-to-the-project)
+3. [Start/Stop location updates](#android-start-stop-location-updates)
+4. [Configure custom location manager](#android-configure-custom-location-manager)
+* [Tutorials](#android-tutorials)
+1. [Create a Mobile Device](#android-create-a-mobile-device)
+2. [Create a Pin Device](#android-create-a-pin-device)
+3. [Start/Stop Monitoring for a device](#android-start-stop-monitoring-for-a-device)
+4. [Apple Push Notification service](#android-apple-push-notification-service)
+5. [WebSocket](#android-websocket)
+6. [Polling](#android-polling)
+7. [Publish](#android-publish)
+8. [Subscribe](#android-subscribe)
+9. [Get Matches](#android-get-matches)
+10. [Local States request](#android-local-states-request)
+* [ChangeLog](#android-changelog)
+* [Supported Platform](#android-supported-platform)
 
 {: #android}
 ### Android

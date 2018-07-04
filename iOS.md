@@ -1,11 +1,35 @@
 ---
 title: iOS SDK
 ---
+* [Get Started](#ios-get-started)
+1. [Cocoapods](#ios-cocoapods)
+2. [Quickstart example](#ios-quickstart-example)
+* [Configuration](#ios-configuration)
+1. [Request permission for Location Services](#ios-request-permission-for-location-services)
+2. [Add SDK to the project](#ios-add-sdk-to-the-project)
+3. [Start/Stop location updates](#ios-start-stop-location-updates)
+4. [Configure custom location manager](#ios-configure-custom-location-manager)
+* [Tutorials](#ios-tutorials)
+1. [Create a Mobile Device](#ios-create-a-mobile-device)
+2. [Create a Pin Device](#ios-create-a-pin-device)
+3. [Start/Stop Monitoring for a device](#ios-start-stop-monitoring-for-a-device)
+4. [Apple Push Notification service](#ios-apple-push-notification-service)
+5. [WebSocket](#ios-websocket)
+6. [Polling](#ios-polling)
+7. [Publish](#ios-publish)
+8. [Subscribe](#ios-subscribe)
+9. [Get Matches](#ios-get-matches)
+10. [Local States request](#ios-local-states-request)
+* [ChangeLog](#ios-changelog)
+* [Supported Platform](#ios-supported-platform)
 
-### Getting started
+
+{: #ios-get-started}
+### Get Started
 
 To include Matchmore SDK in your project you need to use CocoaPods.
 
+{: #ios-cocoapods}
 #### CocoaPods
 If you don't have CocoaPods installed on your computer, you'll need to execute this command in the terminal:
 ```
@@ -25,6 +49,7 @@ Save the Podfile, and inside **Terminal** enter the following command:
 
 `pod install`
 
+{: #ios-quickstart-example}
 #### Quickstart example
 Setup application API key and world, get it for free from http://matchmore.io/.
 
@@ -59,9 +84,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Matchmore.createPublicationForMainDevice(publication: Publication(topic: "Test Topic", range: 20, duration: 100, properties: ["test": "true"]), completion: { result in
                 switch result {
                 case let .success(publication):
-                    print("🏔 Pub was created: 🏔\n\(publication.encodeToJSON())")
+                    print("Pub was created: \n\(publication.encodeToJSON())")
                 case let .failure(error):
-                    print("🌋 \(String(describing: error?.message)) 🌋")
+                    print("\(String(describing: error?.message))")
                 }
             })
 
@@ -83,16 +108,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Subscriptions
 
-    // Create a web-socket subscription to Matchmore, and get your match notification via web-socket
+    // Create a WebSocket subscription to Matchmore, and get your match notification via WebSocket
     func createSocketSubscription() {
         let subscription = Subscription(topic: "Test Topic", range: 20, duration: 100, selector: "test = true")
         subscription.pushers = ["ws"]
         Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
             switch result {
             case let .success(sub):
-                print("🏔 Socket Sub was created 🏔\n\(sub.encodeToJSON())")
+                print("Socket Sub was created \n\(sub.encodeToJSON())")
             case let .failure(error):
-                print("🌋 \(String(describing: error?.message)) 🌋")
+                print("\(String(describing: error?.message))")
             }
         })
     }
@@ -103,9 +128,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
             switch result {
             case let .success(sub):
-                print("🏔 Polling Sub was created 🏔\n\(sub.encodeToJSON())")
+                print("Polling Sub was created \n\(sub.encodeToJSON())")
             case let .failure(error):
-                print("🌋 \(String(describing: error?.message)) 🌋")
+                print("\(String(describing: error?.message))")
             }
         })
     }
@@ -117,9 +142,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
             switch result {
             case let .success(sub):
-                print("🏔 APNS Sub was created 🏔\n\(sub.encodeToJSON())")
+                print("APNS Sub was created \n\(sub.encodeToJSON())")
             case let .failure(error):
-                print("🌋 \(String(describing: error?.message)) 🌋")
+                print("\(String(describing: error?.message))")
             }
         })
     }
@@ -152,9 +177,11 @@ class ExampleMatchHandler: MatchDelegate {
 }
 ```
 
+{: #ios-configuration}
 ### Configuration
 
-#### Requesting permission for Location Services
+{: #ios-request-permission-for-location-services}
+#### Request permission for Location Services
 Depending on your needs, your app may require Location Services to work in the background, which means we need to set up Location Services usage description. This description will be shown to the user when asking them about allowing the app to access their location.
 
 Users must grant permission for an app to access personal information, including the current location. Although people appreciate the convenience of using an app that has access to this information, they also expect to have control over their private data.
@@ -184,9 +211,15 @@ When opening app for the first time, the system will prompt `authorization alert
 
 `NSLocationAlwaysAndWhenInUseUsageDescription` should describe how your app use Location Services both when in use, and in the background. This description is only for users of your app with iOS 11. The user can select between the “always” or “only when in use” authorizations, or disable Location Services in the app completely.
 
+<div class="callout-block callout-success"><div class="icon-holder">*&nbsp;*{: .fa .fa-thumbs-up}
+</div><div class="content">
+{: .callout-title}
+#### Good practice
+Request permission at launch only when necessary for your app to function. Users won’t be bothered by this request if it’s obvious that your app depends on their personal information to operate. For example, an app might only request access to the current location when activating a location tracking feature.
 
-*GOOD PRACTICE* Request permission at launch only when necessary for your app to function. Users won’t be bothered by this request if it’s obvious that your app depends on their personal information to operate. For example, an app might only request access to the current location when activating a location tracking feature.
+</div></div>
 
+{: #ios-add-sdk-to-the-project}
 #### Add SDK to the project
 Matchmore SDKs are very malleable. The SDK is configured by default to work for general cases. But it is possible to configure it according to your needs.
 First set up Matchmore SDK Cloud credentials, this will allow the SDK to communicate with Matchmore Cloud on your behalf.
@@ -219,6 +252,7 @@ let config = MatchMoreConfig(apiKey: "YOUR_API_KEY") // create your own app at h
 MatchMore.configure(config)
 ```
 
+{: #ios-start-stop-location-updates}
 #### Start/Stop location updates
 
 Both custom and default location managers can be started or stopped by simply calling:
@@ -230,6 +264,7 @@ Matchmore.startUpdatingLocation()
 Matchmore.stopUpdatingLocation()
 ```
 
+{: #ios-configure-custom-location-manager}
 #### Configure custom location manager
 
 Location manager can be easily overwritten by custom configuration like this:
@@ -249,8 +284,10 @@ let config = MatchMoreConfig(apiKey: "API_KEY",
               customLocationManager: self.locationManager)
 ```
 
+{: #ios-tutorials}
 ### Tutorials
 
+{: #ios-create-a-mobile-device}
 #### Create a Mobile Device
 
 If you need to create other mobile than device than main mobile device you can do so by:
@@ -265,6 +302,7 @@ Matchmore.mobileDevices.create(item: device) { (result) in
 }
 ```
 
+{: #ios-create-a-pin-device}
 #### Create a Pin Device
 
 To create new pin device you can simply call:
@@ -281,9 +319,10 @@ Matchmore.createPinDevice(pinDevice: pin) { result in
 }
 ```
 
+{: #ios-start-stop-monitoring-for-a-device}
 #### Start/Stop Monitoring for device
 
-Create main device is being monitored automatically, but you can monitor any device.
+When creating a main device, it is being monitored automatically. You can monitor any device.
 For the following example, we monitor a pin device.
 
 ```swift
@@ -300,6 +339,12 @@ Matchmore.createPinDevice(pinDevice: pin) { result in
 }
 ```
 
+To stop the monitoring a device :
+```swift
+Matchmore.stopMonitoringMatches(forDevice: device) // <- Stop the monitoring of the instance in variable "device".
+```
+
+{: #ios-apple-push-notification-service}
 ##### Apple Push Notification service
 We use Apple Push Notification service (APNs). It allows app developers to propagate information via notifications from servers to iOS, tvOS and macOS devices.
 
@@ -328,12 +373,18 @@ Click on the Development or Production certificate button and follow the steps. 
 
 The choice of APNs host depends on which kinds of iOS app you wish to send push notifications to. There are two kinds of iOS app:
 
-    Published apps. These are published to the App Store and installed from there. These apps go through the usual App Store publication process, such as code-signing.
+Published apps. These are published to the App Store and installed from there. These apps go through the usual App Store publication process, such as code-signing.
 
-    Development apps. These are “everything else”, such as apps installed from Xcode, or through private app publication systems.
+Development apps. These are “everything else”, such as apps installed from Xcode, or through private app publication systems.
 
-**Warning**
+
+<div class="callout-block callout-danger"><div class="icon-holder">*&nbsp;*{: .fa .fa-exclamation-triangle}
+</div><div class="content">
+{: .callout-title}
+## Warning
 Do not submit Apps to Apple with Development certificates.
+
+</div></div>
 
 3. Exporting certificates
 
@@ -365,10 +416,27 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 
 You can now start sending notifications to your users.
 
-{: #web-socket-ios}
-##### Web Socket
-When it comes to deliver matches, Matchmore SDK uses Web socket as well to provide alternative solutions to APNs.
-By initializing this, you inform Matchmore Cloud service that you want to be notified via web socket.
+Here is an example of a subscription getting matches with Apple Push Notification service :
+```swift
+// Create a Apple push notification service subscription to Matchmore, and get your match notification via APNS
+func createApnsSubscription(_ deviceToken: String) {
+    let subscription = Subscription(topic: "Test Topic", range: 20, duration: 100, selector: "test = true")
+    subscription.pushers = ["apns://" + deviceToken] // <- Adding "apns://myDeviceToken" in the pushers parameter will activate the Apple Push Notification service
+    Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
+        switch result {
+        case let .success(sub):
+            print("APNS Sub was created \n\(sub.encodeToJSON())")
+        case let .failure(error):
+            print("\(String(describing: error?.message))")
+        }
+    })
+}
+```
+
+{: #ios-websocket}
+##### WebSocket
+When it comes to deliver matches, Matchmore SDK uses WebSocket as well to provide alternative solutions to APNs.
+By initializing this, you inform Matchmore Cloud service that you want to be notified via WebSocket.
 
 ```swift
     // MARK: - Socket
@@ -376,7 +444,24 @@ By initializing this, you inform Matchmore Cloud service that you want to be not
     func closeSocketForMatches()
 ```
 
-{: #polling-ios}
+Here is an example of a subscription getting matches with WebSocket :
+```swift
+// Create a WebSocket subscription to Matchmore, and get your match notification via WebSocket
+func createSocketSubscription() {
+    let subscription = Subscription(topic: "Test Topic", range: 20, duration: 100, selector: "test = true")
+    subscription.pushers = ["ws"] // <- Adding "ws" in the pushers parameter will activate the WebSocket
+    Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
+        switch result {
+        case let .success(sub):
+            print("Socket Sub was created \n\(sub.encodeToJSON())")
+        case let .failure(error):
+            print("\(String(describing: error?.message))")
+        }
+    })
+}
+```
+
+{: #ios-polling}
 ##### Polling
 Use these functions to start or stop polling matches from Matchmore Cloud.
 
@@ -386,6 +471,23 @@ Use these functions to start or stop polling matches from Matchmore Cloud.
     func stopPollingMatches()
 ```
 
+Here is an example of a subscription getting matches with polling :
+```swift
+// Create a polling subscription to Matchmore, and get your match notification via polling
+func createPollingSubscription() {
+    let subscription = Subscription(topic: "Test Topic", range: 20, duration: 100, selector: "test = true")
+    Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
+        switch result {
+        case let .success(sub):
+            print("Polling Sub was created \n\(sub.encodeToJSON())")
+        case let .failure(error):
+            print("\(String(describing: error?.message))")
+        }
+    })
+}
+```
+
+{: #ios-publish}
 #### Publish
 ```swift
 // Create New Publication
@@ -393,32 +495,66 @@ var pub = Publication(topic: "Test Topic", range: 100, duration: 30, properties:
 Matchmore.createPublicationForMainDevice(publication: pub, completion: { result in
     switch result {
     case let .success(publication):
-        print("🏔 Pub was created: 🏔\n\(publication.encodeToJSON())")
+        print("Pub was created: \n\(publication.encodeToJSON())")
     case let .failure(error):
-        print("🌋 \(String(describing: error?.message)) 🌋")
+        print("\(String(describing: error?.message))")
     }
 })
 ```
 
+{: #ios-subscribe}
 #### Subscribe
 ```swift
-let sub = Subscription(topic: "Test Topic", range: 100, duration: 30, selector: "test = true and price <= 200")
-Matchmore.createSubscriptionForMainDevice(subscription: sub, completion: { result in
-    switch result {
-    case let .success(subscription):
-        print("🏔 Polling Sub was created 🏔\n\(subscription.encodeToJSON())")
-    case let .failure(error):
-        print("🌋 \(String(describing: error?.message)) 🌋")
-    }
-})
+// Create a WebSocket subscription to Matchmore, and get your match notification via WebSocket
+func createSocketSubscription() {
+    let subscription = Subscription(topic: "Test Topic", range: 100, duration: 30, selector: "test = true")
+    subscription.pushers = ["ws"] // <- Adding "ws" in the pushers parameter will activate the WebSocket
+    Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
+        switch result {
+        case let .success(sub):
+            print("Socket Sub was created \n\(sub.encodeToJSON())")
+        case let .failure(error):
+            print("\(String(describing: error?.message))")
+        }
+    })
+}
+
+// Create a polling subscription to Matchmore, and get your match notification via polling
+func createPollingSubscription() {
+    let subscription = Subscription(topic: "Test Topic", range: 20, duration: 100, selector: "test = true")
+    Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
+        switch result {
+        case let .success(sub):
+            print("Polling Sub was created \n\(sub.encodeToJSON())")
+        case let .failure(error):
+            print("\(String(describing: error?.message))")
+        }
+    })
+}
+
+// Create a Apple push notification service subscription to Matchmore, and get your match notification via APNS
+func createApnsSubscription(_ deviceToken: String) {
+    let subscription = Subscription(topic: "Test Topic", range: 20, duration: 100, selector: "test = true")
+    subscription.pushers = ["apns://" + deviceToken] // <- Adding "apns://myDeviceToken" in the pushers parameter will activate the Apple Push Notification service
+    Matchmore.createSubscriptionForMainDevice(subscription: subscription, completion: { result in
+        switch result {
+        case let .success(sub):
+            print("APNS Sub was created \n\(sub.encodeToJSON())")
+        case let .failure(error):
+            print("\(String(describing: error?.message))")
+        }
+    })
+}
 ```
 
-#### GetMatches
+{: #ios-get-matches}
+#### Get Matches
 ```swift
-//you can call to get matches at your leisure, if you don't want to use the monitors. In the end the monitors are calling exactly this method
+//you can call to get matches at your leisure, if you don't want to use the monitors. In the end the monitors are calling exactly this method for you.
 Matchmore.refreshMatches()
 ```
 
+{: #ios-local-states-request}
 #### Local States request (Create, Find, FindAll, Delete and DeleteAll)
 ```swift
 // You can access locally cached subscriptions, publications and devices
@@ -442,5 +578,9 @@ Matchmore.mobileDevices.delete(item: mobile, completion: { (error) in
                 print(error?.message)
             })
 ```
+
+{: #ios-changelog}
 ### ChangeLog
+
+{: #ios-supported-platform}
 ### Supported Platform
