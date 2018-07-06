@@ -1,11 +1,6 @@
 ---
 title: Android SDK
-sections:
-  - Kotlin
-  - Java
 ---
-
-### Android
 
 Android Matchmore SDK is a contextualized publish/subscribe model which can be used to model any geolocated or proximity based mobile application. Save time and make development easier by using our SDK. We are built on Android Location services and we also provide iBeacons compatibility.
 

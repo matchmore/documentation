@@ -1,6 +1,6 @@
 ---
 excerpt: The full documentation portal of Matchmore
-date: 2018-06-08
+date: 2018-07-06
 icon:
   type: fa
   name: fa-graduation-cap
@@ -9,11 +9,9 @@ color: blue
 sections:
   - /overview
   - /matching
-  - /iOS
+  - /ios
   - /android
   - /javaScript
   - /Net
   - /unity3D
-  - /api
-  - /portal
 ---

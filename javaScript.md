@@ -1,5 +1,5 @@
 ---
-title: JavaScript & React Native SDK
+title: JavaScript SDK
 ---
 
 * [Get Started](#javascript-get-started)

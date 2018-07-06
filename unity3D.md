@@ -1,11 +1,6 @@
 ---
-title: Unity 3D
-sections:
-  - Unity 3D
+title: Unity 3D SDK
 ---
-
-# Unity 3D
-
 <div class="callout-block callout-warning"> <div class="icon-holder"> <p><em class="fa fa-info-circle">&nbsp;</em></p> </div> <div class="content"> <h4 class="callout-title" id="questions-">Unity vs .NET</h4> <p>Just recently Unity released support for newer version of C# in Unity 2018. We are working on making the .NET work with Unity. But for now you are free to use this version of the SDK</p> </div> </div>
 
 * [Get Started](#unity-get-started)

@@ -1,10 +1,8 @@
 ---
 title: iOS SDK
-sections:
-  - Swift
 ---
 
-# Swift
+## Swift
 
 * [Get Started](#ios-get-started)
 1. [Cocoapods](#ios-cocoapods)
@@ -216,13 +214,14 @@ When opening app for the first time, the system will prompt `authorization alert
 
 `NSLocationAlwaysAndWhenInUseUsageDescription` should describe how your app use Location Services both when in use, and in the background. This description is only for users of your app with iOS 11. The user can select between the “always” or “only when in use” authorizations, or disable Location Services in the app completely.
 
+
 <div class="callout-block callout-success"><div class="icon-holder">*&nbsp;*{: .fa .fa-thumbs-up}
 </div><div class="content">
 {: .callout-title}
 #### Good practice
 Request permission at launch only when necessary for your app to function. Users won’t be bothered by this request if it’s obvious that your app depends on their personal information to operate. For example, an app might only request access to the current location when activating a location tracking feature.
-
 </div></div>
+
 
 {: #ios-add-sdk-to-the-project}
 #### Add SDK to the project
@@ -583,9 +582,3 @@ Matchmore.mobileDevices.delete(item: mobile, completion: { (error) in
                 print(error?.message)
             })
 ```
-
-{: #ios-changelog}
-### ChangeLog
-
-{: #ios-supported-platform}
-### Supported Platform

@@ -1,11 +1,6 @@
 ---
-title: .NET & Xamarin SDK
-sections:
-    - .NET
+title: .NET SDK
 ---
-
-# .NET
-
 * [Get Started](#net-get-started)
 1. [Installation](#net-installation)
 2. [QuickStart example](#net-quickstart-example)
