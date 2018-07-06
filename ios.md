@@ -23,8 +23,6 @@ title: iOS SDK
 8. [Subscribe](#ios-subscribe)
 9. [Get Matches](#ios-get-matches)
 10. [Local States request](#ios-local-states-request)
-* [ChangeLog](#ios-changelog)
-* [Supported Platform](#ios-supported-platform)
 
 
 {: #ios-get-started}

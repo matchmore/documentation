@@ -29,9 +29,7 @@ title: JavaScript SDK
 9. [Subscribe](#javascript-subscribe)
 10. [Get Matches](#javascript-get-matches)
 11. [Local States request](#javascript-local-states-request)
-* [demo](#javascript-demo)
-* [ChangeLog](#javascript-changelog)
-* [Supported Platform](#javascript-supported-platform)
+* [Demo](#javascript-demo)
 
 {: #javascript-get-started}
 ### Get started
@@ -392,7 +390,7 @@ let subscriptions = this.manager.subscriptions;
 ```
 
 {: #javascript-demo}
-### DEMO
+### Demo
 Couple of demos to be found in [Javascript github](https://github.com/matchmore/js-sdk).
 
 {: #javascript-changelog}

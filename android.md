@@ -31,8 +31,6 @@ Android Matchmore SDK requires Android 4.4+
 8. [Subscribe](#kotlin-subscribe)
 9. [Get Matches](#kotlin-get-matches)
 10. [Local States request](#kotlin-local-states-request)
-* [ChangeLog](#kotlin-changelog)
-* [Supported Platform](#kotlin-supported-platform)
 
 {: #kotlin-get-started}
 ### Get Started
@@ -434,8 +432,3 @@ Matchmore.instance.devices.delete(pin)
 Matchmore.instance.devices.delete(mobile)
 ```
 
-{: #kotlin-changelog}
-### ChangeLog
-
-{: #kotlin-supported-platform}
-### Supported Platform
