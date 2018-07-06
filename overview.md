@@ -105,6 +105,6 @@ Learn more about the [*&nbsp;*{: .fa .fa-external-link}           API ](https://
 {: .callout-title}
 #### Questions ?
 
-We're always happy to help with code or other questions you might have! Search our documentation, contact our support, or connect with our sales team.
+We are always happy to help you with your code or to answer any other question you might have! Search our documentation and do not hesitate to [contact us](https://matchmore.io/about/contact-us).
 
 </div></div>
