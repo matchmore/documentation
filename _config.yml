@@ -60,10 +60,6 @@ share:
     via: *site_owner_twitter
     text: &site_description
     title: Tweet
-  github:
-    repo: matchmore
-    position: right
-    color: red
 
 
 # Google Analytics

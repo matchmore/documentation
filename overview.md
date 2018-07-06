@@ -17,9 +17,9 @@ Our mission is to provide tools that dramatically simplify and accelerate the de
 
 Get familiar with the Matchmore products and explore their features:
 
-[*&nbsp;*{: .fa .fa-exclamation-circle} Start directly with our quickstart ](#quickstart){: .btn .btn-green .btn-cta}
-[*&nbsp;*{: .fa .fa-exclamation-circle} How it works                       ](#how-it-works){: .btn .btn-blue .btn-cta}
-[*&nbsp;*{: .fa .fa-exclamation-circle} Discover our SDKs                   ](#sdks){: .btn .btn-orange .btn-cta}
+[*&nbsp;*{: .fa .fa-graduation-cap} Start directly with our quickstart ](#quickstart){: .btn .btn-green .btn-cta}
+[*&nbsp;*{: .fa .fa-graduation-cap} How it works                       ](#how-it-works){: .btn .btn-blue .btn-cta}
+[*&nbsp;*{: .fa .fa-graduation-cap} Discover our SDKs                   ](#sdks){: .btn .btn-orange .btn-cta}
 
 ### Understanding Matchmore
 
@@ -84,49 +84,27 @@ Want to get started quickly? Follow our [quickstart guide](#quickstart).
 ### Developer tools
 You can integrate Matchmore in your apps using our developer tools: SDKs and the REST API.
 
-#### SDK
+#### SDKs
 Integrate the SDK into your iOS or Android applications to start generating matches. The SDKs abstracts away cross-platform differences between location services, allowing you to add location context and proximity detection to your apps with just a few lines of code.
 
 Learn more about the SDKs.
 
-<div class="row">
- <div class="col-md-6 col-sm-6 col-xs-12">
-
-[*&nbsp;*{: .fa .fa-download}           iOS         ](#ios){: .btn .btn-orange .btn-cta}
-
- </div>
- <div class="col-md-6 col-sm-6 col-xs-12">
-
-[*&nbsp;*{: .fa .fa-download}           Android     ](#android){: .btn .btn-orange .btn-cta}
-
- </div>
- <div class="col-md-6 col-sm-6 col-xs-12">
-
-[*&nbsp;*{: .fa .fa-download}           Unity 3D    ](#unity-3d){: .btn .btn-orange .btn-cta}
-
- </div>
- <div class="col-md-6 col-sm-6 col-xs-12">
-
-[*&nbsp;*{: .fa .fa-download}           JavaScript  ](#javascript){: .btn .btn-orange .btn-cta}
-
- </div>
- <div class="col-md-6 col-sm-6 col-xs-12">
-
-[*&nbsp;*{: .fa .fa-download}           .NET  ](#net){: .btn .btn-orange .btn-cta}
-
- </div>
-</div>
+[*&nbsp;*{: .fa .fa-graduation-cap} iOS SDK](#ios-sdk){: .btn .btn-orange .btn-cta}
+[*&nbsp;*{: .fa .fa-graduation-cap} Android SDK](#android-sdk){: .btn .btn-orange .btn-cta}
+[*&nbsp;*{: .fa .fa-graduation-cap} Javascript SDK](#javascript-sdk){: .btn .btn-orange .btn-cta}
+[*&nbsp;*{: .fa .fa-graduation-cap} .Net SDK](#net-sdk){: .btn .btn-orange .btn-cta}
+[*&nbsp;*{: .fa .fa-graduation-cap} Unity 3D SDK](#unity-3d-sdk){: .btn .btn-orange .btn-cta}
 
 #### API
 You can manage your Matchmore objects, including devices, publications, subscriptions, and matches, using our restful API. For instance, you may use the API to list matches related to a device, or to create some publications programmatically.
 
-Learn more about the [*&nbsp;*{: .fa .fa-download}           API ](https://matchmore.io/documentation/api){: .btn .btn-orange .btn-cta}
+Learn more about the [*&nbsp;*{: .fa .fa-external-link}           API ](https://matchmore.io/documentation/api){: .btn .btn-orange .btn-cta}
 
 <div class="callout-block callout-info"><div class="icon-holder">*&nbsp;*{: .fa .fa-info-circle}
 </div><div class="content">
 {: .callout-title}
 #### Questions ?
 
-We're always happy to help with code or other questions you might have! Search our documentation, contact our support, or connect with our sales team.
+We are always happy to help you with your code or to answer any other question you might have! Search our documentation and do not hesitate to [contact us](https://matchmore.io/about/contact-us).
 
 </div></div>
