@@ -1,6 +1,13 @@
 ---
 title: .NET SDK
 ---
+<p class="text-center">
+This sdk is provided as open-source software:
+</p>
+
+<p class="text-center">
+[*&nbsp;*{: .fa .fa-external-link} .NET SDK on Github](https://github.com/matchmore/net-sdk){: .btn .btn-blue .btn-cta}
+</p>
 * [Get Started](#net-get-started)
 1. [Installation](#net-installation)
 2. [QuickStart example](#net-quickstart-example)

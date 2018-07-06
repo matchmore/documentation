@@ -1,6 +1,13 @@
 ---
 title: iOS SDK
 ---
+<p class="text-center">
+This sdk is provided as open-source software:
+</p>
+
+<p class="text-center">
+[*&nbsp;*{: .fa .fa-external-link} iOS SDK on Github](https://github.com/matchmore/ios-sdk){: .btn .btn-blue .btn-cta}
+</p>
 
 ## Swift
 

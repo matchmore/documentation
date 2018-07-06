@@ -1,6 +1,13 @@
 ---
 title: JavaScript SDK
 ---
+<p class="text-center">
+This sdk is provided as open-source software:
+</p>
+
+<p class="text-center">
+[*&nbsp;*{: .fa .fa-external-link} Javascript SDK on Github](https://github.com/matchmore/js-sdk){: .btn .btn-blue .btn-cta}
+</p>
 
 * [Get Started](#javascript-get-started)
 1. [NPM](#javascript-npm)

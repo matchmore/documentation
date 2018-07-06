@@ -1,14 +1,23 @@
 ---
 title: Android SDK
 ---
-
 Android Matchmore SDK is a contextualized publish/subscribe model which can be used to model any geolocated or proximity based mobile application. Save time and make development easier by using our SDK. We are built on Android Location services and we also provide iBeacons compatibility.
 
 The `Matchmore` is a static wrapper that provides you all the functions you need to use our SDK.
 You can access default instance of matchmore by `Matchmore.instance`.
 
+<p class="text-center">
+This sdk is provided as open-source software:
+</p>
+
+<p class="text-center">
+[*&nbsp;*{: .fa .fa-external-link} Android SDK on Github](https://github.com/matchmore/android-sdk){: .btn .btn-blue .btn-cta}
+</p>
+
+<p class="text-center">
 SDK is written using Kotlin 1.2.
 Android Matchmore SDK requires Android 4.4+
+</p>
 
 # Kotlin
 * [Get Started](#kotlin-get-started)
