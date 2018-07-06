@@ -3,7 +3,6 @@
 #
 remote_theme: LeakyAbstractions/pretty-docs
 url: https://matchmore.github.io
-baseurl: /documentation
 title: Matchmore
 description: &site_description The full documentation of matchmore 
 branding:
