@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - Portal documentation
 
+## [0.2.0] - XXXX-XX-XX
+### Added
+
+### Changed 
+- Renamed 'Documentation Portal' to 'Documentation'
+
+### Removed
+
+### Fixed
+
 ## [0.1.0] - 2018-07-06
 ### Added
 - Basic theme and layout (+customisation)
