@@ -10,7 +10,7 @@ sections:
   - /overview
   - /matching
   - /ios
-  - /android
+  - /kotlin
   - /javaScript
   - /Net
   - /unity3D
