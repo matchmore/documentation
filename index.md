@@ -4,7 +4,7 @@ date: 2018-07-06
 icon:
   type: fa
   name: fa-graduation-cap
-title: Documentation portal
+title: Documentation
 color: blue
 sections:
   - /overview
