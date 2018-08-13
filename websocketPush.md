@@ -13,7 +13,9 @@ You can periodically call the [GetMatches API call](https://matchmore.io/documen
 
 ## Websocket
 
-WebSockets are available for use. You can create a connection on wss://api.matchmore.io/pusher/v5/ws/{deviceId}?key={apiKey}.
+WebSockets are available for use. You can create a connection on `wss://api.matchmore.io/pusher/v5/ws/{deviceId}?key={apiKey}`.
+
+Api Key is the same as the one used for all other call with to Matchmore API
 
 ### Control Messages
 
